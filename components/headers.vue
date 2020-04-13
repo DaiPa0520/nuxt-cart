@@ -26,7 +26,7 @@
     <div class="nav-wrapper list">
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <!-- <a class="navbar-brand" href="/">LOGO</a> -->
-        <img src="/images/icon/logo.png" class="logo" alt="">
+        <img src="/images/icon/logo.png" class="logo" alt />
         <button
           class="navbar-toggler collapsed"
           type="button"
@@ -41,22 +41,22 @@
         <div class="navbar-collapse justify-content-center collapse" id="navbarNavDropdown">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link" href="#">商品分類</a>
+              <nuxt-link tag="a"  class="nav-link" to="/product/123">熱門商品</nuxt-link>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">商品分類</a>
+              <nuxt-link tag="a"  class="nav-link" to="/collections">節目推薦</nuxt-link>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">商品分類</a>
+              <nuxt-link tag="a"  class="nav-link" to="/collections">人氣商品</nuxt-link>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">商品分類</a>
+              <nuxt-link tag="a"  class="nav-link" to="/collections">促銷特價</nuxt-link>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">商品分類</a>
+              <nuxt-link tag="a"  class="nav-link" to="/collections">最新商品</nuxt-link>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">商品分類</a>
+              <nuxt-link tag="a"  class="nav-link" to="/collections">商品分類</nuxt-link>
             </li>
           </ul>
         </div>
@@ -84,12 +84,19 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.logo{
+.logo {
   height: 50px;
 }
-.nav-wrapper.list{
-  background-color:white;
+.nav-wrapper.list {
+  background-color: white;
   border-bottom: 1px solid #ccc;
 }
-
+li {
+  padding-left: 20px;
+  padding-right: 20px;
+  border-left: 1px solid #ccc;
+  &:first-child {
+    border-left: 0px solid;
+  }
+}
 </style>
