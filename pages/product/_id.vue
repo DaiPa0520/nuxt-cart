@@ -11,37 +11,45 @@
             <Sidebar />
           </div>
           <div class="content col-md-10">
-            <div class="row">
+            <div class="row pt-5 pb-5">
               <div class="col-md-6">
-                <div class="swiper-container gallery-top">
-                  <div class="swiper-wrapper pb-4">
-                    <div class="swiper-slide text-center">
-                      <img src="/images/prod01.jpg" alt width="200px" />
+                <section class>
+                  <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                    <ol class="carousel-indicators">
+                      <li
+                        v-for="(item, key, index) in list" 
+                        data-target="#carouselExampleIndicators"
+                        :data-slide-to="index"
+                        :class="{'active':carousel==key}"
+                        :style="`background-image: url(${item.image})`"
+                         @click="carousel=key" 
+                      ></li>
+                    </ol>
+                    <div class="carousel-inner">
+                      <div v-for="(item, key, index) in list"  class="carousel-item " :class="{'active':carousel==key}">
+                        <img :src="item.image" class="d-block w-100" alt="..." />
+                      </div>
                     </div>
-                    <div class="swiper-slide text-center">
-                      <img src="/images/prod02.jpg" alt width="200px" />
-                    </div>
-                    <div class="swiper-slide text-center">
-                      <img src="/images/prod03.jpg" alt width="200px" />
-                    </div>
+                    <!-- <a
+                      class="carousel-control-prev"
+                      href="#carouselExampleIndicators"
+                      role="button"
+                      data-slide="prev"
+                    >
+                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                      <span class="sr-only">Previous</span>
+                    </a>
+                    <a
+                      class="carousel-control-next"
+                      href="#carouselExampleIndicators"
+                      role="button"
+                      data-slide="next"
+                    >
+                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                      <span class="sr-only">Next</span> -->
+                    </a>
                   </div>
-                  <!-- Add Arrows -->
-                  <div class="swiper-button-next swiper-button-white"></div>
-                  <div class="swiper-button-prev swiper-button-white"></div>
-                </div>
-                <div class="swiper-container gallery-thumbs">
-                  <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                      <img src="/images/prod04.jpg" alt width="100px" />
-                    </div>
-                    <div class="swiper-slide">
-                      <img src="/images/prod05.jpg" alt width="100px" />
-                    </div>
-                    <div class="swiper-slide">
-                      <img src="/images/prod06.jpg" alt width="100px" />
-                    </div>
-                  </div>
-                </div>
+                </section>
               </div>
               <div class="col-md-6">
                 <div class="product-name">
@@ -224,10 +232,41 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return{
+      carousel:0,
+      list: [
+        { image:'/images/prod01.jpg' },
+        { image:'/images/prod02.jpg' },
+        { image:'/images/prod03.jpg' },
+        { image:'/images/prod04.jpg' },
+        { image:'/images/prod05.jpg' },
+        { image:'/images/prod06.jpg' },
+      ]
+    }
+  }
+};
 </script>
 
-<style >
+<style lang="scss" scoped >
+.carousel-indicators {
+  top: 100%;
+  margin-right: 0px;
+  margin-left: 0px;
+  width: 100%;
+  overflow-y: hidden;
+  overflow-x: auto;
+  height: 100px;
+  & li {
+    // background-image: url(/images/prod01.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-width: 60px;
+    height: 60px;
+  }
+}
+
 section.content {
   padding-top: 20px;
 }
