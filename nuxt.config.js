@@ -13,7 +13,15 @@ export default {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
-    ]
+    ],
+    script: [
+      { src: 'https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js' },
+      { src: 'https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js' },
+      { src: 'https://kit.fontawesome.com/f4948488d3.js' },
+      // { src: 'https://cdnjs.cloudflare.com/ajax/libs/Swiper/5.3.7/js/swiper.min.js' },
+      { src: 'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.8.0/popper.min.js' },
+      // { src: 'https://www.google.com/recaptcha/api.js?onload=vueRecaptchaApiLoaded&render=explicit' }
+    ],
   },
   /*
   ** Customize the progress-bar color
@@ -23,11 +31,19 @@ export default {
   ** Global CSS
   */
   css: [
+    '~/assets/css/bootstrap.min.css',
+    // '~/assets/css/swiper.min.css',
+    '~/assets/css/aos.css',
+    '~/assets/css/style.css',
+    '~/assets/layout.scss',
   ],
   /*
   ** Plugins to load before mounting the App
   */
   plugins: [
+    { src: "@/components/autoload", ssr: true },
+    { src: "@/plugins/axios", ssr: false },
+    { src: "@/plugins/aos", ssr: false },
   ],
   /*
   ** Nuxt.js dev-modules
