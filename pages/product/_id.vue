@@ -62,25 +62,13 @@
                     </a>
                   </div>
                   <div>尺寸</div>
-                  <div class="list-group">
-                    <a
-                      href="#"
-                      class="list-group-item list-group-item-action active"
-                    >Cras justo odio</a>
-                    <a href="#" class="list-group-item list-group-item-action">
-                      Dapibus ac facilisis
-                      in
-                    </a>
-                    <a href="#" class="list-group-item list-group-item-action">Morbi leo risus</a>
-                    <a href="#" class="list-group-item list-group-item-action">
-                      Porta ac consectetur
-                      ac
-                    </a>
-                    <a href="#" class="list-group-item list-group-item-action">
-                      Porta ac consectetur
-                      ac
-                    </a>
-                  </div>
+                  <ul class="mt-2 mb-2">
+                    <li class="option"><a href="">素顏霜</a></li>
+                    <li class="option"><a href="">眼影</a></li>
+                    <li class="option"><a href="">唇彩</a></li>
+                    <li class="option"><a href="">氣墊粉餅</a></li>
+                    <li class="option"><a href="">蜜粉</a></li>
+                  </ul>
                   <p>數量</p>
                   <div class="dropdown">
                     <button
@@ -101,7 +89,7 @@
                 </div>
               </div>
             </div>
-            <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <ul class="nav nav-tabs mt-5" id="myTab" role="tablist">
               <li class="nav-item">
                 <a
                   class="nav-link active"
@@ -246,7 +234,26 @@ export default {
       ]
     }
   }
+  /*created(){
+    $(function () {
+      var swiper = new Swiper('.carousel-indicators', {
+        slidesPerView: 4,
+        slidesPerGroup: 4,
+        loopFillGroupWithBlank: true
+        preventClicks: false,
+        pagination: {
+          el: '.swiper-pagination',
+          clickable: true,
+        },
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
+        },
+      });
+    });
+  }*/
 };
+
 </script>
 
 <style lang="scss" scoped >
@@ -267,7 +274,5 @@ export default {
   }
 }
 
-section.content {
-  padding-top: 20px;
-}
+
 </style>

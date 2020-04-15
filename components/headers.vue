@@ -9,7 +9,7 @@
               <a class="nav-link" href="#">登入會員</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link">購物車</a>
+              <nuxt-link tag="a"  class="nav-link" to="/cart/123">購物車</nuxt-link>
             </li>
           </ul>
           <form class="form-inline my-2 my-lg-0">
@@ -47,7 +47,7 @@
               <nuxt-link tag="a"  class="nav-link" to="/collections">節目推薦</nuxt-link>
             </li>
             <li class="nav-item">
-              <nuxt-link tag="a"  class="nav-link" to="/collections">人氣商品</nuxt-link>
+              <nuxt-link tag="a"  class="nav-link" to="/cart/123">人氣商品</nuxt-link>
             </li>
             <li class="nav-item">
               <nuxt-link tag="a"  class="nav-link" to="/collections">促銷特價</nuxt-link>
