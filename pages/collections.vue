@@ -110,5 +110,6 @@ export default {};
 <style >
 section.content {
   padding-top: 20px;
+  min-height: 700px;
 }
 </style>
