@@ -92,7 +92,7 @@
           </div>
         </div>
         <!-- 加購專區 -->
-        <div class="purchase row p-3">
+        <div class="purchase row">
           <div class="col-lg-12 col-md-12 col-xs-12 p-2 title">加購專區</div>
           <div v-for="item in purchase" class="card col-lg-3 col-md-3 col-xs-6 p-2">
             <div class="product p-2">
