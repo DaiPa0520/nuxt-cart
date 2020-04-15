@@ -267,7 +267,5 @@ export default {
   }
 }
 
-section.content {
-  padding-top: 20px;
-}
+
 </style>
