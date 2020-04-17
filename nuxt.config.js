@@ -41,9 +41,10 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    { src: "@/components/autoload", ssr: true },
-    { src: "@/plugins/axios", ssr: false },
     { src: "@/plugins/aos", ssr: false },
+    { src: "@/components/autoload", ssr: true },
+    { src: "@/plugins/autoload", ssr: false },
+    { src: "@/plugins/axios", ssr: false }
   ],
   /*
   ** Nuxt.js dev-modules
@@ -67,6 +68,19 @@ export default {
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
+    // prefix: process.env.API_URL,
+    proxy: true,
+    prefix: '/api',
+    credentials: true,
+  },
+  proxy: {
+    '/api': {
+      target: 'https://ingress.4ding.site',
+      changeOrigin: true,
+      pathRewrite: {
+        '^/api': '',
+      },
+    }
   },
   /*
   ** Build configuration
@@ -75,7 +89,7 @@ export default {
     /*
     ** You can extend webpack config here
     */
-    extend (config, ctx) {
+    extend(config, ctx) {
     }
   }
 }
