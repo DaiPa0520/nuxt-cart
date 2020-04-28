@@ -1,8 +1,7 @@
 <template>
-  <div>
-    <Headers />
+
     <nuxt />
-  </div>
+
 </template>
 
 <style>
