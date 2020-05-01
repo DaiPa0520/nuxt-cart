@@ -9,5 +9,5 @@ export default {
     product: {
         list: []
     },
-    stars: 'xxx',
+    loading: true,
 }

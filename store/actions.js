@@ -5,6 +5,9 @@ export default {
         const token = await this.$axios.$get("https://ingress.4ding.site/guest");
         commit("set_token", token);
     },
+    loading(context, o) {
+        context.commit("set_loading", o);
+    },
     // 通用
     setStore(context, o) {
         // 檢查包含以下參數

@@ -19,5 +19,9 @@ export default {
     // 清除query資料
     clear_query(state, o) {
         state.query = [];
-    }
+    },
+    // token
+    set_loading(state, o) {
+        state.loading = o
+    },
 }

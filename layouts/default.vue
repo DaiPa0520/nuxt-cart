@@ -1,19 +1,26 @@
 <template>
   <div>
-    <h1>Stars: {{ $store.state.stars }}</h1>
+    <Loading />
     <Headers />
-    <nuxt />
+    <nuxt  data-aos="fade-up" data-aos-delay="300" />
   </div>
 </template>
 <script>
+import { mapActions } from "vuex";
 export default {
+  transition: 'fadeOpacity',
   data() {
-    return {
-
-    };
+    return {};
+  },
+  methods: {
+    // 初始
+    ...mapActions({
+      setStore: "setStore",
+    }),
   },
   created() {
     console.log(9999);
+    this.setStore({act:'set_loading',data:true})
   }
 };
 </script>
@@ -35,5 +42,12 @@ html {
 *:after {
   box-sizing: border-box;
   margin: 0;
+}
+.fadeOpacity-enter-active, .fadeOpacity-leave-active {
+  transition: opacity .35s ease-out;
+}
+
+.fadeOpacity-enter, .fadeOpacity-leave-active {
+  opacity: 0;
 }
 </style>

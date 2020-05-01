@@ -11,88 +11,13 @@
             <Sidebar />
           </div>
           <div class="content col-md-10">
-            <img src="/images/banner01.png" class="img-fluid" alt="Responsive image" />
-            <div class="row">
-              <div class="card col-lg-3 col-md-3 col-xs-6 p-2">
-                <div class="product">
-                  <img src="/images/01.jpg" class="card-img-top" alt="..." />
-                  <div class="card-body">
-                    <div class="caption">
-                      <h5>商品名稱</h5>
-                      <div class="originalPrice">NT200</div>
-                      <div class="offer">NT150</div>
-                      <div class="cart-button">
-                        <a href>
-                          <i class="far fa-heart"></i>
-                        </a>
-                        <a href>
-                          <i class="fas fa-cart-plus"></i>
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="card col-lg-3 col-md-3 col-xs-6 p-2">
-                <div class="product">
-                  <img src="/images/01.jpg" class="card-img-top" alt="..." />
-                  <div class="card-body">
-                    <div class="caption">
-                      <h5>商品名稱</h5>
-                      <div class="originalPrice">NT200</div>
-                      <div class="offer">NT150</div>
-                      <div class="cart-button">
-                        <a href>
-                          <i class="far fa-heart"></i>
-                        </a>
-                        <a href>
-                          <i class="fas fa-cart-plus"></i>
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="card col-lg-3 col-md-3 col-xs-6 p-2">
-                <div class="product">
-                  <img src="/images/01.jpg" class="card-img-top" alt="..." />
-                  <div class="card-body">
-                    <div class="caption">
-                      <h5>商品名稱</h5>
-                      <div class="originalPrice">NT200</div>
-                      <div class="offer">NT150</div>
-                      <div class="cart-button">
-                        <a href>
-                          <i class="far fa-heart"></i>
-                        </a>
-                        <a href>
-                          <i class="fas fa-cart-plus"></i>
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="card col-lg-3 col-md-3 col-xs-6 p-2">
-                <div class="product">
-                  <img src="/images/01.jpg" class="card-img-top" alt="..." />
-                  <div class="card-body">
-                    <div class="caption">
-                      <h5>商品名稱</h5>
-                      <div class="originalPrice">NT200</div>
-                      <div class="offer">NT150</div>
-                      <div class="cart-button">
-                        <a href>
-                          <i class="far fa-heart"></i>
-                        </a>
-                        <a href>
-                          <i class="fas fa-cart-plus"></i>
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+            <div class>
+              <img src="/images/banner01.png" class="img-fluid" alt="Responsive image" />
+            </div>
+            <div class>
+              <template v-for="(item,i) in list">
+                <Products :data="item" />
+              </template>
             </div>
           </div>
         </div>
@@ -104,21 +29,70 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 export default {
-  //   async fetch ({ store, shopRPC , sql_pb }) {
-  //    console.log(this.qq)
-  //     let rpc = new shopRPC.ShopRPCClient ('https://shop.4ding.site');
-  //     let sqlpb = new sql_pb.Query();
-  //     rpc.findProductF(sqlpb,{ "x-4d-token": this.token },(err,resp)=>{
-  //       store.commit('set_product_list', resp.getResult().toJavaScript())
-  //     } ) ;
-  // },
+  data: function() {
+    // 資料
+    return {
+      list: [] //
+    };
+  },
+  watch: {
+    //監聽值
+  },
+  computed: {
+    //相依的資料改變時才做計算方法
+  },
+  methods: {
+    // 初始
+    ...mapActions({
+      loading: "loading",
+    }),
+  },
+  //BEGIN--生命週期
+  beforeCreate: function() {
+    //實體初始化
+  },
+  created: function() {
+    //實體建立完成。資料 data 已可取得，但 el 屬性還未被建立。
+    this.loading(true)
+  },
+  beforeMount: function() {
+    //執行元素掛載之前。
+  },
+  mounted: function() {
+    //元素已掛載， el 被建立。
+    let rpc = new this.shopRPC.ShopRPCClient("https://shop.4ding.site");
+    let sqlpb = new this.sqlpb.Query();
+    rpc.findProductF(
+      sqlpb,
+      { "x-4d-token": this.$store.state.token },
+      (err, resp) => {
+        if (err !== null) {
+          console.log(err);
+          return;
+        }
+        this.list = resp.getResult().toJavaScript();
+        this.loading(false)
+      }
+    );
+  },
+  beforeUpdate: function() {
+    //當資料變化時被呼叫，還不會描繪 View。
+  },
+  updated: function() {
+    //當資料變化時被呼叫，還不會描繪 View。
+  },
+  beforeDestroy: function() {
+    //實體還可使用。
+  },
+  destroyed: function() {
+    //實體銷毀。
+  }
+  //END--生命週期
 };
 </script>
 
 <style >
-section.content {
-  padding-top: 20px;
-  min-height: 700px;
-}
+
 </style>
