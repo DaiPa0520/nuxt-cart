@@ -1,9 +1,9 @@
 // https://vuex.vuejs.org/en/actions.html
 
 export default {
-    //
-    language(context, o) {
-        context.commit('set_language', o)
+    async nuxtServerInit({ commit }, { req }) {
+        const token = await this.$axios.$get("https://ingress.4ding.site/guest");
+        commit("set_token", token);
     },
     // 通用
     setStore(context, o) {

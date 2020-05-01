@@ -104,7 +104,16 @@
 </template>
 
 <script>
-export default {};
+export default {
+  //   async fetch ({ store, shopRPC , sql_pb }) {
+  //    console.log(this.qq)
+  //     let rpc = new shopRPC.ShopRPCClient ('https://shop.4ding.site');
+  //     let sqlpb = new sql_pb.Query();
+  //     rpc.findProductF(sqlpb,{ "x-4d-token": this.token },(err,resp)=>{
+  //       store.commit('set_product_list', resp.getResult().toJavaScript())
+  //     } ) ;
+  // },
+};
 </script>
 
 <style >

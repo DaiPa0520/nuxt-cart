@@ -1,10 +1,22 @@
 <template>
   <div>
+    <h1>Stars: {{ $store.state.stars }}</h1>
     <Headers />
     <nuxt />
   </div>
 </template>
+<script>
+export default {
+  data() {
+    return {
 
+    };
+  },
+  created() {
+    console.log(9999);
+  }
+};
+</script>
 <style>
 html {
   font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI",
@@ -24,5 +36,4 @@ html {
   box-sizing: border-box;
   margin: 0;
 }
-
 </style>

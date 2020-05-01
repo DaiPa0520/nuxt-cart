@@ -1,41 +1,67 @@
 <template>
   <div id="page">
-    {{ip}} <br>
+    <br>
+    {{list}} <br>
   <button type="button" @click="test()" class="btn btn-primary">Sign in</button>
   </div>
 </template>
 
 <script>
-// import { BusinessRPCClient } from '@/assets/businesspb/Business.rpcServiceClientPb';
-
-// require('@/assets/businesspb/business.rpc_grpc_web_pb')  ;
-
 
 export default {
   data() {
     return {
-      ip: "xx",
+      token: "",
       dd: "666",
-      buffer:{}
+      buffer:{},
+      list:[]
     };
   },
   created() {
-    console.log(1235555);
-    // this.buffer = new BusinessRPCClient('https://business.4ding.site');
+    console.log(8888888888888)
   },
-  async asyncData({ $axios }) {
-    const ip = await $axios.$get("http://icanhazip.com");
-    return { ip };
+  // async asyncData(context) {
+  //   // const token = await app.$axios.$get("https://ingress.4ding.site/guest");
+  //   console.log('------------->')
+  //   console.log(context)
+  //   // app.$a.findProductF(app.$s,{ "x-4d-token":token },(err,resp)=>{
+  //   //     this.list =  resp.getResult().toJavaScript()
+  //   //     // store.commit('set_product_list', resp.getResult().toJavaScript())
+  //   //   } ) ;
+  //   // console.log(app.$myVar) // should print test in the console
+  // },
+  async asyncData({app}){
+    const token = await app.$axios.$get("https://ingress.4ding.site/guest");
+    let rpc = new app.$shopRPC.ShopRPCClient ('https://shop.4ding.site');
+     let sqlpb = new app.$sqlpb.Query();
+     rpc.findProductF(sqlpb ,{ "x-4d-token":token },(err,resp)=>{
+        console.log( resp )
+        // store.commit('set_product_list', resp.getResult().toJavaScript())
+      } ) ;
+  },
+  // async asyncData({ $axios , shopRPC , sql_pb  }) {
+  //   const token = await $axios.$get("https://ingress.4ding.site/guest");
+  //     let rpc = new shopRPC.ShopRPCClient ('https://shop.4ding.site');
+  //     let sqlpb = new sql_pb.Query();
+  //     rpc.findProductF(sqlpb,{ "x-4d-token":token },(err,resp)=>{
+  //       this.list =  resp.getResult().toJavaScript()
+  //       // store.commit('set_product_list', resp.getResult().toJavaScript())
+  //     } ) ;
+  //   return { token };
+  // },
+  async fetch ({ store, $axios }) {
+    //  const token = await $axios.$get("https://ingress.4ding.site/guest");
+    // store.commit('set_token', token)
   },
   methods: {
     test: function() {
   
        console.log(this.qq)
-       this.dd = new this.aa.CustomerRPCClient('https://customer.4ding.site');
-       const q = new this.qq.Query();
-       this.dd.indexBase(q,{ "x-4d-token": "f9a91e04c8f297016602cb3d8b8f4f76d521504acc2bd74c3c632646f876d35f" },(err,resp)=>{
-         console.log(err)
-         console.log(resp.getResult().toJavaScript())
+       let rpc = new this.shopRPC.ShopRPCClient ('https://shop.4ding.site');
+       let sqlpb = new this.sql_pb.Query();
+       rpc.findProductF(sqlpb,{ "x-4d-token": this.token },(err,resp)=>{
+        console.log(err)
+        console.log(resp.getResult().toJavaScript())
        } ) ;
     },
     onSubmit: function() {

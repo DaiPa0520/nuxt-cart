@@ -3,5 +3,11 @@
 export default {
     //
     lang: '',
-    query: []
+    query: [],
+    // token
+    token: '',
+    product: {
+        list: []
+    },
+    stars: 'xxx',
 }
