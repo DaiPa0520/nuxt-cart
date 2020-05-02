@@ -41,22 +41,22 @@
         <div class="navbar-collapse justify-content-center collapse" id="navbarNavDropdown">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <nuxt-link tag="a"  class="nav-link" to="/product/123">熱門商品</nuxt-link>
+              <nuxt-link tag="a"  class="nav-link" to="/collections">商品分類A</nuxt-link>
             </li>
             <li class="nav-item">
-              <nuxt-link tag="a"  class="nav-link" to="/collections">節目推薦</nuxt-link>
+              <nuxt-link tag="a"  class="nav-link" to="/collections">商品分類B</nuxt-link>
             </li>
             <li class="nav-item">
-              <nuxt-link tag="a"  class="nav-link" to="/cart/123">人氣商品</nuxt-link>
+              <nuxt-link tag="a"  class="nav-link" to="/collections">商品分類C</nuxt-link>
             </li>
             <li class="nav-item">
-              <nuxt-link tag="a"  class="nav-link" to="/collections">促銷特價</nuxt-link>
+              <nuxt-link tag="a"  class="nav-link" to="/collections">商品分類D</nuxt-link>
             </li>
             <li class="nav-item">
-              <nuxt-link tag="a"  class="nav-link" to="/collections">最新商品</nuxt-link>
+              <nuxt-link tag="a"  class="nav-link" to="/collections">商品分類E</nuxt-link>
             </li>
             <li class="nav-item">
-              <nuxt-link tag="a"  class="nav-link" to="/collections">商品分類</nuxt-link>
+              <nuxt-link tag="a"  class="nav-link" to="/collections">商品分類F</nuxt-link>
             </li>
           </ul>
         </div>

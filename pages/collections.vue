@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapMutations } from "vuex";
 export default {
   data: function() {
     // 資料
@@ -47,7 +47,11 @@ export default {
     // 初始
     ...mapActions({
       loading: "loading",
+      get_product: "product/get_product"
     }),
+    ...mapMutations({
+      set_product_list: "product/set_product_list"
+    })
   },
   //BEGIN--生命週期
   beforeCreate: function() {
@@ -55,27 +59,24 @@ export default {
   },
   created: function() {
     //實體建立完成。資料 data 已可取得，但 el 屬性還未被建立。
-    this.loading(true)
+    this.loading(true);
   },
   beforeMount: function() {
     //執行元素掛載之前。
   },
-  mounted: function() {
+  mounted: async function() {
     //元素已掛載， el 被建立。
-    let rpc = new this.shopRPC.ShopRPCClient("https://shop.4ding.site");
-    let sqlpb = new this.sqlpb.Query();
-    rpc.findProductF(
-      sqlpb,
-      { "x-4d-token": this.$store.state.token },
-      (err, resp) => {
-        if (err !== null) {
-          console.log(err);
-          return;
-        }
-        this.list = resp.getResult().toJavaScript();
-        this.loading(false)
-      }
-    );
+    console.log(1);
+    let resp = await this.get_product({
+      app: this,
+      token: this.$store.state.other.token
+    });
+    console.log(resp);
+    if (resp.code === 200) {
+      this.list = resp.data ;
+      this.set_product_list(resp.data);
+    }
+    this.loading(false);
   },
   beforeUpdate: function() {
     //當資料變化時被呼叫，還不會描繪 View。
@@ -94,5 +95,4 @@ export default {
 </script>
 
 <style >
-
 </style>

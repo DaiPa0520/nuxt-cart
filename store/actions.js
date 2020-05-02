@@ -1,9 +1,9 @@
 // https://vuex.vuejs.org/en/actions.html
 
 export default {
-    async nuxtServerInit({ commit }, { req }) {
-        const token = await this.$axios.$get("https://ingress.4ding.site/guest");
-        commit("set_token", token);
+    async nuxtServerInit({ commit , dispatch }, { req }) {
+        let token = await dispatch("other/get_token");
+        commit("other/set_token",token)
     },
     loading(context, o) {
         context.commit("set_loading", o);

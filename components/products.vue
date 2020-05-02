@@ -1,7 +1,7 @@
 <template>
   <div class="card col-lg-3 col-md-3 col-xs-6 p-2">
     <div class="product">
-      <img src="/images/01.jpg" class="card-img-top" alt="..." />
+      <nuxt-link tag="img" src="/images/01.jpg"  class="card-img-top" :to="'/product/'+data.product_link_id"></nuxt-link>
       <!-- <img :src="data.photo" class="card-img-top" alt="..." /> -->
       <div class="card-body">
         <div class="caption">

@@ -32,5 +32,6 @@ const store  = () => new Vuex.Store({
   state
 })
 
+
 export default store
 
