@@ -93,6 +93,40 @@ h6 {
     font-size: 12px;
 }
 
+/* 購物車點開匡 */
+.cart-content {
+    padding: 5px 20px;
+    width: 250px;
+}
+
+.dropdown-menu {
+    border: 1px solid #77808c;
+    box-shadow: 0 0 10px rgba(0,0,0,.1);
+}
+
+.product_item {
+    font-size: 13px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+    margin-bottom: 8px;
+}
+
+.product-name a {
+    color: #000;
+}
+
+/* 商品選項 */
+.option {
+    display: inline-flex;
+    margin-bottom: 10px;
+    margin-right: 4px;
+}
+.option a {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
 /*共用*/
 .l-btn {
     display: flex;
@@ -117,6 +151,11 @@ h6 {
     font-size: 13px;
     color: #7b7b7b;
 }
+
+ul {
+    padding: 0;
+}
+
 /*結帳頁面step2*/
 .shipping-method {
     width: 100%;
@@ -201,6 +240,10 @@ h6 {
 
 .price {
     color: #007bff;
+}
+
+.color-gray-text {
+    color:#868686;
 }
 
 .total {
