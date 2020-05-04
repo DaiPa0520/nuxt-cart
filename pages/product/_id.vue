@@ -213,6 +213,9 @@
           </div>
         </div>
       </div>
+      <div class="chat">
+        <i class="fas fa-comments"></i>
+      </div>
     </section>
 
     <Footers />

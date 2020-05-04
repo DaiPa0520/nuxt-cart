@@ -2,6 +2,35 @@ body {
     background-color: #f9f9f9;
 }
 
+/*共用*/
+.l-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    height: 46px;
+    color: white;
+    border: none;
+    padding-top: 7.5px;
+    padding-bottom: 7.5px;
+    padding-left: 5px;
+    padding-right: 5px;
+    font-size: 14px;
+}
+.control-label {
+    margin-top: 6px;
+    padding-right: 0;
+}
+
+.check-label {
+    font-size: 13px;
+    color: #7b7b7b;
+}
+
+ul {
+    padding: 0;
+}
+
 a:hover {
     text-decoration: none
 }
@@ -93,6 +122,21 @@ h6 {
     font-size: 12px;
 }
 
+/* 客服 */
+.chat {
+    position: fixed;
+    background: #e25555;
+    color: #fff;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    right: 10px;
+    bottom: 10px;
+    font-size: 20px;
+}
+
 /* 購物車點開匡 */
 .cart-content {
     padding: 5px 20px;
@@ -125,35 +169,6 @@ h6 {
     padding: 8px 12px;
     border: 1px solid #ccc;
     border-radius: 4px;
-}
-
-/*共用*/
-.l-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    height: 46px;
-    color: white;
-    border: none;
-    padding-top: 7.5px;
-    padding-bottom: 7.5px;
-    padding-left: 5px;
-    padding-right: 5px;
-    font-size: 14px;
-}
-.control-label {
-    margin-top: 6px;
-    padding-right: 0;
-}
-
-.check-label {
-    font-size: 13px;
-    color: #7b7b7b;
-}
-
-ul {
-    padding: 0;
 }
 
 /*結帳頁面step2*/
