@@ -9,7 +9,29 @@
               <a class="nav-link" href="#">登入會員</a>
             </li>
             <li class="nav-item">
-              <nuxt-link tag="a"  class="nav-link" to="/cart/123">購物車</nuxt-link>
+              <div class="dropdown">
+                <a class="nav-link" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <!-- <nuxt-link tag="a"  class="nav-link" to="/cart/123">購物車</nuxt-link> -->
+                  購物車
+                </a>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                  <div class="cart-content">
+                    <div class="cart_list">
+                        <div class="product_item"> 
+                          <div class="float-left"><img src="/images/noprod.png" alt=""></div> 
+                              <div class="product-name">    
+                                 <p class="title"><a href="/products/mb-041">MB-041 奧本水洗式電動鼻毛刀</a></p>
+                                   <span class="price"> NT$489元<span class="color-gray-text"> *1</span></span>     
+                              </div> 
+                          </div>
+                    </div>
+                    <div class="color-gray-text text-right mb-2">總計: <span class="price">489</span></div>
+                    <div class="buttons">
+                      <a class="btn btn-primary btn-block btn-cart" href="#"">立即結帳</a>
+                    </div>
+                  </div>
+                </div>
+            </div>
             </li>
           </ul>
           <form class="form-inline my-2 my-lg-0">
