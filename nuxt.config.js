@@ -26,7 +26,7 @@ export default {
   /*
   ** Customize the progress-bar color
   */
-  loading: { color: '#fff' },
+ loading: { color: '#3B8070' },
   /*
   ** Global CSS
   */
@@ -44,7 +44,8 @@ export default {
     { src: "@/plugins/aos", ssr: false },
     { src: "@/components/autoload", ssr: true },
     { src: "@/plugins/autoload", ssr: false },
-    { src: "@/plugins/axios", ssr: false }
+    { src: "@/plugins/axios", ssr: false },
+    { src: '@/plugins/test' }
   ],
   /*
   ** Nuxt.js dev-modules
@@ -62,6 +63,7 @@ export default {
     '@nuxtjs/pwa',
     // Doc: https://github.com/nuxt-community/dotenv-module
     '@nuxtjs/dotenv',
+
   ],
   /*
   ** Axios module configuration

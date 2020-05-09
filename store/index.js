@@ -9,7 +9,7 @@
 // Lib imports
 import Vue from 'vue'
 import Vuex from 'vuex'
-import axios from 'axios'
+// import axios from 'axios'
 
 
 
@@ -19,7 +19,7 @@ import getters from './getters'
 import modules from './modules'
 import mutations from './mutations'
 import state from './state'
-// import example2 from './modules/example2/example2'
+
 
 Vue.use(Vuex)
 
@@ -31,6 +31,7 @@ const store  = () => new Vuex.Store({
   mutations,
   state
 })
+
 
 export default store
 

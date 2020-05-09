@@ -1,42 +1,100 @@
 <template>
   <div id="page">
-    {{ip}} <br>
-  <button type="button" @click="test()" class="btn btn-primary">Sign in</button>
+
+    {{dd}}
+    <br />
+    <ul>
+      <li v-for="(o,i) in list" >{{ o }}</li>
+    </ul>
+    xx
+    <br />
+    <button type="button" @click="test()" class="btn btn-primary">Sign in</button>
   </div>
 </template>
 
 <script>
-// import { BusinessRPCClient } from '@/assets/businesspb/Business.rpcServiceClientPb';
-
-// require('@/assets/businesspb/business.rpc_grpc_web_pb')  ;
-
-
+import { mapActions, mapMutations } from "vuex";
 export default {
   data() {
     return {
-      ip: "xx",
+      token: "",
       dd: "666",
-      buffer:{}
+      buffer: {},
+      list: []
     };
   },
   created() {
-    console.log(1235555);
-    // this.buffer = new BusinessRPCClient('https://business.4ding.site');
+    console.log(8888888888888);
+    this.dd = this.$store.state.other.token
+    this.loading(false);
   },
-  async asyncData({ $axios }) {
-    const ip = await $axios.$get("http://icanhazip.com");
-    return { ip };
+  async fetch({ store, $axios, app }) {
+
+    store.commit('other/set_test', 66666)
+    let metadata = { "x-4d-token": store.state.other.token };
+    let method = "MyCar";
+    // let q = new app.sqlpb.Query();
+
+    // const bi = q.serializeBinary();
+    // const ib = new ArrayBuffer(bi.length + 5);
+    // new Uint8Array(ib, 0).set([
+    //   bi.length / (256 * 256 * 256 * 256),
+    //   (bi.length / (256 * 256 * 256)) % 256,
+    //   (bi.length / (256 * 256)) % 256,
+    //   (bi.length / 256) % 256,
+    //   bi.length % 256
+    // ]);
+    // new Uint8Array(ib, 5).set(bi);
+    // console.log("ib>>>", ib);
+    // fetch(`https://shop.4ding.site/ding4.ShopRPC/${method}`, {
+    //   method: "POST",
+    //   headers: {
+    //     "content-type": "application/grpc-web+proto",
+    //     "x-grpc-web": "1",
+    //     ...metadata
+    //   },
+    //   body: new Uint8Array(ib)
+    // })
+    //   .then(response => {
+    //     return response.arrayBuffer();
+    //   })
+    //   .then(ab => {
+    //     console.log("12123123");
+    //     let ba = ab.slice(5);
+    //     console.log(">>", ba);
+    //     console.log(">>>", app.sqlpb.Response);
+
+    //     const resp = app.sqlpb.Response.deserializeBinary(ba);
+    //     console.log(resp.getResult().toJavaScript());
+    //     store.commit('other/set_token', resp.getResult().toJavaScript())
+    //   });
+
+    await app.fetch(method,metadata,(err, ba) => {
+        const resp = app.sqlpb.Response.deserializeBinary(ba);
+        // this.list = resp.getResult().toJavaScript()
+         store.commit('other/set_test', resp.getResult().toJavaScript())
+    })
+
+    // let rpc = app.aa ;
+    // let c = new app.cc.Customer();
+    // rpc.signIn(c, { "x-4d-token": store.state.other.token }, (err, resp) => {
+    //     console.log(err);
+    //     console.log(resp.getResult().toJavaScript());
+    //   });
+
   },
   methods: {
+    ...mapActions({
+      loading: "loading",
+    }),
     test: function() {
-  
-       console.log(this.qq)
-       this.dd = new this.aa.CustomerRPCClient('https://customer.4ding.site');
-       const q = new this.qq.Query();
-       this.dd.indexBase(q,{ "x-4d-token": "f9a91e04c8f297016602cb3d8b8f4f76d521504acc2bd74c3c632646f876d35f" },(err,resp)=>{
-         console.log(err)
-         console.log(resp.getResult().toJavaScript())
-       } ) ;
+      console.log(this.qq);
+      let rpc = new this.shopRPC.ShopRPCClient("https://shop.4ding.site");
+      let sqlpb = new this.sqlpb.Query();
+      rpc.findProductF(sqlpb, { "x-4d-token": this.token }, (err, resp) => {
+        console.log(err);
+        console.log(resp.getResult().toJavaScript());
+      });
     },
     onSubmit: function() {
       this.$refs.invisibleRecaptcha.execute();

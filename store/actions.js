@@ -1,9 +1,12 @@
 // https://vuex.vuejs.org/en/actions.html
 
 export default {
-    //
-    language(context, o) {
-        context.commit('set_language', o)
+    async nuxtServerInit({ commit , dispatch, app }, { req }) {
+        let token = await dispatch("other/get_token2");
+        commit("other/set_token",token)
+    },
+    loading(context, o) {
+        context.commit("set_loading", o);
     },
     // 通用
     setStore(context, o) {

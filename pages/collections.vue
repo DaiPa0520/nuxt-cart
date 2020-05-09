@@ -11,88 +11,13 @@
             <Sidebar />
           </div>
           <div class="content col-md-10">
-            <img src="/images/banner01.png" class="img-fluid" alt="Responsive image" />
-            <div class="row">
-              <div class="card col-lg-3 col-md-3 col-xs-6 p-2">
-                <div class="product">
-                  <img src="/images/01.jpg" class="card-img-top" alt="..." />
-                  <div class="card-body">
-                    <div class="caption">
-                      <h5>商品名稱</h5>
-                      <div class="originalPrice">NT200</div>
-                      <div class="offer">NT150</div>
-                      <div class="cart-button">
-                        <a href>
-                          <i class="far fa-heart"></i>
-                        </a>
-                        <a href>
-                          <i class="fas fa-cart-plus"></i>
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="card col-lg-3 col-md-3 col-xs-6 p-2">
-                <div class="product">
-                  <img src="/images/01.jpg" class="card-img-top" alt="..." />
-                  <div class="card-body">
-                    <div class="caption">
-                      <h5>商品名稱</h5>
-                      <div class="originalPrice">NT200</div>
-                      <div class="offer">NT150</div>
-                      <div class="cart-button">
-                        <a href>
-                          <i class="far fa-heart"></i>
-                        </a>
-                        <a href>
-                          <i class="fas fa-cart-plus"></i>
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="card col-lg-3 col-md-3 col-xs-6 p-2">
-                <div class="product">
-                  <img src="/images/01.jpg" class="card-img-top" alt="..." />
-                  <div class="card-body">
-                    <div class="caption">
-                      <h5>商品名稱</h5>
-                      <div class="originalPrice">NT200</div>
-                      <div class="offer">NT150</div>
-                      <div class="cart-button">
-                        <a href>
-                          <i class="far fa-heart"></i>
-                        </a>
-                        <a href>
-                          <i class="fas fa-cart-plus"></i>
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="card col-lg-3 col-md-3 col-xs-6 p-2">
-                <div class="product">
-                  <img src="/images/01.jpg" class="card-img-top" alt="..." />
-                  <div class="card-body">
-                    <div class="caption">
-                      <h5>商品名稱</h5>
-                      <div class="originalPrice">NT200</div>
-                      <div class="offer">NT150</div>
-                      <div class="cart-button">
-                        <a href>
-                          <i class="far fa-heart"></i>
-                        </a>
-                        <a href>
-                          <i class="fas fa-cart-plus"></i>
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+            <div class>
+              <img src="/images/banner01.png" class="img-fluid" alt="Responsive image" />
+            </div>
+            <div class>
+              <template v-for="(item,i) in list">
+                <Products :data="item" />
+              </template>
             </div>
           </div>
         </div>
@@ -104,12 +29,100 @@
 </template>
 
 <script>
-export default {};
+import { mapActions, mapMutations } from "vuex";
+export default {
+  // layout:"common",
+  data: function() {
+    // 資料
+    return {
+      list: [], //
+    };
+  },
+  async asyncData({ context, app ,store }) {
+    let metadata = { "x-4d-token": store.state.other.token };
+    let method = "IndexBase";
+    let ssr = await app.serverPOST(method, metadata, (err, ba) => {
+      const resp = app.sqlpb.Response.deserializeBinary(ba);
+      store.commit("other/set_test", resp.getResult().toJavaScript());
+      return resp.getResult().toJavaScript();
+    });
+
+    // return { dd: ssr[0].web_base_id };
+  },
+  async fetch({ store, $axios, app }) {
+    // let metadata = { "x-4d-token": store.state.other.token };
+    // let method = "IndexBase";
+
+    // await app.serverPOST(method, metadata, (err, ba) => {
+    //   const resp = app.sqlpb.Response.deserializeBinary(ba);
+    //   store.commit("other/set_test", resp.getResult().toJavaScript());
+    // });
+  },
+  watch: {
+    //監聽值
+  },
+  computed: {
+    //相依的資料改變時才做計算方法
+  },
+  methods: {
+    // 初始
+    ...mapActions({
+      loading: "loading",
+      get_product: "product/get_product"
+    }),
+    ...mapMutations({
+      set_product_list: "product/set_product_list"
+    }),
+    async test() {
+      let resp = await this.get_product({
+        app: this,
+        token: this.$store.state.other.token
+      });
+
+      console.log(resp.data);
+      // this.ccc =  resp.data ;
+    }
+  },
+  //BEGIN--生命週期
+  beforeCreate: function() {
+    //實體初始化
+  },
+  created: function() {
+    //實體建立完成。資料 data 已可取得，但 el 屬性還未被建立。
+    this.loading(true);
+  },
+  beforeMount: function() {
+    //執行元素掛載之前。
+  },
+  mounted: async function() {
+    //元素已掛載， el 被建立。
+    // this.test()
+    // let resp = await this.get_product({
+    //   app: this,
+    //   token: this.$store.state.other.token
+    // });
+    // console.log(resp);
+    // if (resp.code === 200) {
+    //   this.list = resp.data ;
+    //   this.set_product_list(resp.data);
+    // }
+    this.loading(false);
+  },
+  beforeUpdate: function() {
+    //當資料變化時被呼叫，還不會描繪 View。
+  },
+  updated: function() {
+    //當資料變化時被呼叫，還不會描繪 View。
+  },
+  beforeDestroy: function() {
+    //實體還可使用。
+  },
+  destroyed: function() {
+    //實體銷毀。
+  }
+  //END--生命週期
+};
 </script>
 
 <style >
-section.content {
-  padding-top: 20px;
-  min-height: 700px;
-}
 </style>

@@ -1,10 +1,29 @@
 <template>
   <div>
+    <Loading />
     <Headers />
-    <nuxt />
+    <nuxt  data-aos="fade-up" data-aos-delay="300" />
   </div>
 </template>
-
+<script>
+import { mapActions } from "vuex";
+export default {
+  transition: 'fadeOpacity',
+  data() {
+    return {};
+  },
+  methods: {
+    // 初始
+    ...mapActions({
+      setStore: "setStore",
+    }),
+  },
+  created() {
+    console.log(9999);
+    this.setStore({act:'set_loading',data:true})
+  }
+};
+</script>
 <style>
 html {
   font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI",
@@ -24,5 +43,11 @@ html {
   box-sizing: border-box;
   margin: 0;
 }
+.fadeOpacity-enter-active, .fadeOpacity-leave-active {
+  transition: opacity .35s ease-out;
+}
 
+.fadeOpacity-enter, .fadeOpacity-leave-active {
+  opacity: 0;
+}
 </style>
