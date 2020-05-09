@@ -31,11 +31,32 @@
 <script>
 import { mapActions, mapMutations } from "vuex";
 export default {
+  // layout:"common",
   data: function() {
     // 資料
     return {
-      list: [] //
+      list: [], //
     };
+  },
+  async asyncData({ context, app ,store }) {
+    let metadata = { "x-4d-token": store.state.other.token };
+    let method = "IndexBase";
+    let ssr = await app.serverPOST(method, metadata, (err, ba) => {
+      const resp = app.sqlpb.Response.deserializeBinary(ba);
+      store.commit("other/set_test", resp.getResult().toJavaScript());
+      return resp.getResult().toJavaScript();
+    });
+
+    // return { dd: ssr[0].web_base_id };
+  },
+  async fetch({ store, $axios, app }) {
+    // let metadata = { "x-4d-token": store.state.other.token };
+    // let method = "IndexBase";
+
+    // await app.serverPOST(method, metadata, (err, ba) => {
+    //   const resp = app.sqlpb.Response.deserializeBinary(ba);
+    //   store.commit("other/set_test", resp.getResult().toJavaScript());
+    // });
   },
   watch: {
     //監聽值
@@ -51,7 +72,16 @@ export default {
     }),
     ...mapMutations({
       set_product_list: "product/set_product_list"
-    })
+    }),
+    async test() {
+      let resp = await this.get_product({
+        app: this,
+        token: this.$store.state.other.token
+      });
+
+      console.log(resp.data);
+      // this.ccc =  resp.data ;
+    }
   },
   //BEGIN--生命週期
   beforeCreate: function() {
@@ -66,16 +96,16 @@ export default {
   },
   mounted: async function() {
     //元素已掛載， el 被建立。
-    console.log(1);
-    let resp = await this.get_product({
-      app: this,
-      token: this.$store.state.other.token
-    });
-    console.log(resp);
-    if (resp.code === 200) {
-      this.list = resp.data ;
-      this.set_product_list(resp.data);
-    }
+    // this.test()
+    // let resp = await this.get_product({
+    //   app: this,
+    //   token: this.$store.state.other.token
+    // });
+    // console.log(resp);
+    // if (resp.code === 200) {
+    //   this.list = resp.data ;
+    //   this.set_product_list(resp.data);
+    // }
     this.loading(false);
   },
   beforeUpdate: function() {

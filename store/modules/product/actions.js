@@ -37,10 +37,11 @@ export default {
     console.log(condition)
     return new Promise(function (resolve) {  // 回傳一個 promise
       let sqlpb = new app.sqlpb.Query();
-      if(condition !== undefined) sqlpb.addCondition(aa)
+      if(condition !== undefined) sqlpb.addCondition(condition)
       let res = {};
       app.shopRPC.findProductF(sqlpb, { "x-4d-token": token },
         (err, resp) => {
+          console.log('>>>',err);
           // todo:錯誤時候會跑兩次!?
           if (err !== null) {
             console.log(err);

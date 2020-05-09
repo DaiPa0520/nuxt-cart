@@ -13,4 +13,7 @@ export default {
   set_token(state, o) {
     state.token = o
   },
+  set_test(state, o) {
+    state.test = o
+  },
 }

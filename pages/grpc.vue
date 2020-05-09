@@ -1,13 +1,19 @@
 <template>
   <div id="page">
+
+    {{dd}}
     <br />
-    {{list}}
+    <ul>
+      <li v-for="(o,i) in list" >{{ o }}</li>
+    </ul>
+    xx
     <br />
     <button type="button" @click="test()" class="btn btn-primary">Sign in</button>
   </div>
 </template>
 
 <script>
+import { mapActions, mapMutations } from "vuex";
 export default {
   data() {
     return {
@@ -19,13 +25,15 @@ export default {
   },
   created() {
     console.log(8888888888888);
+    this.dd = this.$store.state.other.token
+    this.loading(false);
   },
   async fetch({ store, $axios, app }) {
 
-
-    // let metadata = { "x-4d-token": store.state.other.token };
-    // let method = "MyCar";
-    // let q = new app.bb.Query();
+    store.commit('other/set_test', 66666)
+    let metadata = { "x-4d-token": store.state.other.token };
+    let method = "MyCar";
+    // let q = new app.sqlpb.Query();
 
     // const bi = q.serializeBinary();
     // const ib = new ArrayBuffer(bi.length + 5);
@@ -54,21 +62,31 @@ export default {
     //     console.log("12123123");
     //     let ba = ab.slice(5);
     //     console.log(">>", ba);
-    //     console.log(">>>", app.bb.Response);
+    //     console.log(">>>", app.sqlpb.Response);
 
-    //     const resp = app.bb.Response.deserializeBinary(ba);
+    //     const resp = app.sqlpb.Response.deserializeBinary(ba);
     //     console.log(resp.getResult().toJavaScript());
     //     store.commit('other/set_token', resp.getResult().toJavaScript())
     //   });
-    let rpc = app.aa ;
-    let c = new app.cc.Customer();
-    rpc.signIn(c, { "x-4d-token": store.state.other.token }, (err, resp) => {
-        console.log(err);
-        console.log(resp.getResult().toJavaScript());
-      });
+
+    await app.fetch(method,metadata,(err, ba) => {
+        const resp = app.sqlpb.Response.deserializeBinary(ba);
+        // this.list = resp.getResult().toJavaScript()
+         store.commit('other/set_test', resp.getResult().toJavaScript())
+    })
+
+    // let rpc = app.aa ;
+    // let c = new app.cc.Customer();
+    // rpc.signIn(c, { "x-4d-token": store.state.other.token }, (err, resp) => {
+    //     console.log(err);
+    //     console.log(resp.getResult().toJavaScript());
+    //   });
 
   },
   methods: {
+    ...mapActions({
+      loading: "loading",
+    }),
     test: function() {
       console.log(this.qq);
       let rpc = new this.shopRPC.ShopRPCClient("https://shop.4ding.site");
