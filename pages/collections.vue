@@ -97,15 +97,15 @@ export default {
   mounted: async function() {
     //元素已掛載， el 被建立。
     // this.test()
-    // let resp = await this.get_product({
-    //   app: this,
-    //   token: this.$store.state.other.token
-    // });
-    // console.log(resp);
-    // if (resp.code === 200) {
-    //   this.list = resp.data ;
-    //   this.set_product_list(resp.data);
-    // }
+    let resp = await this.get_product({
+      app: this,
+      token: this.$store.state.other.token
+    });
+    console.log(resp);
+    if (resp.code === 200) {
+      this.list = resp.data ;
+      this.set_product_list(resp.data);
+    }
     this.loading(false);
   },
   beforeUpdate: function() {
