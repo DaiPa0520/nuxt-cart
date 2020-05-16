@@ -127,7 +127,7 @@ proto.ding4.Stack.toObject = function(includeInstance, msg) {
     storeId: jspb.Message.getFieldWithDefault(msg, 3, ""),
     orderId: jspb.Message.getFieldWithDefault(msg, 4, ""),
     productId: jspb.Message.getFieldWithDefault(msg, 5, ""),
-    sku: jspb.Message.getFieldWithDefault(msg, 6, ""),
+    productSpecId: jspb.Message.getFieldWithDefault(msg, 6, ""),
     activityId: jspb.Message.getFieldWithDefault(msg, 7, ""),
     discountId: jspb.Message.getFieldWithDefault(msg, 8, ""),
     salerId: jspb.Message.getFieldWithDefault(msg, 9, ""),
@@ -198,7 +198,7 @@ proto.ding4.Stack.deserializeBinaryFromReader = function(msg, reader) {
       break;
     case 6:
       var value = /** @type {string} */ (reader.readString());
-      msg.setSku(value);
+      msg.setProductSpecId(value);
       break;
     case 7:
       var value = /** @type {string} */ (reader.readString());
@@ -323,7 +323,7 @@ proto.ding4.Stack.serializeBinaryToWriter = function(message, writer) {
       f
     );
   }
-  f = message.getSku();
+  f = message.getProductSpecId();
   if (f.length > 0) {
     writer.writeString(
       6,
@@ -512,10 +512,10 @@ proto.ding4.Stack.prototype.setProductId = function(value) {
 
 
 /**
- * optional string sku = 6;
+ * optional string product_spec_id = 6;
  * @return {string}
  */
-proto.ding4.Stack.prototype.getSku = function() {
+proto.ding4.Stack.prototype.getProductSpecId = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 6, ""));
 };
 
@@ -524,7 +524,7 @@ proto.ding4.Stack.prototype.getSku = function() {
  * @param {string} value
  * @return {!proto.ding4.Stack} returns this
  */
-proto.ding4.Stack.prototype.setSku = function(value) {
+proto.ding4.Stack.prototype.setProductSpecId = function(value) {
   return jspb.Message.setProto3StringField(this, 6, value);
 };
 

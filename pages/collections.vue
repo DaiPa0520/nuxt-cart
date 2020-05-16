@@ -15,7 +15,7 @@
               <img src="/images/banner01.png" class="img-fluid" alt="Responsive image" />
             </div>
             <div class>
-              <template v-for="(item,i) in list">
+              <template v-for="(item,i) in product_list">
                 <Products :data="item" />
               </template>
             </div>
@@ -35,28 +35,24 @@ export default {
   data: function() {
     // 資料
     return {
-      list: [], //
+      product_list: [], //
+      dd:[]
     };
   },
   async asyncData({ context, app ,store }) {
+    // todo:拉到store去
     let metadata = { "x-4d-token": store.state.other.token };
-    let method = "IndexBase";
-    let ssr = await app.serverPOST(method, metadata, (err, ba) => {
-      const resp = app.sqlpb.Response.deserializeBinary(ba);
-      store.commit("other/set_test", resp.getResult().toJavaScript());
-      return resp.getResult().toJavaScript();
+    let method = "FindProduct";
+    let product = await app.serverFetch(method, metadata, (err, resp) => {
+      const data = app.sqlpb.Response.deserializeBinary(resp);
+      store.commit("other/set_test", data.getResult().toJavaScript());
+      return data.getResult().toJavaScript();
     });
 
-    // return { dd: ssr[0].web_base_id };
+    return { product_list: product };
   },
   async fetch({ store, $axios, app }) {
-    // let metadata = { "x-4d-token": store.state.other.token };
-    // let method = "IndexBase";
-
-    // await app.serverPOST(method, metadata, (err, ba) => {
-    //   const resp = app.sqlpb.Response.deserializeBinary(ba);
-    //   store.commit("other/set_test", resp.getResult().toJavaScript());
-    // });
+    
   },
   watch: {
     //監聽值
@@ -74,12 +70,13 @@ export default {
       set_product_list: "product/set_product_list"
     }),
     async test() {
-      let resp = await this.get_product({
-        app: this,
-        token: this.$store.state.other.token
+      let metadata = { "x-4d-token": this.$store.state.other.token };
+      let method = "FindProduct";
+      let testResp = await this.grpcFetch(method, metadata, (err, ba) => {
+        const resp = this.sqlpb.Response.deserializeBinary(ba);
+        return resp.getResult().toJavaScript();
       });
-
-      console.log(resp.data);
+      console.log(testResp)
       // this.ccc =  resp.data ;
     }
   },
@@ -96,16 +93,7 @@ export default {
   },
   mounted: async function() {
     //元素已掛載， el 被建立。
-    // this.test()
-    let resp = await this.get_product({
-      app: this,
-      token: this.$store.state.other.token
-    });
-    console.log(resp);
-    if (resp.code === 200) {
-      this.list = resp.data ;
-      this.set_product_list(resp.data);
-    }
+    this.test()
     this.loading(false);
   },
   beforeUpdate: function() {

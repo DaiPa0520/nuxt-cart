@@ -18,7 +18,5 @@ var customer_pb = require('./customer_pb.js');
 goog.object.extend(proto, customer_pb);
 var car_pb = require('./car_pb.js');
 goog.object.extend(proto, car_pb);
-var activity$coupon_pb = require('./activity-coupon_pb.js');
-goog.object.extend(proto, activity$coupon_pb);
 var order_pb = require('./order_pb.js');
 goog.object.extend(proto, order_pb);

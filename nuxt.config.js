@@ -45,7 +45,7 @@ export default {
     { src: "@/components/autoload", ssr: true },
     { src: "@/plugins/autoload", ssr: false },
     { src: "@/plugins/axios", ssr: false },
-    { src: '@/plugins/test' }
+    { src: '@/plugins/server' }
   ],
   /*
   ** Nuxt.js dev-modules
