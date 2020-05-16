@@ -61,10 +61,6 @@ h6 {
     border: none;
 }
 
-.offer {
-    float: left;
-}
-
 .cart-button {
     float: right;
 }
@@ -169,6 +165,9 @@ h6 {
     padding: 8px 12px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    &:hover {
+        border: 1px solid red;
+    }
 }
 
 /*結帳頁面step2*/
@@ -219,9 +218,11 @@ h6 {
 
 .pick-btn {
     border: none;
-    margin-left: 14px;
     width: 68%;
     background-color: #00c123;
+    &:hover {
+        background-color: #1d812f;
+    }
 }
 
 .sub-label {
@@ -293,6 +294,9 @@ h6 {
 .checkout-btn {
     background-color: #ff6855;
     /* margin-left: 58.3333333333%; */
+    &:hover {
+        background-color: #ad5a50;
+    }
 }
 
 hr.divider {

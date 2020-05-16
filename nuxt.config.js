@@ -34,7 +34,7 @@ export default {
     '~/assets/css/bootstrap.min.css',
     '~/assets/css/swiper.min.css',
     '~/assets/css/aos.css',
-    '~/assets/css/style.css',
+    '~/assets/css/style.scss',
     '~/assets/layout.scss',
   ],
   /*

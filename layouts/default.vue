@@ -20,7 +20,7 @@ export default {
   },
   created() {
     console.log(9999);
-    this.setStore({act:'set_loading',data:true})
+    this.setStore({act:'set_loading',data:false})
   }
 };
 </script>

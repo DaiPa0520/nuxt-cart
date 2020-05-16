@@ -27,7 +27,7 @@
                     </div>
                     <div class="color-gray-text text-right mb-2">總計: <span class="price">489</span></div>
                     <div class="buttons">
-                      <a class="btn btn-primary btn-block btn-cart" href="#"">立即結帳</a>
+                      <a class="btn btn-primary btn-block btn-cart" href="#">立即結帳</a>
                     </div>
                   </div>
                 </div>

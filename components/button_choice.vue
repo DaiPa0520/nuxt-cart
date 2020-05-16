@@ -2,7 +2,7 @@
   <button type="button" @click="ToSelect()" class="shipping-item btn" :class="{'on-active':active}"  >
     <div class="shipping-label">
       <div>
-        <span v-html="data.title" ></span>
+        <span v-html="title" ></span>
       </div>
       <div class="sub-label" v-if="free" >(已達免運門檻)</div>
       <i class="fas fa-check-circle pr-2" v-if="active"></i>
@@ -19,10 +19,10 @@ export default {
         return true;
       }
     },
-    data: {
-      type: Object,
+    title: {
+      type: String,
       default: function() {
-        return {};
+        return '';
       }
     },
     free: {

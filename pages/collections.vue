@@ -36,14 +36,15 @@ export default {
     // 資料
     return {
       product_list: [], //
-      dd:[]
+      dd: []
     };
   },
-  async asyncData({ context, app ,store }) {
+  async asyncData({ context, app, store }) {
     // todo:拉到store去
     let metadata = { "x-4d-token": store.state.other.token };
     let method = "FindProduct";
-    let product = await app.serverFetch(method, metadata, (err, resp) => {
+    let req = new app.sqlpb.Query();
+    let product = await app.serverFetch(method, metadata, req, (err, resp) => {
       const data = app.sqlpb.Response.deserializeBinary(resp);
       store.commit("other/set_test", data.getResult().toJavaScript());
       return data.getResult().toJavaScript();
@@ -51,9 +52,7 @@ export default {
 
     return { product_list: product };
   },
-  async fetch({ store, $axios, app }) {
-    
-  },
+  async fetch({ store, $axios, app }) {},
   watch: {
     //監聽值
   },
@@ -70,14 +69,7 @@ export default {
       set_product_list: "product/set_product_list"
     }),
     async test() {
-      let metadata = { "x-4d-token": this.$store.state.other.token };
-      let method = "FindProduct";
-      let testResp = await this.grpcFetch(method, metadata, (err, ba) => {
-        const resp = this.sqlpb.Response.deserializeBinary(ba);
-        return resp.getResult().toJavaScript();
-      });
-      console.log(testResp)
-      // this.ccc =  resp.data ;
+     
     }
   },
   //BEGIN--生命週期
@@ -93,7 +85,6 @@ export default {
   },
   mounted: async function() {
     //元素已掛載， el 被建立。
-    this.test()
     this.loading(false);
   },
   beforeUpdate: function() {

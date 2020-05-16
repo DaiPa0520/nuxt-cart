@@ -39,13 +39,13 @@
                       <div class="row">
                         <div  v-for="(item,i) in home_list"  class="col-md-4 pr-2 mb-3">
                           <ButtonChoice 
-                            :data="item"
+                            :title="item.title"
                             :free="free_shipping"
                             :active="delivery_type===i"
                             @selected="delivery_type=i"
                           />
                         </div>
-                        <button type="button" class="l-btn pick-btn btn-block mt-3">選擇取貨門市</button>
+                        <button type="button" class="l-btn pick-btn btn-block mt-3 ml-3">選擇取貨門市</button>
                       </div>
                     </div>
                   </div>
@@ -57,7 +57,7 @@
                       <div class="row">
                         <div  v-for="(item,i) in home_list"  class="col-md-4 pr-2 mb-3">
                           <ButtonChoice 
-                            :data="item"
+                            :title="item.title"
                             :free="free_shipping"
                             :active="pay_type===i"
                             @selected="pay_type=i"
