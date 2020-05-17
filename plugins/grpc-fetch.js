@@ -1,11 +1,6 @@
-// import Vue from 'vue'
-import sql_pb from '@/assets/shoppb/sql_pb'
-// Vue.prototype.sqlpb = sql_pb
 
 export default function grpcFetch(method, metadata, req, callback){
-  // let req = new sql_pb.Query();
-  // console.log('>>condition',condition) 
-  // if(condition !== null) req.addCondition(condition)
+
   const bi = req.serializeBinary();
   const ib = new ArrayBuffer(bi.length + 5);
   new Uint8Array(ib, 0).set([

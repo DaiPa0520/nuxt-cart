@@ -15,12 +15,12 @@ export default {
   methods: {
     // 初始
     ...mapActions({
-      setStore: "setStore",
+      _store: "_store",
     }),
   },
   created() {
     console.log(9999);
-    this.setStore({act:'set_loading',data:false})
+    this._store({act:'set_loading',data:false})
   }
 };
 </script>

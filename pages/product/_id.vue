@@ -10,30 +10,48 @@
           <div class="sidebar col-md-2 pt-3 mb-4">
             <Sidebar />
           </div>
-          <div class="content col-md-10">
+          <div class="content col-md-10" v-if="product_info.name">
             <div class="row pt-5 pb-5">
               <div class="col-md-6">
                 <section class>
-                  <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                    <ol class="carousel-indicators">
-                      <li
-                        v-for="(item, key, index) in list"
-                        data-target="#carouselExampleIndicators"
-                        :data-slide-to="index"
-                        :class="{'active':carousel==key}"
-                        :style="`background-image: url(${item.image})`"
-                        @click="carousel=key"
-                      ></li>
-                    </ol>
+                  <div id="carousel" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner">
                       <div
                         v-for="(item, key, index) in list"
                         class="carousel-item"
                         :class="{'active':carousel==key}"
                       >
-                        <img :src="item.image" class="d-block w-100" alt="..." />
+                        <img :src="`${item.image}`" class="d-block w-100" alt="..." />
                       </div>
                     </div>
+                    <ol class="carousel-indicators">
+                      <li
+                        v-for="(item, key, index) in list"
+                        data-target="#carousel"
+                        :data-slide-to="index"
+                        :class="{'active':carousel==key}"
+                        :style="`background-image: url(${item.image})`"
+                        @click="carousel=key"
+                      ></li>
+                    </ol>
+                    <!-- <li
+                        v-for="(item, key, index) in product_info.photox"
+                        data-target="#carousel"
+                        :data-slide-to="index"
+                        :class="{'active':carousel==key}"
+                        :style="`background-image: url(https://assets.4ding.site${item})`"
+                        @click="carousel=key"
+                      ></li>
+                    </ol>
+                    <div class="carousel-inner">
+                      <div
+                        v-for="(item, key, index) in product_info.photox"
+                        class="carousel-item"
+                        :class="{'active':carousel==key}"
+                      >
+                        <img :src="`https://assets.4ding.site${item}`" class="d-block w-100" alt="..." />
+                      </div>
+                    </div>-->
                   </div>
                 </section>
               </div>
@@ -45,11 +63,11 @@
                     </a>
                   </div>
 
-                  <h4>{{product_info.name.tw}}</h4>
+                  <h4>{{product_info.name.tw}}-{{specx}}</h4>
                   <div class="originalPrice">NT{{product_info.price}}</div>
                   <div class="offer">NT{{product_info.reduce}}</div>
                   <br />
-                  <div>尺寸:</div>
+                  <div>規格:</div>
                   <div class="row">
                     <div v-for="(o,id) in product_info.specx" class="col-md-4 p-2 mb-3">
                       <ButtonChoice
@@ -67,11 +85,14 @@
                     <ButtonSubAdd :count.sync="count" />
                   </div>
                   <div class="input-group">
-                    <nuxt-link
+                    <button class="col-md-5 l-btn pick-btn btn-block mt-3" @click="cartJoin()" >
+                      加入購物車
+                    </button>
+                    <!-- <nuxt-link
                       tag="button"
                       class="col-md-5 l-btn pick-btn btn-block mt-3"
                       :to="`/cart/${product_info.product_id}`"
-                    >加入購物車</nuxt-link>
+                    >加入購物車</nuxt-link> -->
                     <nuxt-link
                       tag="button"
                       class="col-md-5 l-btn checkout-btn mt-3 ml-3"
@@ -82,7 +103,7 @@
               </div>
             </div>
             <!-- 規格說明 -->
-            <ul class="nav nav-tabs mt-5" id="myTab" role="tablist">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
               <li class="nav-item" v-for="(item,i) in product_info.link.block">
                 <a
                   class="nav-link"
@@ -93,7 +114,7 @@
                 >{{item.title.tw}}</a>
               </li>
             </ul>
-            <div class="tab-content mb-2" id="myTabContent">
+            <div class="tab-content mb-5" id="myTabContent">
               <div
                 v-for="(item,i) in product_info.link.block"
                 class="tab-pane fade"
@@ -104,7 +125,7 @@
             </div>
             <!-- 瀏覽器紀錄 -->
             <div class="history p-2">瀏覽紀錄</div>
-            <div class="history-contect mb-2"></div>
+            <div class="history-contect mb-5"></div>
             <ul class="nav nav-tabs" id="myTab" role="tablist">
               <li class="nav-item">
                 <a
@@ -172,27 +193,27 @@ export default {
         { image: "/images/prod03.jpg" },
         { image: "/images/prod04.jpg" },
         { image: "/images/prod05.jpg" },
+        { image: "/images/prod04.jpg" },
+        { image: "/images/prod05.jpg" },
         { image: "/images/prod06.jpg" }
       ]
     };
   },
   async asyncData({ context, app, store, route, redirect }) {
-    // todo:拉到store去
     if (typeof route.params.id !== "string") redirect.go(-1);
-    let req = new app.sqlpb.Query();
+    let data = {};
     let cond = new app.sqlpb.Condition();
     cond.setF("product_id").setV(route.params.id);
-    req.addCondition(cond)
-    let metadata = { "x-4d-token": store.state.other.token };
-    let method = "FindProduct";
-    let product = await app.serverFetch(method, metadata, req, (err, resp) => {
-      const data = app.sqlpb.Response.deserializeBinary(resp);
-      return data.getResult().toJavaScript();
+    let result = await store.dispatch("product/get_product", {
+      app: app,
+      token: store.state.other.token,
+      condition: cond
     });
-    if (product.length >= 1) {
-      console.log("xx>>>>", product[0]);
-      return { product_info: product[0] };
+    if (result.code === 200 && result.data.length > 0) {
+      data.product_info =  result.data.shift();
     }
+    console.log('product_info>>',data)
+    return data;
   },
   watch: {
     //監聽值
@@ -201,28 +222,29 @@ export default {
     //相依的資料改變時才做計算方法
   },
 
-  /*created(){
-    $(function () {
-      var swiper = new Swiper('.carousel-indicators', {
-        slidesPerView: 4,
-        slidesPerGroup: 4,
-        loopFillGroupWithBlank: true
-        preventClicks: false,
-        pagination: {
-          el: '.swiper-pagination',
-          clickable: true,
-        },
-        navigation: {
-          nextEl: '.swiper-button-next',
-          prevEl: '.swiper-button-prev',
-        },
-      });
-    });
-  }*/
+  created(){
+   
+      // var swiper = new Swiper('.carousel-indicators', {
+      //   slidesPerView: 4,
+      //   slidesPerGroup: 4,
+      //   loopFillGroupWithBlank: true,
+      //   preventClicks: false,
+      //   pagination: {
+      //     el: '.swiper-pagination',
+      //     clickable: true,
+      //   },
+      //   navigation: {
+      //     nextEl: '.swiper-button-next',
+      //     prevEl: '.swiper-button-prev',
+      //   },
+      // });
+ 
+  },
   methods: {
     // 初始
     ...mapActions({
-      loading: "loading"
+      loading: "loading",
+      _store: "_store",
     }),
     // get 規格名稱
     specxName(data) {
@@ -232,6 +254,14 @@ export default {
       });
       return name;
     },
+    cartJoin(){
+      let data ={
+        normal:this.product_info.product_id,
+        sku:this.specx,
+        count:this.count
+      }
+      this._store({act:'cart/add_cart' ,data:data})
+    }
 
   },
   mounted: async function() {
@@ -243,7 +273,8 @@ export default {
 
 <style lang="scss" scoped >
 .carousel-indicators {
-  top: 100%;
+  // top: 100%;
+  position: relative;
   margin-right: 0px;
   margin-left: 0px;
   width: 100%;
@@ -262,7 +293,7 @@ export default {
   height: auto;
 }
 #myTabContent {
-  border: 1px solid #ccc;
+  border: 1px solid #e6e6e6;
   border-top: 0px solid #dee2e6;
   padding: 12px;
 }

@@ -14,43 +14,18 @@
             <th></th>
           </thead>
           <tbody>
-            <tr v-for="item in list">
+            <tr v-for="item in commodity">
               <td>
-                <img :src="item.image" alt width="80px" />
+                <!-- <img :src="item.photo" alt width="80px" /> -->
+                <img src="/images/noprod.png" alt width="80px" />
               </td>
-              <td>{{item.name}}</td>
-              <td>{{item.size}}</td>
+              <td>QA沒給~{{item.normal}}</td>
+              <td>QA沒給~</td>
               <td>NT${{item.price}}</td>
               <td>
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <button
-                      style="min-width: 2.5rem"
-                      class="btn btn-decrement btn-outline-secondary"
-                      type="button"
-                    >
-                      <strong>-</strong>
-                    </button>
-                  </div>
-                  <input
-                    type="text"
-                    inputmode="decimal"
-                    style="text-align: center"
-                    class="form-control"
-                    :value="item.num"
-                  />
-                  <div class="input-group-append">
-                    <button
-                      style="min-width: 2.5rem"
-                      class="btn btn-increment btn-outline-secondary"
-                      type="button"
-                    >
-                      <strong>+</strong>
-                    </button>
-                  </div>
-                </div>
+                <ButtonSubAdd :data.sync="item" :count.sync="item.count" @after_change="add_cart" />
               </td>
-              <td>{{ item.num * item.price }}</td>
+              <td>{{ item.count * item.price }}</td>
               <td>
                 <i class="fas fa-trash-alt"></i>
               </td>
@@ -120,35 +95,15 @@
 
 <script>
 import { mapActions } from "vuex";
+import { Struct } from "google-protobuf/google/protobuf/struct_pb";
+import _values from "lodash/values";
 
 export default {
   data() {
     return {
+      commodity: [],
+      activity: [],
       purchase: [
-        {
-          image: "/images/prod01.jpg",
-          name: "輕柔空氣感彩妝刷",
-          price: "680",
-          offer: "249"
-        },
-        {
-          image: "/images/prod01.jpg",
-          name: "輕柔空氣感彩妝刷",
-          price: "680",
-          offer: "249"
-        },
-        {
-          image: "/images/prod01.jpg",
-          name: "輕柔空氣感彩妝刷",
-          price: "680",
-          offer: "249"
-        },
-        {
-          image: "/images/prod01.jpg",
-          name: "輕柔空氣感彩妝刷",
-          price: "680",
-          offer: "249"
-        },
         {
           image: "/images/prod01.jpg",
           name: "輕柔空氣感彩妝刷",
@@ -170,39 +125,29 @@ export default {
           size: "S",
           price: "227",
           num: "1"
-        },
-        {
-          image: "/images/noprod.png",
-          name: "歐美高衩深V透膚雕花連體衣",
-          size: "S",
-          price: "227",
-          num: "1"
-        },
-        {
-          image: "/images/noprod.png",
-          name: "歐美高衩深V透膚雕花連體衣",
-          size: "S",
-          price: "227",
-          num: "1"
-        },
-        {
-          image: "/images/noprod.png",
-          name: "歐美高衩深V透膚雕花連體衣",
-          size: "S",
-          price: "227",
-          num: "1"
-        },
-        {
-          image: "/images/noprod.png",
-          name: "歐美高衩深V透膚雕花連體衣",
-          size: "S",
-          price: "227",
-          num: "1"
         }
       ]
     };
   },
+  async asyncData({ context, app, store, route }) {
+    // todo:拉到store去
+    let data = {};
+    let cond = Struct.fromJavaScript({
+      commodity: _values(store.state.cart.content)
+    });
+    let result = await store.dispatch("cart/get_completeCar", {
+      app: app,
+      token: store.state.other.token,
+      condition: cond
+    });
 
+    if (result.code === 200) {
+      data.commodity = result.data.commodity;
+      data.activity = result.data.activity;
+    }
+    console.log("===>>", result);
+    return data;
+  },
   watch: {
     //監聽值
   },
@@ -212,8 +157,13 @@ export default {
   methods: {
     // 初始
     ...mapActions({
-      loading: "loading"
-    })
+      loading: "loading",
+      _store: "_store"
+    }),
+    // 更新購物車
+    async add_cart(o) {
+      this._store({ act: "add_cart", data: o });
+    }
   },
   //BEGIN--生命週期
   beforeCreate: function() {
@@ -228,6 +178,7 @@ export default {
   mounted: function() {
     //元素已掛載， el 被建立。
     this.loading(false);
+    // this.test()
   },
   beforeUpdate: function() {
     //當資料變化時被呼叫，還不會描繪 View。

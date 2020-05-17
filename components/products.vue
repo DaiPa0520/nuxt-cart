@@ -1,13 +1,17 @@
 <template>
   <div class="card col-lg-3 col-md-3 col-xs-6 p-2">
     <div class="product">
-      <nuxt-link tag="img" src="/images/01.jpg"  class="card-img-top" :to="'/product/'+data.product_id"></nuxt-link>
+      <nuxt-link
+        tag="img"
+        src="/images/01.jpg"
+        class="card-img-top"
+        :to="'/product/'+data.product_id"
+      ></nuxt-link>
       <!-- <img :src="data.photo" class="card-img-top" alt="..." /> -->
       <div class="card-body">
         <div class="caption">
           <h5>{{data.name.tw}}</h5>
           <div class="originalPrice">NT{{data.price}}</div>
-          <div class="offer">NT{{data.reduce}}</div>
           <div class="cart-button">
             <a href>
               <i class="far fa-heart"></i>
@@ -16,6 +20,7 @@
               <i class="fas fa-cart-plus"></i>
             </a>
           </div>
+          <div class="text-danger">NT{{data.reduce}}</div>
         </div>
       </div>
     </div>

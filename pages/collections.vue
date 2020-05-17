@@ -36,21 +36,19 @@ export default {
     // 資料
     return {
       product_list: [], //
-      dd: []
+      dd: "123"
     };
   },
   async asyncData({ context, app, store }) {
-    // todo:拉到store去
-    let metadata = { "x-4d-token": store.state.other.token };
-    let method = "FindProduct";
-    let req = new app.sqlpb.Query();
-    let product = await app.serverFetch(method, metadata, req, (err, resp) => {
-      const data = app.sqlpb.Response.deserializeBinary(resp);
-      store.commit("other/set_test", data.getResult().toJavaScript());
-      return data.getResult().toJavaScript();
+    let data = {} ;
+    let result = await store.dispatch("product/get_product", {
+      app: app,
+      token: store.state.other.token,
+      condition: null
     });
+    if(result.code === 200) data.product_list = result.data
 
-    return { product_list: product };
+    return data;
   },
   async fetch({ store, $axios, app }) {},
   watch: {
@@ -68,9 +66,7 @@ export default {
     ...mapMutations({
       set_product_list: "product/set_product_list"
     }),
-    async test() {
-     
-    }
+    async test() {}
   },
   //BEGIN--生命週期
   beforeCreate: function() {

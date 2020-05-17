@@ -34,16 +34,30 @@
 <script>
 export default {
   props: {
+    data: {
+      type: Object,
+      default: function() {
+        return {};
+      }
+    },
     count: {
       type: Number,
       default: function() {
         return 1;
       }
     },
+    after_change:{
+      type: Function,
+      default: function(v) {
+        console.log('funck',v)
+        return false;
+      }
+    },
+
   },
   data() {
     return {
-      total:this.count
+      total: this.count
     };
   },
   watch: {
@@ -55,12 +69,17 @@ export default {
   methods: {
     // 初始
     Add(value) {
-      this.$emit("update:count", Number(this.total)+Number(value) );
+      this.total = Number(this.total) + Number(value)
+      this.Change();
+
     },
     Change() {
-      this.$emit("update:count", Number(this.total) );
+      this.$emit("update:count", Number(this.total));
+      console.log(6666)
+      console.log(this.data)
+      // this.$emit("after_change",{a:123})
     }
-  },
+  }
 };
 </script>
 <style lang="scss" scoped>
