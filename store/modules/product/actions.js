@@ -35,28 +35,6 @@ export default {
 
   },
   // 商品列表
-  // async get_product(context, { app, token, condition }) {
-  //   console.log(condition)
-  //   return new Promise(function (resolve) {  // 回傳一個 promise
-  //     let sqlpb = new app.sqlpb.Query();
-  //     if (condition !== undefined) sqlpb.addCondition(condition)
-  //     let res = {};
-  //     app.shopRPC.findProductF(sqlpb, { "x-4d-token": token },
-  //       (err, resp) => {
-  //         console.log('>>>', err);
-  //         // todo:錯誤時候會跑兩次!?
-  //         if (err !== null) {
-  //           console.log(err);
-  //           res = { code: 0, data: err };
-  //           resolve(res);
-  //           return;
-  //         }
-  //         res = { code: 200, data: resp.getResult().toJavaScript() };
-  //         resolve(res)
-  //       });
-  //   });
-  // },
-  // 商品列表
   async get_product(context, { app, token, condition = null }) {
 
     let metadata = { "x-4d-token": token };
@@ -64,12 +42,13 @@ export default {
     let req = new app.sqlpb.Query();
     if (condition !== null) req.addCondition(condition)
     let product = await app.grpcFetch(method, metadata, req, (err, resp) => {
-      const data = app.sqlpb.Response.deserializeBinary(resp);
       // todo:錯誤時候會跑兩次!?
+      console.log(resp)
       if (err !== null) {
-        console.log(err);
+        // console.log(resp.err);
         return { code: 0, data: err };
       }
+      const data = app.sqlpb.Response.deserializeBinary(resp);
       // store.commit("other/set_test", data.getResult().toJavaScript());
       return { code: 200, data: data.getResult().toJavaScript() };
     });

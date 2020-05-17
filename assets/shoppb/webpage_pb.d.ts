@@ -5,32 +5,29 @@ import * as sql_pb from './sql_pb';
 import * as google_protobuf_struct_pb from 'google-protobuf/google/protobuf/struct_pb';
 import * as google_protobuf_timestamp_pb from 'google-protobuf/google/protobuf/timestamp_pb';
 
-export class WebBase extends jspb.Message {
-  getWebBaseId(): string;
-  setWebBaseId(value: string): void;
+export class WebPage extends jspb.Message {
+  getPageId(): string;
+  setPageId(value: string): void;
 
   getStoreId(): string;
   setStoreId(value: string): void;
 
-  getStyle(): number;
-  setStyle(value: number): void;
+  getName(): string;
+  setName(value: string): void;
+
+  getLink(): string;
+  setLink(value: string): void;
+
+  getContent(): string;
+  setContent(value: string): void;
 
   getSeo(): seo_pb.SEO | undefined;
   setSeo(value?: seo_pb.SEO): void;
   hasSeo(): boolean;
   clearSeo(): void;
 
-  getLogoId(): string;
-  setLogoId(value: string): void;
-
-  getFaviconId(): string;
-  setFaviconId(value: string): void;
-
-  getLogo(): string;
-  setLogo(value: string): void;
-
-  getFavicon(): string;
-  setFavicon(value: string): void;
+  getIsErrorHandle(): boolean;
+  setIsErrorHandle(value: boolean): void;
 
   getLabelxMap(): jspb.Map<string, number>;
   clearLabelxMap(): void;
@@ -64,23 +61,22 @@ export class WebBase extends jspb.Message {
   clearSelf(): void;
 
   serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): WebBase.AsObject;
-  static toObject(includeInstance: boolean, msg: WebBase): WebBase.AsObject;
-  static serializeBinaryToWriter(message: WebBase, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): WebBase;
-  static deserializeBinaryFromReader(message: WebBase, reader: jspb.BinaryReader): WebBase;
+  toObject(includeInstance?: boolean): WebPage.AsObject;
+  static toObject(includeInstance: boolean, msg: WebPage): WebPage.AsObject;
+  static serializeBinaryToWriter(message: WebPage, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): WebPage;
+  static deserializeBinaryFromReader(message: WebPage, reader: jspb.BinaryReader): WebPage;
 }
 
-export namespace WebBase {
+export namespace WebPage {
   export type AsObject = {
-    webBaseId: string,
+    pageId: string,
     storeId: string,
-    style: number,
+    name: string,
+    link: string,
+    content: string,
     seo?: seo_pb.SEO.AsObject,
-    logoId: string,
-    faviconId: string,
-    logo: string,
-    favicon: string,
+    isErrorHandle: boolean,
     labelxMap: Array<[string, number]>,
     operator: string,
     createAt?: google_protobuf_timestamp_pb.Timestamp.AsObject,

@@ -42,7 +42,8 @@ export default {
   */
   plugins: [
     { src: "@/plugins/aos", ssr: false },
-    { src: "@/components/autoload", ssr: true },
+    { src: "@/components/index", ssr: true },
+    { src: "@/filter/index", ssr: true },
     { src: "@/plugins/autoload", ssr: false },
     { src: "@/plugins/axios", ssr: false },
     { src: '@/plugins/server' }

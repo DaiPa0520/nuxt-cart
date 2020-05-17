@@ -22,10 +22,14 @@ export default {
       state.content[`${o.normal}-${o.sku}`].count +=  Number(o.count) ;
     }
   },
+  // 設定某一筆購物車
+  set_one_cart(state, o) {
+    state.content[`${o.normal}-${o.sku}`] = o
+  },
   // 新增一筆購物車
   del_cart(state, o) {
     // state.content.push(o)
-    if(!isNaN(state.content[`${o.normal}-${o.sku}`])){
+    if(state.content[`${o.normal}-${o.sku}`]){
       delete state.content[`${o.normal}-${o.sku}`] ;
     }
   },

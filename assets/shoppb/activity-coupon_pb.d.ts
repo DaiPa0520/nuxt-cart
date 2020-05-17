@@ -1,6 +1,7 @@
 import * as jspb from "google-protobuf"
 
 import * as sql_pb from './sql_pb';
+import * as a$submessage_pb from './a-submessage_pb';
 import * as google_protobuf_struct_pb from 'google-protobuf/google/protobuf/struct_pb';
 import * as google_protobuf_timestamp_pb from 'google-protobuf/google/protobuf/timestamp_pb';
 
@@ -26,30 +27,30 @@ export class Activity extends jspb.Message {
   hasName(): boolean;
   clearName(): void;
 
-  getRule(): Rule | undefined;
-  setRule(value?: Rule): void;
+  getRule(): a$submessage_pb.Rule | undefined;
+  setRule(value?: a$submessage_pb.Rule): void;
   hasRule(): boolean;
   clearRule(): void;
 
-  getNow(): Rule | undefined;
-  setNow(value?: Rule): void;
+  getNow(): a$submessage_pb.Rule | undefined;
+  setNow(value?: a$submessage_pb.Rule): void;
   hasNow(): boolean;
   clearNow(): void;
 
-  getActive(): Active | undefined;
-  setActive(value?: Active): void;
+  getActive(): a$submessage_pb.Active | undefined;
+  setActive(value?: a$submessage_pb.Active): void;
   hasActive(): boolean;
   clearActive(): void;
 
-  getTarget(): Target | undefined;
-  setTarget(value?: Target): void;
+  getTarget(): a$submessage_pb.ProductTarget | undefined;
+  setTarget(value?: a$submessage_pb.ProductTarget): void;
   hasTarget(): boolean;
   clearTarget(): void;
 
   getIsEnable(): boolean;
   setIsEnable(value: boolean): void;
 
-  getUsedMap(): jspb.Map<string, Used>;
+  getUsedMap(): jspb.Map<string, a$submessage_pb.Used>;
   clearUsedMap(): void;
 
   getLabelxMap(): jspb.Map<string, number>;
@@ -98,12 +99,12 @@ export namespace Activity {
     beginAt?: google_protobuf_timestamp_pb.Timestamp.AsObject,
     endAt?: google_protobuf_timestamp_pb.Timestamp.AsObject,
     name?: google_protobuf_struct_pb.Value.AsObject,
-    rule?: Rule.AsObject,
-    now?: Rule.AsObject,
-    active?: Active.AsObject,
-    target?: Target.AsObject,
+    rule?: a$submessage_pb.Rule.AsObject,
+    now?: a$submessage_pb.Rule.AsObject,
+    active?: a$submessage_pb.Active.AsObject,
+    target?: a$submessage_pb.ProductTarget.AsObject,
     isEnable: boolean,
-    usedMap: Array<[string, Used.AsObject]>,
+    usedMap: Array<[string, a$submessage_pb.Used.AsObject]>,
     labelxMap: Array<[string, number]>,
     operator: string,
     createAt?: google_protobuf_timestamp_pb.Timestamp.AsObject,
@@ -142,18 +143,18 @@ export class Coupon extends jspb.Message {
   getCode(): string;
   setCode(value: string): void;
 
-  getRule(): Rule | undefined;
-  setRule(value?: Rule): void;
+  getRule(): a$submessage_pb.Rule | undefined;
+  setRule(value?: a$submessage_pb.Rule): void;
   hasRule(): boolean;
   clearRule(): void;
 
-  getActive(): Active | undefined;
-  setActive(value?: Active): void;
+  getActive(): a$submessage_pb.Active | undefined;
+  setActive(value?: a$submessage_pb.Active): void;
   hasActive(): boolean;
   clearActive(): void;
 
-  getTarget(): Target | undefined;
-  setTarget(value?: Target): void;
+  getTarget(): a$submessage_pb.CustomerTarget | undefined;
+  setTarget(value?: a$submessage_pb.CustomerTarget): void;
   hasTarget(): boolean;
   clearTarget(): void;
 
@@ -210,9 +211,9 @@ export namespace Coupon {
     name?: google_protobuf_struct_pb.Value.AsObject,
     isAuto: boolean,
     code: string,
-    rule?: Rule.AsObject,
-    active?: Active.AsObject,
-    target?: Target.AsObject,
+    rule?: a$submessage_pb.Rule.AsObject,
+    active?: a$submessage_pb.Active.AsObject,
+    target?: a$submessage_pb.CustomerTarget.AsObject,
     used?: google_protobuf_struct_pb.Value.AsObject,
     labelxMap: Array<[string, number]>,
     operator: string,
@@ -221,122 +222,6 @@ export namespace Coupon {
     colsList: Array<string>,
     conditionList: Array<sql_pb.Condition.AsObject>,
     self?: google_protobuf_struct_pb.Struct.AsObject,
-  }
-}
-
-export class Rule extends jspb.Message {
-  getAmount(): number;
-  setAmount(value: number): void;
-
-  getCount(): number;
-  setCount(value: number): void;
-
-  serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): Rule.AsObject;
-  static toObject(includeInstance: boolean, msg: Rule): Rule.AsObject;
-  static serializeBinaryToWriter(message: Rule, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): Rule;
-  static deserializeBinaryFromReader(message: Rule, reader: jspb.BinaryReader): Rule;
-}
-
-export namespace Rule {
-  export type AsObject = {
-    amount: number,
-    count: number,
-  }
-}
-
-export class Active extends jspb.Message {
-  getFreeShipping(): boolean;
-  setFreeShipping(value: boolean): void;
-
-  getIsRepeat(): boolean;
-  setIsRepeat(value: boolean): void;
-
-  getDiscount(): number;
-  setDiscount(value: number): void;
-
-  getReduce(): number;
-  setReduce(value: number): void;
-
-  getGiveaway(): string;
-  setGiveaway(value: string): void;
-
-  getGiveawaySku(): string;
-  setGiveawaySku(value: string): void;
-
-  serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): Active.AsObject;
-  static toObject(includeInstance: boolean, msg: Active): Active.AsObject;
-  static serializeBinaryToWriter(message: Active, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): Active;
-  static deserializeBinaryFromReader(message: Active, reader: jspb.BinaryReader): Active;
-}
-
-export namespace Active {
-  export type AsObject = {
-    freeShipping: boolean,
-    isRepeat: boolean,
-    discount: number,
-    reduce: number,
-    giveaway: string,
-    giveawaySku: string,
-  }
-}
-
-export class Target extends jspb.Message {
-  getClass(): string;
-  setClass(value: string): void;
-
-  getLevel(): string;
-  setLevel(value: string): void;
-
-  getBirthdayList(): Array<number>;
-  setBirthdayList(value: Array<number>): void;
-  clearBirthdayList(): void;
-  addBirthday(value: number, index?: number): void;
-
-  getItemsList(): Array<string>;
-  setItemsList(value: Array<string>): void;
-  clearItemsList(): void;
-  addItems(value: string, index?: number): void;
-
-  serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): Target.AsObject;
-  static toObject(includeInstance: boolean, msg: Target): Target.AsObject;
-  static serializeBinaryToWriter(message: Target, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): Target;
-  static deserializeBinaryFromReader(message: Target, reader: jspb.BinaryReader): Target;
-}
-
-export namespace Target {
-  export type AsObject = {
-    pb_class: string,
-    level: string,
-    birthdayList: Array<number>,
-    itemsList: Array<string>,
-  }
-}
-
-export class Used extends jspb.Message {
-  getActivity(): number;
-  setActivity(value: number): void;
-
-  getCoupon(): number;
-  setCoupon(value: number): void;
-
-  serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): Used.AsObject;
-  static toObject(includeInstance: boolean, msg: Used): Used.AsObject;
-  static serializeBinaryToWriter(message: Used, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): Used;
-  static deserializeBinaryFromReader(message: Used, reader: jspb.BinaryReader): Used;
-}
-
-export namespace Used {
-  export type AsObject = {
-    activity: number,
-    coupon: number,
   }
 }
 

@@ -1,7 +1,6 @@
 import * as jspb from "google-protobuf"
 
 import * as sql_pb from './sql_pb';
-import * as image_pb from './image_pb';
 import * as google_protobuf_struct_pb from 'google-protobuf/google/protobuf/struct_pb';
 import * as google_protobuf_timestamp_pb from 'google-protobuf/google/protobuf/timestamp_pb';
 
@@ -36,10 +35,10 @@ export class WebLayout extends jspb.Message {
   getContent(): string;
   setContent(value: string): void;
 
-  getImageList(): Array<image_pb.Image>;
-  setImageList(value: Array<image_pb.Image>): void;
+  getImageList(): Array<string>;
+  setImageList(value: Array<string>): void;
   clearImageList(): void;
-  addImage(value?: image_pb.Image, index?: number): image_pb.Image;
+  addImage(value: string, index?: number): void;
 
   getLabelxMap(): jspb.Map<string, number>;
   clearLabelxMap(): void;
@@ -92,7 +91,7 @@ export namespace WebLayout {
     productClassId: string,
     count: number,
     content: string,
-    imageList: Array<image_pb.Image.AsObject>,
+    imageList: Array<string>,
     labelxMap: Array<[string, number]>,
     operator: string,
     createAt?: google_protobuf_timestamp_pb.Timestamp.AsObject,

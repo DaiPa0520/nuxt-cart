@@ -2,7 +2,7 @@
   <button type="button" @click="ToSelect()" class="shipping-item btn" :class="{'on-active':active}"  >
     <div class="shipping-label">
       <div>
-        <span v-html="title" ></span>
+        <span v-html="this.$options.filters.specxName(title)" ></span>
       </div>
       <div class="sub-label" v-if="free" >(已達免運門檻)</div>
       <i class="fas fa-check-circle pr-2" v-if="active"></i>

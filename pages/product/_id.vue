@@ -71,7 +71,7 @@
                   <div class="row">
                     <div v-for="(o,id) in product_info.specx" class="col-md-4 p-2 mb-3">
                       <ButtonChoice
-                        :title=" specxName(o.itemx) "
+                        :title="specxName(o.itemx)"
                         :free="false"
                         :active="specx===id"
                         @selected="specx=id"
@@ -211,6 +211,7 @@ export default {
     });
     if (result.code === 200 && result.data.length > 0) {
       data.product_info =  result.data.shift();
+      data.specx = Object.keys(data.product_info.specx)[0] ;
     }
     console.log('product_info>>',data)
     return data;

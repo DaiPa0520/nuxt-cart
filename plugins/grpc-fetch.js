@@ -20,6 +20,7 @@ export default function grpcFetch(method, metadata, req, callback){
       },
       body: new Uint8Array(ib),
   }).then(response => {
+    //   response.headers.forEach(function(val, key) { console.log(key + ' -> ' + val); });
       return response.arrayBuffer();
   }).then(ab => {
     return callback(null, ab.slice(5));

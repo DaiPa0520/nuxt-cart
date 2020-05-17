@@ -118,6 +118,11 @@ export class Commodity extends jspb.Message {
   hasName(): boolean;
   clearName(): void;
 
+  getItemx(): google_protobuf_struct_pb.Value | undefined;
+  setItemx(value?: google_protobuf_struct_pb.Value): void;
+  hasItemx(): boolean;
+  clearItemx(): void;
+
   getIsPreorder(): boolean;
   setIsPreorder(value: boolean): void;
 
@@ -152,6 +157,7 @@ export namespace Commodity {
     sku: string,
     photo: string,
     name?: google_protobuf_struct_pb.Value.AsObject,
+    itemx?: google_protobuf_struct_pb.Value.AsObject,
     isPreorder: boolean,
     count: number,
     price: number,

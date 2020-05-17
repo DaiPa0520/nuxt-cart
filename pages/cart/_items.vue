@@ -14,20 +14,20 @@
             <th></th>
           </thead>
           <tbody>
-            <tr v-for="item in commodity">
+            <tr v-for="(item,i) in commodity">
               <td>
-                <!-- <img :src="item.photo" alt width="80px" /> -->
-                <img src="/images/noprod.png" alt width="80px" />
+                <img :src="`https://assets.4ding.site${item.photo}`" alt width="80px" />
+                <!-- <img src="/images/noprod.png" alt width="80px" /> -->
               </td>
-              <td>QA沒給~{{item.normal}}</td>
-              <td>QA沒給~</td>
+              <td>{{item.name.tw}}</td>
+              <td>{{item.normal}}</td>
               <td>NT${{item.price}}</td>
               <td>
                 <ButtonSubAdd :data.sync="item" :count.sync="item.count" @after_change="add_cart" />
               </td>
               <td>{{ item.count * item.price }}</td>
               <td>
-                <i class="fas fa-trash-alt"></i>
+                <i @click="del_cart(i)" class="fas fa-trash-alt"></i>
               </td>
             </tr>
           </tbody>
@@ -140,7 +140,7 @@ export default {
       token: store.state.other.token,
       condition: cond
     });
-
+    console.log(store.state.cart.content)
     if (result.code === 200) {
       data.commodity = result.data.commodity;
       data.activity = result.data.activity;
@@ -162,8 +162,13 @@ export default {
     }),
     // 更新購物車
     async add_cart(o) {
-      this._store({ act: "add_cart", data: o });
+      this._store({ act: "cart/set_one_cart", data: o });
+    },
+    async del_cart(i) {
+      this._store({ act: "cart/del_cart", data: this.commodity[i]  });
+      this.commodity.splice(i, 1);
     }
+
   },
   //BEGIN--生命週期
   beforeCreate: function() {

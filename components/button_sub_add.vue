@@ -5,7 +5,7 @@
         style="min-width: 2.5rem"
         class="btn btn-decrement btn-outline-secondary"
         type="button"
-        @click="Add(-1)"
+        @click="add(-1)"
       >
         <strong>-</strong>
       </button>
@@ -16,14 +16,14 @@
       style="text-align: center"
       class="form-control"
       v-model="total"
-      @change="Change()"
+      @change="change()"
     />
     <div class="input-group-append">
       <button
         style="min-width: 2.5rem"
         class="btn btn-increment btn-outline-secondary"
         type="button"
-        @click="Add(1)"
+        @click="add(1)"
       >
         <strong>+</strong>
       </button>
@@ -68,16 +68,14 @@ export default {
   },
   methods: {
     // 初始
-    Add(value) {
+    add(value) {
       this.total = Number(this.total) + Number(value)
-      this.Change();
+      this.change();
 
     },
-    Change() {
+    change() {
       this.$emit("update:count", Number(this.total));
-      console.log(6666)
-      console.log(this.data)
-      // this.$emit("after_change",{a:123})
+      this.$emit("after_change",this.data)
     }
   }
 };
