@@ -8,6 +8,7 @@ Vue.prototype.sqlpb = sql_pb
 import car_pb from '@/assets/shoppb/car_pb'
 Vue.prototype.carpb = car_pb
 
-
+import grpcAxios from '@/plugins/grpc-axios'
+Vue.prototype.grpcAxios = grpcAxios ;
 import grpcFetch from '@/plugins/grpc-fetch'
 Vue.prototype.grpcFetch = grpcFetch ;

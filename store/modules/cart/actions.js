@@ -22,4 +22,8 @@ export default {
 
     return product;
   },
+
+  set_storage(){
+
+  }
 }

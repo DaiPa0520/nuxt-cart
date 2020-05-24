@@ -31,6 +31,9 @@
               </td>
             </tr>
           </tbody>
+          <thead v-if="commodity.length==0">
+            <th class="text-center text-danger" colspan="7">無資料</th>
+          </thead>
         </table>
 
         <!-- 小計 折價卷 -->
@@ -70,10 +73,10 @@
         <div class="purchase row">
           <div class="col-lg-12 col-md-12 col-xs-12 p-2 title">加購專區</div>
           <div v-for="item in purchase" class="card col-lg-3 col-md-3 col-xs-6 p-2">
-            <div class="product p-2">
+            <Purchase />
+            <!-- <div class="product p-2">
               <img :src="item.image" class="card-img-top p-2" alt="..." />
               <div class="card-body">
-                <!-- <div class="caption"> -->
                 <b>{{item.name}}</b>
                 <div class="offer">
                   <span class="price">>NT{{item.price}}</span>
@@ -82,9 +85,8 @@
                 <div class="cart-button">
                   <button type="button" class="w-100 btn btn-outline-primary btn-sm">加入購物車</button>
                 </div>
-                <!-- </div> -->
               </div>
-            </div>
+            </div>-->
           </div>
         </div>
       </div>
@@ -132,20 +134,20 @@ export default {
   async asyncData({ context, app, store, route }) {
     // todo:拉到store去
     let data = {};
-    let cond = Struct.fromJavaScript({
-      commodity: _values(store.state.cart.content)
-    });
-    let result = await store.dispatch("cart/get_completeCar", {
-      app: app,
-      token: store.state.other.token,
-      condition: cond
-    });
-    console.log(store.state.cart.content)
-    if (result.code === 200) {
-      data.commodity = result.data.commodity;
-      data.activity = result.data.activity;
-    }
-    console.log("===>>", result);
+    // let cond = Struct.fromJavaScript({
+    //   commodity: _values(store.state.cart.content)
+    // });
+    // let result = await store.dispatch("cart/get_completeCar", {
+    //   app: app,
+    //   token: store.state.other.token,
+    //   condition: cond
+    // });
+    // console.log(store.state.cart.content);
+    // if (result.code === 200) {
+    //   data.commodity = result.data.commodity;
+    //   data.activity = result.data.activity;
+    // }
+    // console.log("===>>", result);
     return data;
   },
   watch: {
@@ -160,15 +162,32 @@ export default {
       loading: "loading",
       _store: "_store"
     }),
+    async test() {
+      let data = {};
+      let cart = JSON.parse(localStorage.getItem('cart'))
+      let cond = Struct.fromJavaScript({
+        commodity: _values(cart)
+      });
+      let result = await this.$store.dispatch("cart/get_completeCar", {
+        app: this,
+        token: this.$store.state.other.token,
+        condition: cond
+      });
+      console.log( result.data);
+      if (result.code === 200) {
+        this.commodity = result.data.commodity;
+        this.activity = result.data.activity;
+      }
+      console.log("===>>", result);
+    },
     // 更新購物車
     async add_cart(o) {
       this._store({ act: "cart/set_one_cart", data: o });
     },
     async del_cart(i) {
-      this._store({ act: "cart/del_cart", data: this.commodity[i]  });
+      this._store({ act: "cart/del_cart", data: this.commodity[i] });
       this.commodity.splice(i, 1);
     }
-
   },
   //BEGIN--生命週期
   beforeCreate: function() {
@@ -183,7 +202,7 @@ export default {
   mounted: function() {
     //元素已掛載， el 被建立。
     this.loading(false);
-    // this.test()
+    this.test()
   },
   beforeUpdate: function() {
     //當資料變化時被呼叫，還不會描繪 View。
@@ -243,23 +262,7 @@ export default {
 .bord-top-dash {
   border-top: 1px dashed #a8a0a0;
 }
-.purchase {
-  & .title {
-    border-top: 1px dashed #e9e9e9;
-  }
-}
-.offer {
-  float: left;
-  font-size: 0.9em;
-  color: #ff5353;
-  line-height: 1.2;
-}
-.price {
-  font-size: 0.8em;
-  color: #aaa;
-  text-decoration: line-through;
-  line-height: 1.2;
-}
+
 p {
   font-size: 15px;
   color: #333;

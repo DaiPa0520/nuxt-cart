@@ -25,14 +25,21 @@ export default {
   },
   created() {
     console.log(8888888888888);
-    this.dd = this.$store.state.other.token
+    // this.get_website()
+    // this.dd = this.$store.state.other.token
     this.loading(false);
+  },
+   async asyncData({ context, app, store }) {
+    //  console.log(app.$axios)
+   
+    //  let a  = await app.grpcAxios(app.$axios);
+    //  console.log(a)
   },
   async fetch({ store, $axios, app }) {
 
-    store.commit('other/set_test', 66666)
-    let metadata = { "x-4d-token": store.state.other.token };
-    let method = "MyCar";
+    // store.commit('other/set_test', 66666)
+    // let metadata = { "x-4d-token": store.state.other.token };
+    // let method = "MyCar";
     // let q = new app.sqlpb.Query();
 
     // const bi = q.serializeBinary();
@@ -69,11 +76,11 @@ export default {
     //     store.commit('other/set_token', resp.getResult().toJavaScript())
     //   });
 
-    await app.fetch(method,metadata,(err, ba) => {
-        const resp = app.sqlpb.Response.deserializeBinary(ba);
-        // this.list = resp.getResult().toJavaScript()
-         store.commit('other/set_test', resp.getResult().toJavaScript())
-    })
+    // await app.fetch(method,metadata,(err, ba) => {
+    //     // const resp = app.sqlpb.Response.deserializeBinary(ba);
+    //     // // this.list = resp.getResult().toJavaScript()
+    //     //  store.commit('other/set_test', resp.getResult().toJavaScript())
+    // })
 
     // let rpc = app.aa ;
     // let c = new app.cc.Customer();
@@ -86,15 +93,10 @@ export default {
   methods: {
     ...mapActions({
       loading: "loading",
+       get_website: "other/get_website",
+
     }),
     test: function() {
-      console.log(this.qq);
-      let rpc = new this.shopRPC.ShopRPCClient("https://shop.4ding.site");
-      let sqlpb = new this.sqlpb.Query();
-      rpc.findProductF(sqlpb, { "x-4d-token": this.token }, (err, resp) => {
-        console.log(err);
-        console.log(resp.getResult().toJavaScript());
-      });
     },
     onSubmit: function() {
       this.$refs.invisibleRecaptcha.execute();
