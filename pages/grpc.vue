@@ -33,7 +33,7 @@ export default {
     //  console.log(app.$axios)
    
     //  let a  = await app.grpcAxios(app.$axios);
-    //  console.log(a)
+    //  console.log('a',a)
   },
   async fetch({ store, $axios, app }) {
 

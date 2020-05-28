@@ -16,7 +16,7 @@
           <tbody>
             <tr v-for="(item,i) in commodity">
               <td>
-                <img :src="`https://assets.4ding.site${item.photo}`" alt width="80px" />
+                <img :src="`${imgesUrl}${item.photo.src}`" alt width="80px" />
                 <!-- <img src="/images/noprod.png" alt width="80px" /> -->
               </td>
               <td>{{item.name.tw}}</td>
@@ -103,6 +103,7 @@ import _values from "lodash/values";
 export default {
   data() {
     return {
+      imgesUrl: '',
       commodity: [],
       activity: [],
       purchase: [
@@ -133,7 +134,7 @@ export default {
   },
   async asyncData({ context, app, store, route }) {
     // todo:拉到store去
-    let data = {};
+    let data = {imgesUrl:process.env.IMG_URL};
     // let cond = Struct.fromJavaScript({
     //   commodity: _values(store.state.cart.content)
     // });
@@ -173,12 +174,10 @@ export default {
         token: this.$store.state.other.token,
         condition: cond
       });
-      console.log( result.data);
       if (result.code === 200) {
         this.commodity = result.data.commodity;
         this.activity = result.data.activity;
       }
-      console.log("===>>", result);
     },
     // 更新購物車
     async add_cart(o) {

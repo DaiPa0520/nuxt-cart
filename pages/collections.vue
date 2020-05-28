@@ -46,6 +46,7 @@ export default {
       token: store.state.other.token,
       condition: null
     });
+    console.log(store.state.other.token)
     if(result.code === 200) data.product_list = result.data
 
     return data;

@@ -41,9 +41,10 @@ export default {
     let method = "FindProduct";
     let req = new app.sqlpb.Query();
     if (condition !== null) req.addCondition(condition)
-    let product = await app.grpcFetch(method, metadata, req, (err, resp) => {
+    // let product = await app.grpcFetch(method, metadata, req, (err, resp) => {
+    let product = await app.grpcAxios(app.$axios,method, metadata, req, (err, resp) => {
       // todo:錯誤時候會跑兩次!?
-      console.log(resp)
+      console.log('>>>',resp)
       if (err !== null) {
         // console.log(resp.err);
         return { code: 0, data: err };

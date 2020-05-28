@@ -9,7 +9,7 @@ export default {
     let req = new app.carpb.Car();
     // if (condition !== null) req.addCommodity(condition)
     if(condition !== null) req.setSelf(condition)
-    let product = await app.grpcFetch(method, metadata, req, (err, resp) => {
+    let product = await app.grpcAxios(app.$axios,method, metadata, req, (err, resp) => {
       const data = app.sqlpb.Response.deserializeBinary(resp);
       // todo:錯誤時候會跑兩次!?
       if (err !== null) {
