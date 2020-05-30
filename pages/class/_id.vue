@@ -3,7 +3,7 @@
     <section class="content">
       <div class="container">
         <!-- 麵包屑 -->
-        <Breadcrumb  :data="page_info" />
+        <Breadcrumb :data="page_info" />
       </div>
       <div class="container">
         <div class="row">
@@ -36,29 +36,31 @@ export default {
     // 資料
     return {
       product_list: [], //
-      page_info: {
-        name: '熱門分類' ,
-        key:'product' 
-      }
+      page_info: {}
     };
   },
-  async asyncData({ context, app, store }) {
-    let data = {} ;
+  async asyncData({ context, app, store, route }) {
+    let data = {
+      page_info: { name: "熱門分類", url: "" }
+    };
     // 首頁相關
-    store.dispatch("web/get_website", {
+    // if (store.state.web.style.length === 0) {
+    await store.dispatch("web/get_website", {
       app: app,
       token: store.state.other.token,
       condition: null
     });
+    // }
 
+    // 搜尋該分類的產品列表
+    let cond = new app.sqlpb.Condition();
+    cond.setO(10).setV(route.params.id);
     let result = await store.dispatch("product/get_product", {
       app: app,
       token: store.state.other.token,
-      condition: null
+      condition: cond
     });
-    if(result.code === 200) data.product_list = result.data
-
-
+    if (result.code === 200) data.product_list = result.data;
 
     return data;
   },

@@ -3,43 +3,8 @@
     <nav id="sidebar">
       <ul class="list-unstyled components">
         <p>全部商品</p>
-        <li class="active">
-          <a
-            href="#homeSubmenu"
-            data-toggle="collapse"
-            aria-expanded="false"
-            class="dropdown-toggle"
-          >活動館1</a>
-          <ul class="collapse list-unstyled" id="homeSubmenu">
-            <li>
-              <a href="#">分類1</a>
-            </li>
-            <li>
-              <a href="#">分類2</a>
-            </li>
-            <li>
-              <a href="#">分類3</a>
-            </li>
-          </ul>
-        </li>
-        <li>
-          <a
-            href="#pageSubmenu"
-            data-toggle="collapse"
-            aria-expanded="false"
-            class="dropdown-toggle"
-          >活動館2</a>
-          <ul class="collapse list-unstyled" id="pageSubmenu">
-            <li>
-              <a href="#">分類1</a>
-            </li>
-            <li>
-              <a href="#">分類2</a>
-            </li>
-            <li>
-              <a href="#">分類3</a>
-            </li>
-          </ul>
+        <li class v-for="(item,i) in class_list">
+          <nuxt-link tag="a" class="dropdown-toggle" :to="`/class/${item.class_id}`">{{item.name.tw}}</nuxt-link>
         </li>
       </ul>
     </nav>
@@ -47,9 +12,12 @@
 </template>
 
 <script>
+import { mapActions, mapMutations } from "vuex";
+
 export default {
   data() {
     return {
+      class_list: [],
       left: [
         { title: "優勢特色", link: "/home" },
         { title: "系統簡介", link: "/introduction" },
@@ -61,6 +29,23 @@ export default {
         // { title: "登入", link: "/login" }
       ]
     };
+  },
+  async mounted() {
+    let cond = new this.sqlpb.Condition();
+    let result = await this.get_productClass({
+      app: this,
+      token: this.$store.state.other.token,
+      condition: null
+    });
+    this.class_list = result.data;
+  },
+  methods: {
+    // 初始
+    ...mapActions({
+      loading: "loading",
+      get_productClass: "product/get_productClass"
+    }),
+    async test() {}
   }
 };
 </script>

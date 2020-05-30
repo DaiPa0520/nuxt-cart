@@ -2,25 +2,34 @@
   <div>
     <Loading />
     <Headers />
-    <nuxt  data-aos="fade-up" data-aos-delay="300" />
+    <nuxt data-aos="fade-up" data-aos-delay="300" />
   </div>
 </template>
 <script>
 import { mapActions } from "vuex";
 export default {
-  transition: 'fadeOpacity',
+  transition: "fadeOpacity",
+  middleware: "auth",
   data() {
     return {};
+  },
+  // 監聽,當路由發生變化的時候執行
+  watch: {
+    $route(to, from) {
+      console.log(to.path);
+    }
   },
   methods: {
     // 初始
     ...mapActions({
-      _store: "_store",
-    }),
+      _store: "_store"
+    })
   },
   created() {
-    console.log(9999);
-    this._store({act:'set_loading',data:false})
+    // this._store({act:'set_loading',data:false})
+  },
+  destroyed() {
+
   }
 };
 </script>
@@ -43,11 +52,13 @@ html {
   box-sizing: border-box;
   margin: 0;
 }
-.fadeOpacity-enter-active, .fadeOpacity-leave-active {
-  transition: opacity .35s ease-out;
+.fadeOpacity-enter-active,
+.fadeOpacity-leave-active {
+  transition: opacity 0.35s ease-out;
 }
 
-.fadeOpacity-enter, .fadeOpacity-leave-active {
+.fadeOpacity-enter,
+.fadeOpacity-leave-active {
   opacity: 0;
 }
 </style>

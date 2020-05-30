@@ -11,7 +11,6 @@ export default function grpcFetch(method, metadata, req, callback) {
     bi.length % 256
   ])
   new Uint8Array(ib, 5).set(bi);
-  console.log('ib>>>>', ib)
 
   return fetch(`https://shop.4ding.site/ding4.ShopRPC/${method}`, {
     method: "POST",

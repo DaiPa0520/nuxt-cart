@@ -49,7 +49,6 @@ export default {
     after_change:{
       type: Function,
       default: function(v) {
-        console.log('funck',v)
         return false;
       }
     },

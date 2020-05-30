@@ -9,5 +9,7 @@
 
 
 export default {
-  
+  set_style(state, o) {
+    state.style = o
+  },
 }

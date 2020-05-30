@@ -79,23 +79,8 @@
         </button>
         <div class="navbar-collapse justify-content-center collapse" id="navbarNavDropdown">
           <ul class="navbar-nav">
-            <li class="nav-item">
-              <nuxt-link tag="a" class="nav-link" to="/collections">商品分類A</nuxt-link>
-            </li>
-            <li class="nav-item">
-              <nuxt-link tag="a" class="nav-link" to="/collections">商品分類B</nuxt-link>
-            </li>
-            <li class="nav-item">
-              <nuxt-link tag="a" class="nav-link" to="/collections">商品分類C</nuxt-link>
-            </li>
-            <li class="nav-item">
-              <nuxt-link tag="a" class="nav-link" to="/collections">商品分類D</nuxt-link>
-            </li>
-            <li class="nav-item">
-              <nuxt-link tag="a" class="nav-link" to="/collections">商品分類E</nuxt-link>
-            </li>
-            <li class="nav-item">
-              <nuxt-link tag="a" class="nav-link" to="/collections">商品分類F</nuxt-link>
+            <li class="nav-item" v-for="(item,i) in menu" >
+              <nuxt-link tag="a" class="nav-link" :to="`/class/${item.target.class}`">{{item.title}}</nuxt-link>
             </li>
           </ul>
         </div>
@@ -105,9 +90,14 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   data() {
     return {
+      menu:[
+
+      ],
       left: [
         { title: "優勢特色", link: "/home" },
         { title: "系統簡介", link: "/introduction" },
@@ -119,6 +109,14 @@ export default {
         // { title: "登入", link: "/login" }
       ]
     };
+  },
+  methods: {
+   ...mapGetters({
+      get_headers: "web/get_headers",
+    }),
+  },
+  created() {
+    this.menu = this.get_headers();
   }
 };
 </script>

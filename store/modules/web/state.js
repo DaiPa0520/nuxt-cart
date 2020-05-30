@@ -2,5 +2,5 @@
 
 export default {
   // 購物車
-  content:{},
+  style:[],
 }

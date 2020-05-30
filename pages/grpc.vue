@@ -24,9 +24,6 @@ export default {
     };
   },
   created() {
-    console.log(8888888888888);
-    // this.get_website()
-    // this.dd = this.$store.state.other.token
     this.loading(false);
   },
    async asyncData({ context, app, store }) {
@@ -93,7 +90,7 @@ export default {
   methods: {
     ...mapActions({
       loading: "loading",
-       get_website: "other/get_website",
+       get_website: "web/get_website",
 
     }),
     test: function() {

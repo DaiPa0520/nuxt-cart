@@ -3,7 +3,7 @@
     <section class="content">
       <div class="container">
         <!-- 麵包屑 -->
-        <Breadcrumb />
+        <Breadcrumb :data="page_info" />
       </div>
       <div class="container">
         <div class="row">
@@ -85,14 +85,12 @@
                     <ButtonSubAdd :count.sync="count" />
                   </div>
                   <div class="input-group">
-                    <button class="col-md-5 l-btn pick-btn btn-block mt-3" @click="cartJoin()" >
-                      加入購物車
-                    </button>
+                    <button class="col-md-5 l-btn pick-btn btn-block mt-3" @click="cartJoin()">加入購物車</button>
                     <!-- <nuxt-link
                       tag="button"
                       class="col-md-5 l-btn pick-btn btn-block mt-3"
                       :to="`/cart/${product_info.product_id}`"
-                    >加入購物車</nuxt-link> -->
+                    >加入購物車</nuxt-link>-->
                     <nuxt-link
                       tag="button"
                       class="col-md-5 l-btn checkout-btn mt-3 ml-3"
@@ -182,6 +180,7 @@ import { mapActions } from "vuex";
 export default {
   data() {
     return {
+      page_info: {},
       carousel: 0,
       product_info: {},
       // 所選擇的產品資訊
@@ -201,7 +200,18 @@ export default {
   },
   async asyncData({ context, app, store, route, redirect }) {
     if (typeof route.params.id !== "string") redirect.go(-1);
-    let data = {};
+    let data = {
+      page_info: { name: "熱門商品", key: "product", url: "/class/" }
+    };
+    // 首頁相關
+    // if (store.state.web.style.length === 0) {
+    await store.dispatch("web/get_website", {
+      app: app,
+      token: store.state.other.token,
+      condition: null
+    });
+    // }
+
     let cond = new app.sqlpb.Condition();
     cond.setF("product_id").setV(route.params.id);
     let result = await store.dispatch("product/get_product", {
@@ -210,10 +220,10 @@ export default {
       condition: cond
     });
     if (result.code === 200 && result.data.length > 0) {
-      data.product_info =  result.data.shift();
-      data.specx = Object.keys(data.product_info.specx)[0] ;
+      data.product_info = result.data.shift();
+      data.specx = Object.keys(data.product_info.specx)[0];
+      data.page_info.url += data.product_info.link.class_id;
     }
-    console.log('product_info>>',data)
     return data;
   },
   watch: {
@@ -223,29 +233,27 @@ export default {
     //相依的資料改變時才做計算方法
   },
 
-  created(){
-   
-      // var swiper = new Swiper('.carousel-indicators', {
-      //   slidesPerView: 4,
-      //   slidesPerGroup: 4,
-      //   loopFillGroupWithBlank: true,
-      //   preventClicks: false,
-      //   pagination: {
-      //     el: '.swiper-pagination',
-      //     clickable: true,
-      //   },
-      //   navigation: {
-      //     nextEl: '.swiper-button-next',
-      //     prevEl: '.swiper-button-prev',
-      //   },
-      // });
- 
+  created() {
+    // var swiper = new Swiper('.carousel-indicators', {
+    //   slidesPerView: 4,
+    //   slidesPerGroup: 4,
+    //   loopFillGroupWithBlank: true,
+    //   preventClicks: false,
+    //   pagination: {
+    //     el: '.swiper-pagination',
+    //     clickable: true,
+    //   },
+    //   navigation: {
+    //     nextEl: '.swiper-button-next',
+    //     prevEl: '.swiper-button-prev',
+    //   },
+    // });
   },
   methods: {
     // 初始
     ...mapActions({
       loading: "loading",
-      _store: "_store",
+      _store: "_store"
     }),
     // get 規格名稱
     specxName(data) {
@@ -255,15 +263,14 @@ export default {
       });
       return name;
     },
-    cartJoin(){
-      let data ={
-        normal:this.product_info.product_id,
-        sku:this.specx,
-        count:this.count
-      }
-      this._store({act:'cart/add_cart' ,data:data})
+    cartJoin() {
+      let data = {
+        normal: this.product_info.product_id,
+        sku: this.specx,
+        count: this.count
+      };
+      this._store({ act: "cart/add_cart", data: data });
     }
-
   },
   mounted: async function() {
     //元素已掛載， el 被建立。

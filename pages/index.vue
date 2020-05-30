@@ -1,6 +1,14 @@
 <template>
   <div id="page">
-    槓!!
+    <section class="content">
+      <div class="container">
+        <div v-for="(item,i) in layout">
+          {{item.type}}
+          <!-- <IndexLayout1  :res="item" /> -->
+          <component :is="'IndexLayout'+item.type" :res="item" ></component>
+        </div>
+      </div>
+    </section>
   </div>
 </template>
 
@@ -11,20 +19,25 @@ export default {
   data: function() {
     // 資料
     return {
-      product_list: [], //
+      layout: [], //
       dd: "123"
     };
   },
   async asyncData({ context, app, store }) {
-    let data = {} ;
+    let data = {
+      layout:[]
+    };
+    // 首頁相關
     let result = await store.dispatch("web/get_website", {
       app: app,
       token: store.state.other.token,
       condition: null
     });
-    console.log(store.state.other.token)
-    if(result.code === 200) data.product_list = result.data
-
+    if(result.data.length !== 0){
+       data.layout = result.data[0].layout;
+    }
+  
+   console.log("result>>>>>",result.data)
     return data;
   },
   async fetch({ store, $axios, app }) {},
@@ -49,9 +62,16 @@ export default {
   beforeCreate: function() {
     //實體初始化
   },
-  created: function() {
+   created:async function() {
     //實體建立完成。資料 data 已可取得，但 el 屬性還未被建立。
     this.loading(true);
+ 
+    //  let result = await this.$store.dispatch("web/get_website", {
+    //   app: this,
+    //   token: this.$store.state.other.token,
+    //   condition: null
+    // });
+      //  console.log(result);
   },
   beforeMount: function() {
     //執行元素掛載之前。
@@ -77,5 +97,4 @@ export default {
 </script>
 
 <style >
-
 </style>
