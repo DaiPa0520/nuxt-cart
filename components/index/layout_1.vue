@@ -1,7 +1,7 @@
 <template>
   <section class="banner">
     <div class="banner d-flex justify-content-center align-items-center">
-      <img class="w-100" :src="res.image[0].src" alt data-aos="zoom-in" />
+      <img class="w-100" :src="item.image[0].src" alt data-aos="zoom-in" />
       <!-- 123 -->
     </div>
   </section>
@@ -13,7 +13,7 @@ export default {
   name: "",
   props: {
     // 父組件來源
-    res: {
+    item: {
       type: Object,
       default: function() {
         return {};
@@ -22,7 +22,7 @@ export default {
   },
    data() {
     return {
-      _:this.res,
+      _:this.item,
     }
   },
   created(){

@@ -1,13 +1,11 @@
 <template>
   <div id="page">
     <section class="content">
-      <div class="container">
+      <!-- <div class="container"> -->
         <div v-for="(item,i) in layout">
-          {{item.type}}
-          <!-- <IndexLayout1  :res="item" /> -->
-          <component :is="'IndexLayout'+item.type" :res="item" ></component>
+          <component :is="'IndexLayout'+item.type" :item="item" ></component>
         </div>
-      </div>
+      <!-- </div> -->
     </section>
   </div>
 </template>
@@ -23,6 +21,8 @@ export default {
       dd: "123"
     };
   },
+
+  
   async asyncData({ context, app, store }) {
     let data = {
       layout:[]

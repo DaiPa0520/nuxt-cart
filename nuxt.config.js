@@ -36,6 +36,7 @@ export default {
     '~/assets/css/aos.css',
     '~/assets/css/style.scss',
     '~/assets/layout.scss',
+    '~/assets/transition.css'
   ],
   /*
   ** Plugins to load before mounting the App
