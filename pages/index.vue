@@ -1,10 +1,8 @@
 <template>
   <div id="page">
     <section class="content">
-    
       <div v-for="(item,i) in layout">
         <component :is="'IndexLayout'+item.type" :item.sync="item"></component>
-          -----------------------------------
       </div>
     </section>
   </div>
@@ -34,7 +32,7 @@ export default {
     });
     if (result.data.length !== 0) {
       // 搜尋該分類的產品列表
-      let res = await store.dispatch("ssr/test", {
+      let res = await store.dispatch("ssr/init_layout", {
         layout: result.data[0].layout , 
         app: app,
         store:store
@@ -62,7 +60,7 @@ export default {
       set_product_list: "product/set_product_list"
     }),
     async test() {
-      console.log("testttt");
+      
     }
   },
   //BEGIN--生命週期
@@ -73,15 +71,9 @@ export default {
     //實體建立完成。資料 data 已可取得，但 el 屬性還未被建立。
     this.loading(true);
 
-    //  let result = await this.$store.dispatch("web/get_website", {
-    //   app: this,
-    //   token: this.$store.state.other.token,
-    //   condition: null
-    // });
-    // if (result.data.length !== 0) {
-    //   this.layout = result.data[0].layout;
-    // }
-    // console.log("CSR>>>>>", result.data);
+    for(var i = 0 ; i < 3 ; i++){
+
+    }
   },
   beforeMount: function() {
     //執行元素掛載之前。

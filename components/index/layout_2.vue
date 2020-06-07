@@ -1,6 +1,5 @@
 <template>
   <section class="container">
-    {{item}}
     <!-- todo 寬1200*600 -->
     <div id="carousel_pic" class="carousel slide">
       <ol class="carousel-indicators">
