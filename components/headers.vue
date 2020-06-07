@@ -6,6 +6,9 @@
         <div class="navbar-collapse justify-content-end collapse">
           <ul class="navbar-nav">
             <li class="nav-item">
+              <nuxt-link tag="a" class="nav-link" to="/test">test</nuxt-link>
+            </li>
+            <li class="nav-item">
               <a class="nav-link" href="#">登入會員</a>
             </li>
             <li class="nav-item">
@@ -79,7 +82,7 @@
         </button>
         <div class="navbar-collapse justify-content-center collapse" id="navbarNavDropdown">
           <ul class="navbar-nav">
-            <li class="nav-item" v-for="(item,i) in menu" >
+            <li class="nav-item" v-for="(item,i) in menu">
               <nuxt-link tag="a" class="nav-link" :to="`/class/${item.target.class}`">{{item.title}}</nuxt-link>
             </li>
           </ul>
@@ -95,9 +98,7 @@ import { mapGetters } from "vuex";
 export default {
   data() {
     return {
-      menu:[
-
-      ],
+      menu: [],
       left: [
         { title: "優勢特色", link: "/home" },
         { title: "系統簡介", link: "/introduction" },
@@ -110,10 +111,17 @@ export default {
       ]
     };
   },
+  // 監聽,當路由發生變化的時候執行
+  watch: {
+    "$store.state.web.style"(status) {
+      console.log("watch header")
+      this.menu = this.get_headers();
+    }
+  },
   methods: {
-   ...mapGetters({
-      get_headers: "web/get_headers",
-    }),
+    ...mapGetters({
+      get_headers: "web/get_headers"
+    })
   },
   created() {
     this.menu = this.get_headers();

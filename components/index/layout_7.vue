@@ -1,19 +1,37 @@
 <template>
-  <div>777</div>
+  <div class="container d-flex flex-wrap">
+    <div   v-for="( data , i ) in item.image" class="card col-lg-3 col-md-3 col-xs-6 p-2">
+      <div class="product">
+        <img
+          class="card-img-top"
+          :src="IMG_URL+data.src" 
+        />
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
-
 export default {
   name: "",
   props: {
     // 父組件來源
-    res: {
+    item: {
       type: Object,
       default: function() {
-        return {};
+        return {
+        };
       }
-    },
+    }
+  },
+  data() {
+    return {
+      _: this.item,
+      IMG_URL:process.env.IMG_URL
+    };
+  },
+  created() {
+
   }
-}
+};
 </script>

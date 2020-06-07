@@ -1,12 +1,6 @@
 <template>
   <div id="page">
-    <section class="content">
-    
-      <div v-for="(item,i) in layout">
-        <component :is="'IndexLayout'+item.type" :item.sync="item"></component>
-          -----------------------------------
-      </div>
-    </section>
+    asdsad
   </div>
 </template>
 
@@ -23,27 +17,9 @@ export default {
   },
 
   async asyncData({ context, app, store }) {
-    let data = {
-      layout: []
-    };
-    // 首頁相關
-    let result = await store.dispatch("web/get_website", {
-      app: app,
-      token: store.state.other.token,
-      condition: null
-    });
-    if (result.data.length !== 0) {
-      // 搜尋該分類的產品列表
-      let res = await store.dispatch("ssr/test", {
-        layout: result.data[0].layout , 
-        app: app,
-        store:store
-      });
-      data.layout = res ;
-    }
+    
 
-    console.log("SSR>>>>>", data);
-    return data;
+    console.log("test>>>>>");
   },
   async fetch({ store, $axios, app }) {},
   watch: {
@@ -73,15 +49,6 @@ export default {
     //實體建立完成。資料 data 已可取得，但 el 屬性還未被建立。
     this.loading(true);
 
-    //  let result = await this.$store.dispatch("web/get_website", {
-    //   app: this,
-    //   token: this.$store.state.other.token,
-    //   condition: null
-    // });
-    // if (result.data.length !== 0) {
-    //   this.layout = result.data[0].layout;
-    // }
-    // console.log("CSR>>>>>", result.data);
   },
   beforeMount: function() {
     //執行元素掛載之前。

@@ -17,7 +17,7 @@ export default {
   watch: {
     $route(to, from) {
       console.log(to.path);
-    }
+    },
   },
   methods: {
     // 初始
@@ -28,9 +28,7 @@ export default {
   created() {
     // this._store({act:'set_loading',data:false})
   },
-  destroyed() {
-
-  }
+  destroyed() {}
 };
 </script>
 <style>

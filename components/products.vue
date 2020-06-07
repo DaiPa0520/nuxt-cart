@@ -3,7 +3,7 @@
     <div class="product">
       <nuxt-link
         tag="img"
-        :src="imgesUrl+data.photox[0].src"
+        :src="IMG_URL+data.photox[0].src"
         class="card-img-top"
         :to="'/product/'+data.product_id"
       ></nuxt-link>
@@ -48,7 +48,7 @@ export default {
   },
   data() {
     return {
-     imgesUrl:process.env.IMG_URL
+     IMG_URL:process.env.IMG_URL
     };
   },
   methods: {

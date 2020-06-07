@@ -1,21 +1,13 @@
 <template>
   <div class="container">
+    <!-- 600*600 -->
     <section class="pt-5 pb-5">
       <div class="w-100 align-items-center d-flex column">
-        <div class="pb-3 col-md-6">
-          <img class="w-100" src="~/assets/images/01.png" alt />
+        <div class="pb-3 col-md-8">
+          <img class="w-100" v-for="( data , i ) in item.image" :src="IMG_URL+data.src" :alt="data.alt" />
         </div>
-        <div class="text-left col-md-6">
-          <h4>多商店行銷</h4>
-          <h6>
-            想多開幾種商店?
-            <br />想多開幾個商店?
-            <br />隨意～
-          </h6>
-          <p>
-            一頁式購物或是品牌網站數量無上限
-            <br />除了各商店後台，還有總後台讓你掌握所有商店通路
-          </p>
+        <div class="text-left col-md-4">
+          <p v-html="item.content"></p>
         </div>
       </div>
     </section>
@@ -30,9 +22,16 @@ export default {
     item: {
       type: Object,
       default: function() {
-        return {};
+        return {
+        };
       }
     }
-  }
+  },
+  data() {
+    return {
+      _: this.item,
+      IMG_URL:process.env.IMG_URL
+    };
+  },
 };
 </script>

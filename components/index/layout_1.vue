@@ -1,14 +1,20 @@
 <template>
-  <section class="banner">
-    <div class="banner d-flex justify-content-center align-items-center">
-      <img class="w-100" :src="item.image[0].src" alt data-aos="zoom-in" />
-      <!-- 123 -->
+  <section>
+    <div id="BannerAd" class="carousel slide" data-ride="carousel">
+      <div class="carousel-inner">
+        <div
+          v-for="( data , i ) in item.image"
+          class="carousel-item"
+          :class="{'active': i == selected }"
+        >
+          <img :src="IMG_URL+data.src" class="d-block w-100" :alt="data.alt" />
+        </div>
+      </div>
     </div>
   </section>
 </template>
 
 <script>
-
 export default {
   name: "",
   props: {
@@ -18,15 +24,31 @@ export default {
       default: function() {
         return {};
       }
-    },
-  },
-   data() {
-    return {
-      _:this.item,
     }
   },
-  created(){
-    // console.log(this.data)
+  data() {
+    return {
+      _: this.item,
+      selected: 0,
+      IMG_URL:process.env.IMG_URL
+    };
+  },
+  methods: {
+    // 初始
+    // 輪播開始
+    run_carousel() {
+      setTimeout(() => {
+        if (this.item.image.length == 1) return;
+
+        this.selected =
+          this.item.image.length == this.selected + 1 ? 0 : this.selected + 1;
+        this.run_carousel();
+      }, 5000);
+    }
+  },
+
+  created() {
+    // this.run_carousel();
   }
-}
+};
 </script>
