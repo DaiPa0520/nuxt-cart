@@ -1,6 +1,7 @@
 <template>
   <div id="page">
     asdsad
+    <button @click="test()" >AAAAAAAAA</button>
   </div>
 </template>
 
@@ -39,6 +40,12 @@ export default {
     }),
     async test() {
       console.log("testttt");
+       const token = await this.$axios.$get('http://localhost/api/list.php')
+    .then((response) => {
+      console.log("response.headers",response.headers);
+      console.log("response",response);
+    });
+    return token;
     }
   },
   //BEGIN--生命週期

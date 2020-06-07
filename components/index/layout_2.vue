@@ -1,10 +1,10 @@
 <template>
   <section class="container">
     <!-- todo 寬1200*600 -->
-    <div id="carousel_pic" class="carousel slide">
+    <div id="bannerAds" class="carousel slide">
       <ol class="carousel-indicators">
         <li
-          data-target="#carousel_pic"
+          data-target="#bannerAds"
           v-for="( data , i ) in item.prod"
           :data-slide-to="i"
           :class="{'active': i == selected }"
@@ -20,11 +20,11 @@
           <!-- <img :src="IMG_URL+data.photox[0].src" class="d-block w-100" :alt="data.alt" /> -->
         </div>
       </div>
-      <a class="carousel-control-prev" href="#carousel_pic" role="button" data-slide="prev">
+      <a class="carousel-control-prev" href="#bannerAds" role="button" data-slide="prev">
         <span class="carousel-control-prev-icon"></span>
         <span class="sr-only">Previous</span>
       </a>
-      <a class="carousel-control-next" href="#carousel_pic" role="button" data-slide="next">
+      <a class="carousel-control-next" href="#bannerAds" role="button" data-slide="next">
         <span class="carousel-control-next-icon"></span>
         <span class="sr-only">Next</span>
       </a>

@@ -11,10 +11,9 @@ export default {
     let product = await app.grpcAxios(app.$axios,method, metadata, req, (err, resp) => {
       const data = app.sqlpb.Response.deserializeBinary(resp);
       // todo:錯誤時候會跑兩次!?
-      if (err !== null) {
+      if (err !== null || data.getCode() != 0) {
         return { code: 0, data: err };
       }
-      // store.commit("other/set_test", data.getResult().toJavaScript());
       return { code: 200, data: data.getResult().toJavaScript() };
     });
 

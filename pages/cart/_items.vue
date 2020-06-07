@@ -165,14 +165,15 @@ export default {
     }),
     async test() {
       let data = {};
-      // let cart = JSON.parse(localStorage.getItem('cart'))
-      // let cond = Struct.fromJavaScript({
-      //   commodity: _values(cart)
-      // });
+      let cart = JSON.parse(localStorage.getItem('cart'))
+      let cond = Struct.fromJavaScript({
+        commodity: _values(cart)
+      });
+      console.log("commodity>>>",cond)
       let result = await this.$store.dispatch("cart/get_completeCar", {
         app: this,
         token: this.$store.state.other.token,
-        condition: null
+        condition: cond
       });
       console.log("result>>>",result)
       if (result.code === 200) {
