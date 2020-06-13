@@ -85,8 +85,8 @@ proto.ding4.Website.toObject = function(includeInstance, msg) {
   var f, obj = {
     storeId: jspb.Message.getFieldWithDefault(msg, 1, ""),
     style: jspb.Message.getFieldWithDefault(msg, 2, 0),
-    logo: jspb.Message.getFieldWithDefault(msg, 3, ""),
-    favicon: jspb.Message.getFieldWithDefault(msg, 4, ""),
+    logo: (f = msg.getLogo()) && a$submessage_pb.Image.toObject(includeInstance, f),
+    favicon: (f = msg.getFavicon()) && a$submessage_pb.Image.toObject(includeInstance, f),
     seo: (f = msg.getSeo()) && seo_pb.SEO.toObject(includeInstance, f),
     menuList: jspb.Message.toObjectList(msg.getMenuList(),
     a$submessage_pb.Layout.toObject, includeInstance),
@@ -147,11 +147,13 @@ proto.ding4.Website.deserializeBinaryFromReader = function(msg, reader) {
       msg.setStyle(value);
       break;
     case 3:
-      var value = /** @type {string} */ (reader.readString());
+      var value = new a$submessage_pb.Image;
+      reader.readMessage(value,a$submessage_pb.Image.deserializeBinaryFromReader);
       msg.setLogo(value);
       break;
     case 4:
-      var value = /** @type {string} */ (reader.readString());
+      var value = new a$submessage_pb.Image;
+      reader.readMessage(value,a$submessage_pb.Image.deserializeBinaryFromReader);
       msg.setFavicon(value);
       break;
     case 5:
@@ -252,17 +254,19 @@ proto.ding4.Website.serializeBinaryToWriter = function(message, writer) {
     );
   }
   f = message.getLogo();
-  if (f.length > 0) {
-    writer.writeString(
+  if (f != null) {
+    writer.writeMessage(
       3,
-      f
+      f,
+      a$submessage_pb.Image.serializeBinaryToWriter
     );
   }
   f = message.getFavicon();
-  if (f.length > 0) {
-    writer.writeString(
+  if (f != null) {
+    writer.writeMessage(
       4,
-      f
+      f,
+      a$submessage_pb.Image.serializeBinaryToWriter
     );
   }
   f = message.getSeo();
@@ -387,38 +391,76 @@ proto.ding4.Website.prototype.setStyle = function(value) {
 
 
 /**
- * optional string logo = 3;
- * @return {string}
+ * optional Image logo = 3;
+ * @return {?proto.ding4.Image}
  */
 proto.ding4.Website.prototype.getLogo = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
+  return /** @type{?proto.ding4.Image} */ (
+    jspb.Message.getWrapperField(this, a$submessage_pb.Image, 3));
 };
 
 
 /**
- * @param {string} value
+ * @param {?proto.ding4.Image|undefined} value
+ * @return {!proto.ding4.Website} returns this
+*/
+proto.ding4.Website.prototype.setLogo = function(value) {
+  return jspb.Message.setWrapperField(this, 3, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
  * @return {!proto.ding4.Website} returns this
  */
-proto.ding4.Website.prototype.setLogo = function(value) {
-  return jspb.Message.setProto3StringField(this, 3, value);
+proto.ding4.Website.prototype.clearLogo = function() {
+  return this.setLogo(undefined);
 };
 
 
 /**
- * optional string favicon = 4;
- * @return {string}
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.ding4.Website.prototype.hasLogo = function() {
+  return jspb.Message.getField(this, 3) != null;
+};
+
+
+/**
+ * optional Image favicon = 4;
+ * @return {?proto.ding4.Image}
  */
 proto.ding4.Website.prototype.getFavicon = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
+  return /** @type{?proto.ding4.Image} */ (
+    jspb.Message.getWrapperField(this, a$submessage_pb.Image, 4));
 };
 
 
 /**
- * @param {string} value
+ * @param {?proto.ding4.Image|undefined} value
+ * @return {!proto.ding4.Website} returns this
+*/
+proto.ding4.Website.prototype.setFavicon = function(value) {
+  return jspb.Message.setWrapperField(this, 4, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
  * @return {!proto.ding4.Website} returns this
  */
-proto.ding4.Website.prototype.setFavicon = function(value) {
-  return jspb.Message.setProto3StringField(this, 4, value);
+proto.ding4.Website.prototype.clearFavicon = function() {
+  return this.setFavicon(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.ding4.Website.prototype.hasFavicon = function() {
+  return jspb.Message.getField(this, 4) != null;
 };
 
 

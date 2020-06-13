@@ -12,6 +12,9 @@ export class Activity extends jspb.Message {
   getStoreId(): string;
   setStoreId(value: string): void;
 
+  getType(): number;
+  setType(value: number): void;
+
   getBeginAt(): google_protobuf_timestamp_pb.Timestamp | undefined;
   setBeginAt(value?: google_protobuf_timestamp_pb.Timestamp): void;
   hasBeginAt(): boolean;
@@ -96,6 +99,7 @@ export namespace Activity {
   export type AsObject = {
     activityId: string,
     storeId: string,
+    type: number,
     beginAt?: google_protobuf_timestamp_pb.Timestamp.AsObject,
     endAt?: google_protobuf_timestamp_pb.Timestamp.AsObject,
     name?: google_protobuf_struct_pb.Value.AsObject,

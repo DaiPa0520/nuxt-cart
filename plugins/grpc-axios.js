@@ -24,10 +24,8 @@ export default function grpcAxios(axios, method, metadata, req, callback) {
     new Uint8Array(ib),
     config
   ).then(buff => {
-    console.log("then>>>>", buff.slice(5))
     return callback(null, buff.slice(5));
   }).catch((err) => {
-    console.log("catch>>>>", err)
     return { err: err }
   });
 

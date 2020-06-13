@@ -1,13 +1,12 @@
 import * as jspb from "google-protobuf"
 
 import * as sql_pb from './sql_pb';
-import * as customer_pb from './customer_pb';
 import * as google_protobuf_struct_pb from 'google-protobuf/google/protobuf/struct_pb';
 import * as google_protobuf_timestamp_pb from 'google-protobuf/google/protobuf/timestamp_pb';
 
-export class CustomerLevel extends jspb.Message {
-  getLevelId(): string;
-  setLevelId(value: string): void;
+export class Seller extends jspb.Message {
+  getSellerId(): string;
+  setSellerId(value: string): void;
 
   getStoreId(): string;
   setStoreId(value: string): void;
@@ -15,31 +14,17 @@ export class CustomerLevel extends jspb.Message {
   getStatus(): number;
   setStatus(value: number): void;
 
+  getPhone(): string;
+  setPhone(value: string): void;
+
+  getEmail(): string;
+  setEmail(value: string): void;
+
   getName(): string;
   setName(value: string): void;
 
-  getLevel(): number;
-  setLevel(value: number): void;
-
-  getPayOnce(): number;
-  setPayOnce(value: number): void;
-
-  getPayAmount(): number;
-  setPayAmount(value: number): void;
-
-  getPayTimes(): number;
-  setPayTimes(value: number): void;
-
-  getIsAuto(): boolean;
-  setIsAuto(value: boolean): void;
-
-  getPriority(): number;
-  setPriority(value: number): void;
-
-  getCustomerList(): Array<customer_pb.Customer>;
-  setCustomerList(value: Array<customer_pb.Customer>): void;
-  clearCustomerList(): void;
-  addCustomer(value?: customer_pb.Customer, index?: number): customer_pb.Customer;
+  getPassword(): string;
+  setPassword(value: string): void;
 
   getLabelxMap(): jspb.Map<string, number>;
   clearLabelxMap(): void;
@@ -73,26 +58,22 @@ export class CustomerLevel extends jspb.Message {
   clearSelf(): void;
 
   serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): CustomerLevel.AsObject;
-  static toObject(includeInstance: boolean, msg: CustomerLevel): CustomerLevel.AsObject;
-  static serializeBinaryToWriter(message: CustomerLevel, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): CustomerLevel;
-  static deserializeBinaryFromReader(message: CustomerLevel, reader: jspb.BinaryReader): CustomerLevel;
+  toObject(includeInstance?: boolean): Seller.AsObject;
+  static toObject(includeInstance: boolean, msg: Seller): Seller.AsObject;
+  static serializeBinaryToWriter(message: Seller, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): Seller;
+  static deserializeBinaryFromReader(message: Seller, reader: jspb.BinaryReader): Seller;
 }
 
-export namespace CustomerLevel {
+export namespace Seller {
   export type AsObject = {
-    levelId: string,
+    sellerId: string,
     storeId: string,
     status: number,
+    phone: string,
+    email: string,
     name: string,
-    level: number,
-    payOnce: number,
-    payAmount: number,
-    payTimes: number,
-    isAuto: boolean,
-    priority: number,
-    customerList: Array<customer_pb.Customer.AsObject>,
+    password: string,
     labelxMap: Array<[string, number]>,
     operator: string,
     createAt?: google_protobuf_timestamp_pb.Timestamp.AsObject,

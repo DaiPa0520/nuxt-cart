@@ -135,20 +135,7 @@ export default {
   async asyncData({ context, app, store, route }) {
     // todo:拉到store去
     let data = {imgesUrl:process.env.IMG_URL};
-    // let cond = Struct.fromJavaScript({
-    //   commodity: _values(store.state.cart.content)
-    // });
-    // let result = await store.dispatch("cart/get_completeCar", {
-    //   app: app,
-    //   token: store.state.other.token,
-    //   condition: cond
-    // });
-    // console.log(store.state.cart.content);
-    // if (result.code === 200) {
-    //   data.commodity = result.data.commodity;
-    //   data.activity = result.data.activity;
-    // }
-    // console.log("===>>", result);
+
     return data;
   },
   watch: {
@@ -161,6 +148,7 @@ export default {
     // 初始
     ...mapActions({
       loading: "loading",
+      get_findCar:"cart/get_findCar",
       _store: "_store"
     }),
     async test() {
@@ -169,13 +157,12 @@ export default {
       let cond = Struct.fromJavaScript({
         commodity: _values(cart)
       });
-      console.log("commodity>>>",cond)
+
       let result = await this.$store.dispatch("cart/get_completeCar", {
         app: this,
         token: this.$store.state.other.token,
         condition: cond
       });
-      console.log("result>>>",result)
       if (result.code === 200) {
         this.commodity = result.data.commodity;
         this.activity = result.data.activity;
@@ -184,6 +171,10 @@ export default {
     // 更新購物車
     async add_cart(o) {
       this._store({ act: "cart/set_one_cart", data: o });
+    },
+    async del_cart(i) {
+      this._store({ act: "cart/del_cart", data: this.commodity[i] });
+      this.commodity.splice(i, 1);
     },
     async del_cart(i) {
       this._store({ act: "cart/del_cart", data: this.commodity[i] });
@@ -200,10 +191,11 @@ export default {
   beforeMount: function() {
     //執行元素掛載之前。
   },
-  mounted: function() {
+  mounted:async function() {
     //元素已掛載， el 被建立。
     this.loading(false);
-    this.test()
+    await this.test()
+    let a = this.get_findCar({token:this.$store.state.other.token})
   },
   beforeUpdate: function() {
     //當資料變化時被呼叫，還不會描繪 View。

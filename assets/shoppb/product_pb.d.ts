@@ -2,6 +2,7 @@ import * as jspb from "google-protobuf"
 
 import * as seo_pb from './seo_pb';
 import * as sql_pb from './sql_pb';
+import * as a$submessage_pb from './a-submessage_pb';
 import * as google_protobuf_struct_pb from 'google-protobuf/google/protobuf/struct_pb';
 import * as google_protobuf_timestamp_pb from 'google-protobuf/google/protobuf/timestamp_pb';
 
@@ -32,6 +33,9 @@ export class Product extends jspb.Message {
   getWeight(): number;
   setWeight(value: number): void;
 
+  getVolume(): number;
+  setVolume(value: number): void;
+
   getIsPreorder(): boolean;
   setIsPreorder(value: boolean): void;
 
@@ -44,10 +48,10 @@ export class Product extends jspb.Message {
   getSpecxMap(): jspb.Map<string, Spec>;
   clearSpecxMap(): void;
 
-  getPhotoxList(): Array<string>;
-  setPhotoxList(value: Array<string>): void;
+  getPhotoxList(): Array<a$submessage_pb.Image>;
+  setPhotoxList(value: Array<a$submessage_pb.Image>): void;
   clearPhotoxList(): void;
-  addPhotox(value: string, index?: number): void;
+  addPhotox(value?: a$submessage_pb.Image, index?: number): a$submessage_pb.Image;
 
   getLink(): ProductLink | undefined;
   setLink(value?: ProductLink): void;
@@ -103,11 +107,12 @@ export namespace Product {
     price: number,
     reduce: number,
     weight: number,
+    volume: number,
     isPreorder: boolean,
     isPickup: boolean,
     isLinked: boolean,
     specxMap: Array<[string, Spec.AsObject]>,
-    photoxList: Array<string>,
+    photoxList: Array<a$submessage_pb.Image.AsObject>,
     link?: ProductLink.AsObject,
     labelxMap: Array<[string, number]>,
     operator: string,
@@ -137,8 +142,10 @@ export class Spec extends jspb.Message {
   clearItemxList(): void;
   addItemx(value?: google_protobuf_struct_pb.Value, index?: number): google_protobuf_struct_pb.Value;
 
-  getPhoto(): string;
-  setPhoto(value: string): void;
+  getPhoto(): a$submessage_pb.Image | undefined;
+  setPhoto(value?: a$submessage_pb.Image): void;
+  hasPhoto(): boolean;
+  clearPhoto(): void;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): Spec.AsObject;
@@ -155,14 +162,11 @@ export namespace Spec {
     stock: number,
     sold: number,
     itemxList: Array<google_protobuf_struct_pb.Value.AsObject>,
-    photo: string,
+    photo?: a$submessage_pb.Image.AsObject,
   }
 }
 
 export class ProductLink extends jspb.Message {
-  getProductId(): string;
-  setProductId(value: string): void;
-
   getClassId(): string;
   setClassId(value: string): void;
 
@@ -185,11 +189,6 @@ export class ProductLink extends jspb.Message {
   clearBlockList(): void;
   addBlock(value?: seo_pb.Block, index?: number): seo_pb.Block;
 
-  getSelf(): google_protobuf_struct_pb.Struct | undefined;
-  setSelf(value?: google_protobuf_struct_pb.Struct): void;
-  hasSelf(): boolean;
-  clearSelf(): void;
-
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): ProductLink.AsObject;
   static toObject(includeInstance: boolean, msg: ProductLink): ProductLink.AsObject;
@@ -200,14 +199,12 @@ export class ProductLink extends jspb.Message {
 
 export namespace ProductLink {
   export type AsObject = {
-    productId: string,
     classId: string,
     isDisplay: boolean,
     url: string,
     freightAdd: number,
     seo?: seo_pb.SEO.AsObject,
     blockList: Array<seo_pb.Block.AsObject>,
-    self?: google_protobuf_struct_pb.Struct.AsObject,
   }
 }
 

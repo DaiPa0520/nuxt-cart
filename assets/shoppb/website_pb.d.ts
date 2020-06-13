@@ -13,11 +13,15 @@ export class Website extends jspb.Message {
   getStyle(): number;
   setStyle(value: number): void;
 
-  getLogo(): string;
-  setLogo(value: string): void;
+  getLogo(): a$submessage_pb.Image | undefined;
+  setLogo(value?: a$submessage_pb.Image): void;
+  hasLogo(): boolean;
+  clearLogo(): void;
 
-  getFavicon(): string;
-  setFavicon(value: string): void;
+  getFavicon(): a$submessage_pb.Image | undefined;
+  setFavicon(value?: a$submessage_pb.Image): void;
+  hasFavicon(): boolean;
+  clearFavicon(): void;
 
   getSeo(): seo_pb.SEO | undefined;
   setSeo(value?: seo_pb.SEO): void;
@@ -82,8 +86,8 @@ export namespace Website {
   export type AsObject = {
     storeId: string,
     style: number,
-    logo: string,
-    favicon: string,
+    logo?: a$submessage_pb.Image.AsObject,
+    favicon?: a$submessage_pb.Image.AsObject,
     seo?: seo_pb.SEO.AsObject,
     menuList: Array<a$submessage_pb.Layout.AsObject>,
     footerList: Array<a$submessage_pb.Layout.AsObject>,

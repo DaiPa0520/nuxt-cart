@@ -4,6 +4,8 @@ export default {
     async nuxtServerInit({ commit , dispatch, app }, { req }) {
         let token = await dispatch("other/get_token");
         commit("other/set_token",token)
+//         let ss = await dispatch("cart/get_findCar",{token:token });
+// console.log("ss>>>>",ss)
     },
     loading(context, o) {
         context.commit("set_loading", o);

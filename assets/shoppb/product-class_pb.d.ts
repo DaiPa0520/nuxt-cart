@@ -2,6 +2,7 @@ import * as jspb from "google-protobuf"
 
 import * as seo_pb from './seo_pb';
 import * as sql_pb from './sql_pb';
+import * as a$submessage_pb from './a-submessage_pb';
 import * as product_pb from './product_pb';
 import * as google_protobuf_struct_pb from 'google-protobuf/google/protobuf/struct_pb';
 import * as google_protobuf_timestamp_pb from 'google-protobuf/google/protobuf/timestamp_pb';
@@ -26,8 +27,10 @@ export class ProductClass extends jspb.Message {
   hasSeo(): boolean;
   clearSeo(): void;
 
-  getPhoto(): string;
-  setPhoto(value: string): void;
+  getPhoto(): a$submessage_pb.Image | undefined;
+  setPhoto(value?: a$submessage_pb.Image): void;
+  hasPhoto(): boolean;
+  clearPhoto(): void;
 
   getProductList(): Array<product_pb.Product>;
   setProductList(value: Array<product_pb.Product>): void;
@@ -80,7 +83,7 @@ export namespace ProductClass {
     path: string,
     name?: google_protobuf_struct_pb.Value.AsObject,
     seo?: seo_pb.SEO.AsObject,
-    photo: string,
+    photo?: a$submessage_pb.Image.AsObject,
     productList: Array<product_pb.Product.AsObject>,
     labelxMap: Array<[string, number]>,
     operator: string,

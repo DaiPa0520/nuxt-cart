@@ -119,7 +119,7 @@
                 :class="{'active show':i==0}"
                 :id="'tab_'+i"
                 role="tabpanel"
-              >{{item.content.tw}}</div>
+              >{{item.title.tw}}</div>
             </div>
             <!-- 瀏覽器紀錄 -->
             <div class="history p-2">瀏覽紀錄</div>
@@ -220,10 +220,11 @@ export default {
       condition: cond
     });
     if (result.code === 200 && result.data.length > 0) {
-      data.product_info = result.data.shift();
+      data.product_info = result.data.shift();  
       data.specx = Object.keys(data.product_info.specx)[0];
       data.page_info.url += data.product_info.link.class_id;
     }
+   
     return data;
   },
   watch: {
@@ -234,25 +235,15 @@ export default {
   },
 
   created() {
-    // var swiper = new Swiper('.carousel-indicators', {
-    //   slidesPerView: 4,
-    //   slidesPerGroup: 4,
-    //   loopFillGroupWithBlank: true,
-    //   preventClicks: false,
-    //   pagination: {
-    //     el: '.swiper-pagination',
-    //     clickable: true,
-    //   },
-    //   navigation: {
-    //     nextEl: '.swiper-button-next',
-    //     prevEl: '.swiper-button-prev',
-    //   },
-    // });
+
+    console.log("~~~",this.product_info.link)
+    
   },
   methods: {
     // 初始
     ...mapActions({
       loading: "loading",
+      get_template:"other/get_template",
       _store: "_store"
     }),
     // get 規格名稱
@@ -270,11 +261,13 @@ export default {
         count: this.count
       };
       this._store({ act: "cart/add_cart", data: data });
-    }
+    },
+
   },
   mounted: async function() {
     //元素已掛載， el 被建立。
     this.loading(false);
+    this.get_template('/Csp7Vk3EPg/template/yXxbn5AMuA')
   }
 };
 </script>

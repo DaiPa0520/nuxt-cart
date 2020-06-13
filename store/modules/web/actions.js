@@ -12,6 +12,7 @@ export default {
       if (err !== null) {
         return { code: 0, data: err };
       }
+     
       const data = app.sqlpb.Response.deserializeBinary(resp);
       context.commit("set_style", data.getResult().toJavaScript());
       return { code: 200, data: data.getResult().toJavaScript() };

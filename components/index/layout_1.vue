@@ -7,7 +7,7 @@
           class="carousel-item"
           :class="{'active': i == selected }"
         >
-          <img :src="IMG_URL+data.src" class="d-block w-100" :alt="data.alt" />
+          <img :src="IMG_URL+data.src" class :alt="data.alt" />
         </div>
       </div>
     </div>
@@ -30,7 +30,7 @@ export default {
     return {
       _: this.item,
       selected: 0,
-      IMG_URL:process.env.IMG_URL
+      IMG_URL: process.env.IMG_URL
     };
   },
   methods: {
@@ -52,3 +52,17 @@ export default {
   }
 };
 </script>
+<style lang="scss" scoped>
+.carousel-item{
+  display: flex;
+  width: 1200px;
+  height: 300px;
+}
+img {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  margin:auto;
+}
+</style>

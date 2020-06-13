@@ -12,6 +12,8 @@ var jspb = require('google-protobuf');
 var goog = jspb;
 var global = Function('return this')();
 
+var pingpong_pb = require('./pingpong_pb.js');
+goog.object.extend(proto, pingpong_pb);
 var sql_pb = require('./sql_pb.js');
 goog.object.extend(proto, sql_pb);
 var customer_pb = require('./customer_pb.js');
