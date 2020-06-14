@@ -55,7 +55,7 @@ export default {
 <style lang="scss" scoped>
 .carousel-item{
   display: flex;
-  width: 1200px;
+  width: 100%;
   height: 300px;
 }
 img {

@@ -13,10 +13,11 @@
       <div class="carousel-inner">
         <div
           v-for="( data , i ) in item.image"
-          class="carousel-item"
+          class="carousel-item images-frame"
           :class="{'active': i == selected }"
         >
-          <img :src="IMG_URL+data.src" class="d-block w-100" :alt="data.alt" />
+          <div :style="'background-image:url('+IMG_URL+data.src+');'" class="images-pic" ></div>
+          <!-- <img :src="IMG_URL+data.src" class="d-block w-100" :alt="data.alt" /> -->
         </div>
       </div>
       <a class="carousel-control-prev" href="#carousel_pic" role="button" data-slide="prev">

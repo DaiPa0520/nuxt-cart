@@ -2,10 +2,7 @@
   <div class="container d-flex flex-wrap">
     <div   v-for="( data , i ) in item.image" class="card col-lg-3 col-md-3 col-xs-6 p-2">
       <div class="product">
-        <img
-          class="card-img-top"
-          :src="IMG_URL+data.src" 
-        />
+        <div class="card-img-top images-pic" :style="'background-image:url('+IMG_URL+data.src+');'"  />
       </div>
     </div>
   </div>
@@ -35,3 +32,8 @@ export default {
   }
 };
 </script>
+<style lang="scss" scoped>
+.product {
+  height: 300px;
+}
+</style>
