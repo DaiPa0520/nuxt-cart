@@ -20,9 +20,9 @@ export default {
     return product;
   },
 
-  async get_findCar(context, { token, condition = null }) {
+  async get_findCar(context, { condition = null }) {
     let app = this.app
-    let metadata = { "x-4d-token": token };
+    let metadata = { "x-4d-token": app.store.state.other.token };
     let method = "FindCar";
     let req = new app.sqlpb.Query();
     // if (condition !== null) req.addCommodity(condition)
@@ -39,18 +39,20 @@ export default {
     return product;
   },
   // 鎖定購物車
-  async get_lockCar(context, { token, condition = null }) {
+  async get_lockCar(context, { condition = null }) {
     let app = this.app
-    let metadata = { "x-4d-token": token };
+    console.log(app)
+    let metadata = { "x-4d-token": app.store.state.other.token };
     let method = "LockCar";
-    let req = new app.sqlpb.Query();
-    if (condition !== null) req.addCondition(condition)
+    let req = new app.carpb.Car();
+    if (condition !== null) req.setSelf(condition)
     let product = await app.grpcAxios(app.$axios, method, metadata, req, (err, resp) => {
       const data = app.sqlpb.Response.deserializeBinary(resp);
       // todo:錯誤時候會跑兩次!?
       if (err !== null || data.getCode() != 0) {
-        return { code: 0, data: err };
+        return { code: 0, data: data.getMessage() };
       }
+      console.log("get_lockCar>>>>",data)
       return { code: 200, data: data.getResult().toJavaScript() };
     });
 

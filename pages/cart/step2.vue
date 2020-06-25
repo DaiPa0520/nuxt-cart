@@ -113,6 +113,8 @@
 
 
 <script>
+import { mapActions } from "vuex";
+import { Struct } from "google-protobuf/google/protobuf/struct_pb";
 export default {
   data() {
     return {
@@ -138,11 +140,49 @@ export default {
     };
   },
    methods: {
+     ...mapActions({
+      loading: "loading",
+      // get_lockCar:"cart/get_lockCar",
+      _store: "_store"
+    }),
     switchType: function(type) {
       this.active = type;
       this.active_type = '1' 
+    },
+    get_lockCar:async function(){
+      
+      let cart_info = JSON.parse(localStorage.getItem('cart_info'))
+      console.log(cart_info)
+      if(cart_info == null || cart_info.id == null || cart_info.state != 1 ) {
+        this.$router.push('/')
+        return false;
+      }
+      let cond = Struct.fromJavaScript({
+        car_id: cart_info.id
+      });
+
+      let result = await this.$store.dispatch("cart/get_lockCar", {
+        app: this,
+        token: this.$store.state.other.token,
+        condition: cond
+      });
+      console.log("result>>>", result);
+      if (result.code === 200) {
+        
+      }else{
+        alert(result.data)
+      }
+      return true ;
     }
 
+  },
+  mounted: async function() {
+    this.loading(true)
+    // let cond = new this.sqlpb.Commodity();
+    // cond.setF("car_id").setV(route.params.id);
+    let res = await this.get_lockCar()
+    console.log("bbbb")
+    if(res) this.loading(false)
   }
 };
 </script>

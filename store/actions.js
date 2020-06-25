@@ -2,8 +2,9 @@
 
 export default {
     async nuxtServerInit({ commit , dispatch, app }, { req }) {
-
-        let token = await dispatch("other/get_token");
+        // let token = this.$cookies.get("4dingtoken");
+        let token = "customer-test" ;
+        token = (token)? token : await dispatch("other/get_token");
         commit("other/set_token",token)
         // 首頁相關
         let result = await dispatch("web/get_website", {

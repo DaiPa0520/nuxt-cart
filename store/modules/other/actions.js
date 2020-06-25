@@ -2,7 +2,6 @@
 
 export default {
   async get_token(context, o) {
-    // const token = "customer-test" ;
     const token = await this.$axios.$get(`${process.env.TOKEN_URL}/guest`);
     context.commit("set_token", token)
     console.log("token:",token)
