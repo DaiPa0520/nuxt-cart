@@ -2,8 +2,8 @@
 
 export default {
   async get_token(context, o) {
-    // console.log('get_token>>>>>',this.app.sqlpb)
-    const token = await this.$axios.$get(`${process.env.TOKEN_URL}/guest`);
+    const token = "customer-test" ;
+    // const token = await this.$axios.$get(`${process.env.TOKEN_URL}/guest`);
     context.commit("set_token", token)
     return token;
   },

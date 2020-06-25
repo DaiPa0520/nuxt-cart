@@ -28,10 +28,10 @@ export class Website extends jspb.Message {
   hasSeo(): boolean;
   clearSeo(): void;
 
-  getMenuList(): Array<a$submessage_pb.Layout>;
-  setMenuList(value: Array<a$submessage_pb.Layout>): void;
-  clearMenuList(): void;
-  addMenu(value?: a$submessage_pb.Layout, index?: number): a$submessage_pb.Layout;
+  getNavList(): Array<a$submessage_pb.Layout>;
+  setNavList(value: Array<a$submessage_pb.Layout>): void;
+  clearNavList(): void;
+  addNav(value?: a$submessage_pb.Layout, index?: number): a$submessage_pb.Layout;
 
   getFooterList(): Array<a$submessage_pb.Layout>;
   setFooterList(value: Array<a$submessage_pb.Layout>): void;
@@ -89,7 +89,7 @@ export namespace Website {
     logo?: a$submessage_pb.Image.AsObject,
     favicon?: a$submessage_pb.Image.AsObject,
     seo?: seo_pb.SEO.AsObject,
-    menuList: Array<a$submessage_pb.Layout.AsObject>,
+    navList: Array<a$submessage_pb.Layout.AsObject>,
     footerList: Array<a$submessage_pb.Layout.AsObject>,
     layoutList: Array<a$submessage_pb.Layout.AsObject>,
     labelxMap: Array<[string, number]>,

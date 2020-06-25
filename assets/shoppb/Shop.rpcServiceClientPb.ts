@@ -15,6 +15,7 @@ import * as customer_pb from './customer_pb';
 import * as car_pb from './car_pb';
 import * as activity$coupon_pb from './activity-coupon_pb';
 import * as order_pb from './order_pb';
+import * as freeback_pb from './freeback_pb';
 
 export class ShopRPCClient {
   client_: grpcWeb.AbstractClientBase;
@@ -255,6 +256,28 @@ export class ShopRPCClient {
       callback);
   }
 
+  methodInfoLockCar = new grpcWeb.AbstractClientBase.MethodInfo(
+    sql_pb.Response,
+    (request: car_pb.Car) => {
+      return request.serializeBinary();
+    },
+    sql_pb.Response.deserializeBinary
+  );
+
+  lockCar(
+    request: car_pb.Car,
+    metadata: grpcWeb.Metadata | null,
+    callback: (err: grpcWeb.Error,
+               response: sql_pb.Response) => void) {
+    return this.client_.rpcCall(
+      this.hostname_ +
+        '/ding4.ShopRPC/LockCar',
+      request,
+      metadata || {},
+      this.methodInfoLockCar,
+      callback);
+  }
+
   methodInfoDeleteCar = new grpcWeb.AbstractClientBase.MethodInfo(
     sql_pb.Response,
     (request: car_pb.Car) => {
@@ -296,28 +319,6 @@ export class ShopRPCClient {
       request,
       metadata || {},
       this.methodInfoCreateOrder,
-      callback);
-  }
-
-  methodInfoPaymentOrder = new grpcWeb.AbstractClientBase.MethodInfo(
-    sql_pb.Response,
-    (request: order_pb.Order) => {
-      return request.serializeBinary();
-    },
-    sql_pb.Response.deserializeBinary
-  );
-
-  paymentOrder(
-    request: order_pb.Order,
-    metadata: grpcWeb.Metadata | null,
-    callback: (err: grpcWeb.Error,
-               response: sql_pb.Response) => void) {
-    return this.client_.rpcCall(
-      this.hostname_ +
-        '/ding4.ShopRPC/PaymentOrder',
-      request,
-      metadata || {},
-      this.methodInfoPaymentOrder,
       callback);
   }
 
@@ -406,6 +407,94 @@ export class ShopRPCClient {
       request,
       metadata || {},
       this.methodInfoGetCVSStore,
+      callback);
+  }
+
+  methodInfoCreateFreeback = new grpcWeb.AbstractClientBase.MethodInfo(
+    sql_pb.Response,
+    (request: freeback_pb.Freeback) => {
+      return request.serializeBinary();
+    },
+    sql_pb.Response.deserializeBinary
+  );
+
+  createFreeback(
+    request: freeback_pb.Freeback,
+    metadata: grpcWeb.Metadata | null,
+    callback: (err: grpcWeb.Error,
+               response: sql_pb.Response) => void) {
+    return this.client_.rpcCall(
+      this.hostname_ +
+        '/ding4.ShopRPC/CreateFreeback',
+      request,
+      metadata || {},
+      this.methodInfoCreateFreeback,
+      callback);
+  }
+
+  methodInfoReadFreeback = new grpcWeb.AbstractClientBase.MethodInfo(
+    sql_pb.Response,
+    (request: freeback_pb.Freeback) => {
+      return request.serializeBinary();
+    },
+    sql_pb.Response.deserializeBinary
+  );
+
+  readFreeback(
+    request: freeback_pb.Freeback,
+    metadata: grpcWeb.Metadata | null,
+    callback: (err: grpcWeb.Error,
+               response: sql_pb.Response) => void) {
+    return this.client_.rpcCall(
+      this.hostname_ +
+        '/ding4.ShopRPC/ReadFreeback',
+      request,
+      metadata || {},
+      this.methodInfoReadFreeback,
+      callback);
+  }
+
+  methodInfoAppendFreeback = new grpcWeb.AbstractClientBase.MethodInfo(
+    sql_pb.Response,
+    (request: freeback_pb.Dialogue) => {
+      return request.serializeBinary();
+    },
+    sql_pb.Response.deserializeBinary
+  );
+
+  appendFreeback(
+    request: freeback_pb.Dialogue,
+    metadata: grpcWeb.Metadata | null,
+    callback: (err: grpcWeb.Error,
+               response: sql_pb.Response) => void) {
+    return this.client_.rpcCall(
+      this.hostname_ +
+        '/ding4.ShopRPC/AppendFreeback',
+      request,
+      metadata || {},
+      this.methodInfoAppendFreeback,
+      callback);
+  }
+
+  methodInfoFindFreeback = new grpcWeb.AbstractClientBase.MethodInfo(
+    sql_pb.Response,
+    (request: sql_pb.Query) => {
+      return request.serializeBinary();
+    },
+    sql_pb.Response.deserializeBinary
+  );
+
+  findFreeback(
+    request: sql_pb.Query,
+    metadata: grpcWeb.Metadata | null,
+    callback: (err: grpcWeb.Error,
+               response: sql_pb.Response) => void) {
+    return this.client_.rpcCall(
+      this.hostname_ +
+        '/ding4.ShopRPC/FindFreeback',
+      request,
+      metadata || {},
+      this.methodInfoFindFreeback,
       callback);
   }
 

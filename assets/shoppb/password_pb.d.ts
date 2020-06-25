@@ -30,3 +30,31 @@ export namespace Password {
   }
 }
 
+export class Rename extends jspb.Message {
+  getOldN(): string;
+  setOldN(value: string): void;
+
+  getNewN(): string;
+  setNewN(value: string): void;
+
+  getSelf(): google_protobuf_struct_pb.Struct | undefined;
+  setSelf(value?: google_protobuf_struct_pb.Struct): void;
+  hasSelf(): boolean;
+  clearSelf(): void;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): Rename.AsObject;
+  static toObject(includeInstance: boolean, msg: Rename): Rename.AsObject;
+  static serializeBinaryToWriter(message: Rename, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): Rename;
+  static deserializeBinaryFromReader(message: Rename, reader: jspb.BinaryReader): Rename;
+}
+
+export namespace Rename {
+  export type AsObject = {
+    oldN: string,
+    newN: string,
+    self?: google_protobuf_struct_pb.Struct.AsObject,
+  }
+}
+

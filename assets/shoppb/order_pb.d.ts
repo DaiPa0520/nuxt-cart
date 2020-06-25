@@ -12,8 +12,8 @@ export class Order extends jspb.Message {
   getStoreId(): string;
   setStoreId(value: string): void;
 
-  getSellerId(): string;
-  setSellerId(value: string): void;
+  getSalesId(): string;
+  setSalesId(value: string): void;
 
   getCustomerId(): string;
   setCustomerId(value: string): void;
@@ -30,8 +30,14 @@ export class Order extends jspb.Message {
   getState(): number;
   setState(value: number): void;
 
+  getPaymentType(): string;
+  setPaymentType(value: string): void;
+
   getPaymentState(): number;
   setPaymentState(value: number): void;
+
+  getLogisticsType(): string;
+  setLogisticsType(value: string): void;
 
   getLogisticsState(): number;
   setLogisticsState(value: number): void;
@@ -123,13 +129,15 @@ export namespace Order {
   export type AsObject = {
     orderId: string,
     storeId: string,
-    sellerId: string,
+    salesId: string,
     customerId: string,
     email: string,
     carId: string,
     couponId: string,
     state: number,
+    paymentType: string,
     paymentState: number,
+    logisticsType: string,
     logisticsState: number,
     receiveAt?: google_protobuf_timestamp_pb.Timestamp.AsObject,
     comeFrom: number,
@@ -149,6 +157,32 @@ export namespace Order {
     updateAt?: google_protobuf_timestamp_pb.Timestamp.AsObject,
     colsList: Array<string>,
     conditionList: Array<sql_pb.Condition.AsObject>,
+    self?: google_protobuf_struct_pb.Struct.AsObject,
+  }
+}
+
+export class OrderBatch extends jspb.Message {
+  getOrderList(): Array<Order>;
+  setOrderList(value: Array<Order>): void;
+  clearOrderList(): void;
+  addOrder(value?: Order, index?: number): Order;
+
+  getSelf(): google_protobuf_struct_pb.Struct | undefined;
+  setSelf(value?: google_protobuf_struct_pb.Struct): void;
+  hasSelf(): boolean;
+  clearSelf(): void;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): OrderBatch.AsObject;
+  static toObject(includeInstance: boolean, msg: OrderBatch): OrderBatch.AsObject;
+  static serializeBinaryToWriter(message: OrderBatch, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): OrderBatch;
+  static deserializeBinaryFromReader(message: OrderBatch, reader: jspb.BinaryReader): OrderBatch;
+}
+
+export namespace OrderBatch {
+  export type AsObject = {
+    orderList: Array<Order.AsObject>,
     self?: google_protobuf_struct_pb.Struct.AsObject,
   }
 }
@@ -196,6 +230,11 @@ export class Payment extends jspb.Message {
   getBarcode3(): string;
   setBarcode3(value: string): void;
 
+  getSelf(): google_protobuf_struct_pb.Struct | undefined;
+  setSelf(value?: google_protobuf_struct_pb.Struct): void;
+  hasSelf(): boolean;
+  clearSelf(): void;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): Payment.AsObject;
   static toObject(includeInstance: boolean, msg: Payment): Payment.AsObject;
@@ -220,6 +259,7 @@ export namespace Payment {
     barcode1: string,
     barcode2: string,
     barcode3: string,
+    self?: google_protobuf_struct_pb.Struct.AsObject,
   }
 }
 
@@ -332,6 +372,11 @@ export class Logistics extends jspb.Message {
   getBookingnode(): string;
   setBookingnode(value: string): void;
 
+  getSelf(): google_protobuf_struct_pb.Struct | undefined;
+  setSelf(value?: google_protobuf_struct_pb.Struct): void;
+  hasSelf(): boolean;
+  clearSelf(): void;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): Logistics.AsObject;
   static toObject(includeInstance: boolean, msg: Logistics): Logistics.AsObject;
@@ -378,6 +423,7 @@ export namespace Logistics {
     scheduleddeliverytime: string,
     scheduleddeliverydate: string,
     bookingnode: string,
+    self?: google_protobuf_struct_pb.Struct.AsObject,
   }
 }
 

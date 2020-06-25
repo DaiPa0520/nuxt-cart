@@ -1,5 +1,7 @@
 import * as jspb from "google-protobuf"
 
+import * as seo_pb from './seo_pb';
+
 export class Rule extends jspb.Message {
   getAmount(): number;
   setAmount(value: number): void;
@@ -201,9 +203,6 @@ export class Layout extends jspb.Message {
   getPage(): string;
   setPage(value: string): void;
 
-  getContent(): string;
-  setContent(value: string): void;
-
   getQuantity(): number;
   setQuantity(value: number): void;
 
@@ -220,6 +219,11 @@ export class Layout extends jspb.Message {
   hasTarget(): boolean;
   clearTarget(): void;
 
+  getTemplate(): seo_pb.Template | undefined;
+  setTemplate(value?: seo_pb.Template): void;
+  hasTemplate(): boolean;
+  clearTemplate(): void;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): Layout.AsObject;
   static toObject(includeInstance: boolean, msg: Layout): Layout.AsObject;
@@ -234,11 +238,11 @@ export namespace Layout {
     title: string,
     link: string,
     page: string,
-    content: string,
     quantity: number,
     second: number,
     imageList: Array<Image.AsObject>,
     target?: ProductTarget.AsObject,
+    template?: seo_pb.Template.AsObject,
   }
 }
 

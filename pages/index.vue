@@ -30,7 +30,7 @@ export default {
       token: store.state.other.token,
       condition: null
     });
-    if (result.data.length !== 0) {
+    if (result.data && result.data.length !== 0) {
       // 搜尋該分類的產品列表
       let res = await store.dispatch("ssr/init_layout", {
         layout: result.data[0].layout , 
@@ -70,10 +70,6 @@ export default {
   created: async function() {
     //實體建立完成。資料 data 已可取得，但 el 屬性還未被建立。
     this.loading(true);
-
-    for(var i = 0 ; i < 3 ; i++){
-
-    }
   },
   beforeMount: function() {
     //執行元素掛載之前。

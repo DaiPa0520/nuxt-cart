@@ -24,3 +24,5 @@ var activity$coupon_pb = require('./activity-coupon_pb.js');
 goog.object.extend(proto, activity$coupon_pb);
 var order_pb = require('./order_pb.js');
 goog.object.extend(proto, order_pb);
+var freeback_pb = require('./freeback_pb.js');
+goog.object.extend(proto, freeback_pb);

@@ -88,7 +88,7 @@ proto.ding4.Website.toObject = function(includeInstance, msg) {
     logo: (f = msg.getLogo()) && a$submessage_pb.Image.toObject(includeInstance, f),
     favicon: (f = msg.getFavicon()) && a$submessage_pb.Image.toObject(includeInstance, f),
     seo: (f = msg.getSeo()) && seo_pb.SEO.toObject(includeInstance, f),
-    menuList: jspb.Message.toObjectList(msg.getMenuList(),
+    navList: jspb.Message.toObjectList(msg.getNavList(),
     a$submessage_pb.Layout.toObject, includeInstance),
     footerList: jspb.Message.toObjectList(msg.getFooterList(),
     a$submessage_pb.Layout.toObject, includeInstance),
@@ -164,7 +164,7 @@ proto.ding4.Website.deserializeBinaryFromReader = function(msg, reader) {
     case 6:
       var value = new a$submessage_pb.Layout;
       reader.readMessage(value,a$submessage_pb.Layout.deserializeBinaryFromReader);
-      msg.addMenu(value);
+      msg.addNav(value);
       break;
     case 7:
       var value = new a$submessage_pb.Layout;
@@ -277,7 +277,7 @@ proto.ding4.Website.serializeBinaryToWriter = function(message, writer) {
       seo_pb.SEO.serializeBinaryToWriter
     );
   }
-  f = message.getMenuList();
+  f = message.getNavList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
       6,
@@ -502,10 +502,10 @@ proto.ding4.Website.prototype.hasSeo = function() {
 
 
 /**
- * repeated Layout menu = 6;
+ * repeated Layout nav = 6;
  * @return {!Array<!proto.ding4.Layout>}
  */
-proto.ding4.Website.prototype.getMenuList = function() {
+proto.ding4.Website.prototype.getNavList = function() {
   return /** @type{!Array<!proto.ding4.Layout>} */ (
     jspb.Message.getRepeatedWrapperField(this, a$submessage_pb.Layout, 6));
 };
@@ -515,7 +515,7 @@ proto.ding4.Website.prototype.getMenuList = function() {
  * @param {!Array<!proto.ding4.Layout>} value
  * @return {!proto.ding4.Website} returns this
 */
-proto.ding4.Website.prototype.setMenuList = function(value) {
+proto.ding4.Website.prototype.setNavList = function(value) {
   return jspb.Message.setRepeatedWrapperField(this, 6, value);
 };
 
@@ -525,7 +525,7 @@ proto.ding4.Website.prototype.setMenuList = function(value) {
  * @param {number=} opt_index
  * @return {!proto.ding4.Layout}
  */
-proto.ding4.Website.prototype.addMenu = function(opt_value, opt_index) {
+proto.ding4.Website.prototype.addNav = function(opt_value, opt_index) {
   return jspb.Message.addToRepeatedWrapperField(this, 6, opt_value, proto.ding4.Layout, opt_index);
 };
 
@@ -534,8 +534,8 @@ proto.ding4.Website.prototype.addMenu = function(opt_value, opt_index) {
  * Clears the list making it empty but non-null.
  * @return {!proto.ding4.Website} returns this
  */
-proto.ding4.Website.prototype.clearMenuList = function() {
-  return this.setMenuList([]);
+proto.ding4.Website.prototype.clearNavList = function() {
+  return this.setNavList([]);
 };
 
 
