@@ -153,10 +153,15 @@ export default {
       
       let cart_info = JSON.parse(localStorage.getItem('cart_info'))
       console.log(cart_info)
-      if(cart_info == null || cart_info.id == null || cart_info.state != 1 ) {
-        this.$router.push('/')
-        return false;
+      switch(true){
+        case (cart_info == null):
+        case (cart_info == null):
+          this.$router.push('/')
+          return false;
+        case ( cart_info.state != 1 ):
+          return true;
       }
+      
       let cond = Struct.fromJavaScript({
         car_id: cart_info.id
       });

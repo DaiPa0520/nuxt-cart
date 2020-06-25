@@ -44,13 +44,7 @@ export default {
   },
   async asyncData({ context, app, store }) {
     let data = {} ;
-    // 首頁相關
-    store.dispatch("web/get_website", {
-      app: app,
-      token: store.state.other.token,
-      condition: null
-    });
-
+  
     let result = await store.dispatch("product/get_product", {
       app: app,
       token: store.state.other.token,

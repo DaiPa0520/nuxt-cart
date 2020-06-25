@@ -43,14 +43,7 @@ export default {
     let data = {
       page_info: { name: "熱門分類", url: "" }
     };
-    // 首頁相關
-    // if (store.state.web.style.length === 0) {
-    await store.dispatch("web/get_website", {
-      app: app,
-      token: store.state.other.token,
-      condition: null
-    });
-    // }
+
 
     // 搜尋該分類的產品列表
     let cond = new app.sqlpb.Condition();

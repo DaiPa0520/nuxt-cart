@@ -144,11 +144,11 @@ export default {
       let data = {};
       let cart = JSON.parse(localStorage.getItem('cart'))
       let cart_info = JSON.parse(localStorage.getItem('cart_info'))
-
+console.log(cart,cart_info)
       if(cart == null || cart_info.id == null ) return ;
       let cond = Struct.fromJavaScript({
         commodity: _values(cart),
-        car_id: cart_info.id.id
+        car_id: cart_info.id
       });
 
       let result = await this.$store.dispatch("cart/get_completeCar", {

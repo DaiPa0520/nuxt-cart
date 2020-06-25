@@ -203,14 +203,7 @@ export default {
     let data = {
       page_info: { name: "熱門商品", key: "product", url: "/class/" }
     };
-    // 首頁相關
-    // if (store.state.web.style.length === 0) {
-    await store.dispatch("web/get_website", {
-      app: app,
-      token: store.state.other.token,
-      condition: null
-    });
-    // }
+
 
     let cond = new app.sqlpb.Condition();
     cond.setF("product_id").setV(route.params.id);
