@@ -1,7 +1,9 @@
 
 export default {
   // 商品列表
-  async get_website(context, { app, token, condition = null }) {
+  async get_website(context, {  token, condition = null }) {
+
+    let app = this.app
     let metadata = { "x-4d-token": token };
     let method = "IndexWebsite";
     let req = new app.sqlpb.Query();

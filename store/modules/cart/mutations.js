@@ -12,6 +12,7 @@ export default {
   // 設定購物車內容
   set_cart(state, o) {
     state.content = o
+    localStorage.setItem('cart',JSON.stringify(state.content))
   },
   // 新增一筆購物車
   add_cart(state, o) {

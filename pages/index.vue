@@ -34,8 +34,6 @@ export default {
       // 搜尋該分類的產品列表
       let res = await store.dispatch("ssr/init_layout", {
         layout: result.data[0].layout , 
-        app: app,
-        store:store
       });
       data.layout = res ;
     }

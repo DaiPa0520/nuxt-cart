@@ -48,6 +48,7 @@ export default {
         return { code: 0, data: err };
       }
       const data = app.sqlpb.Response.deserializeBinary(resp);
+      // console.log( "get_product>>>",data.getResult().toJavaScript())
       return { code: 200, data: data.getResult().toJavaScript() };
     });
     return product;
@@ -56,7 +57,6 @@ export default {
 
   // 商品分類列表
   async get_productClass(context, { app, token, condition = null }) {
-    console.log( "get_productClass>>>")
     let metadata = { "x-4d-token": token };
     let method = "FindProductClass";
     let req = new app.sqlpb.Query();

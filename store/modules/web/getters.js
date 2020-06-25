@@ -5,7 +5,7 @@ export default {
   get_headers:state => {
     let res = [] 
     Object.keys(state.style).forEach(index=>{
-      res = state.style[index].menu 
+      res = state.style[index].nav 
     })
     return res
   },

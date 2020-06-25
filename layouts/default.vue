@@ -22,11 +22,25 @@ export default {
   methods: {
     // 初始
     ...mapActions({
+      _store: "_store",
+      get_findCar:"cart/get_findCar",
       _store: "_store"
-    })
+    }),
   },
-  created() {
-    // this._store({act:'set_loading',data:false})
+  mounted:async function(){
+
+    localStorage.clear()
+    let resp = await this.get_findCar({token:this.$store.state.other.token})
+    if(resp.code != 200) return ;
+    console.log("resp",resp)
+    localStorage.setItem('cart_id',resp.data.car_id) ;
+    let data = {} 
+    for(let i in resp.data.commodity){
+      let res = resp.data.commodity[i]
+      data[`${res.normal}-${res.sku}`] = res
+    }    
+    
+    this._store({ act: "cart/set_cart", data: data });
   },
   destroyed() {}
 };

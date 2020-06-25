@@ -63,7 +63,7 @@
                     </a>
                   </div>
 
-                  <h4>{{product_info.name.tw}}-{{specx}}</h4>
+                  <h4>{{product_info.name.tw}}</h4>
                   <div class="originalPrice">NT{{product_info.price}}</div>
                   <div class="offer">NT{{product_info.reduce}}</div>
                   <br />
@@ -267,7 +267,7 @@ export default {
   mounted: async function() {
     //元素已掛載， el 被建立。
     this.loading(false);
-    this.get_template('/Csp7Vk3EPg/template/yXxbn5AMuA')
+    // this.get_template('/Csp7Vk3EPg/template/yXxbn5AMuA')
   }
 };
 </script>

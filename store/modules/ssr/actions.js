@@ -6,7 +6,9 @@ export default {
    * @param {*} context 
    * @param {*} param1 
    */
-  async init_layout(context, { layout, store, app }) {
+  async init_layout(context, { layout }) {
+    let app = this.app
+    let store = this.app.store
     let prod = {
       list: [],// 紀錄ID
       response: [],// 紀錄產品結果

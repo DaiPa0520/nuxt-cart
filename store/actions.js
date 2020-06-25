@@ -2,10 +2,20 @@
 
 export default {
     async nuxtServerInit({ commit , dispatch, app }, { req }) {
+
         let token = await dispatch("other/get_token");
         commit("other/set_token",token)
-//         let ss = await dispatch("cart/get_findCar",{token:token });
-// console.log("ss>>>>",ss)
+        // 首頁相關
+        let result = await dispatch("web/get_website", {
+            token: token,
+            condition: null
+        });
+      if (result.data && result.data.length !== 0) {
+        // 搜尋該分類的產品列表
+        let res = await dispatch("ssr/init_layout", {
+          layout: result.data[0].layout , 
+        });
+      }
     },
     loading(context, o) {
         context.commit("set_loading", o);

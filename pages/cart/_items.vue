@@ -65,30 +65,17 @@
               <div class="total-money">NT$2666</div>
             </div>
             <div class="col-md-12">
-              <button type="button" class="w-100 btn btn-outline-primary btn-sm">下一步</button>
+              <nuxt-link tag="button" class="w-100 btn btn-outline-primary btn-sm" to="/cart/step2">下一步</nuxt-link>
             </div>
           </div>
         </div>
-        <!-- 加購專區 -->
-        <div class="purchase row">
+        <!-- 加購專區 先隱藏 -->
+        <!-- <div class="purchase row">
           <div class="col-lg-12 col-md-12 col-xs-12 p-2 title">加購專區</div>
           <div v-for="item in purchase" class="card col-lg-3 col-md-3 col-xs-6 p-2">
             <Purchase />
-            <!-- <div class="product p-2">
-              <img :src="item.image" class="card-img-top p-2" alt="..." />
-              <div class="card-body">
-                <b>{{item.name}}</b>
-                <div class="offer">
-                  <span class="price">>NT{{item.price}}</span>
-                  NT{{item.offer}}
-                </div>
-                <div class="cart-button">
-                  <button type="button" class="w-100 btn btn-outline-primary btn-sm">加入購物車</button>
-                </div>
-              </div>
-            </div>-->
           </div>
-        </div>
+        </div> -->
       </div>
     </section>
   </div>
@@ -151,11 +138,16 @@ export default {
       get_findCar:"cart/get_findCar",
       _store: "_store"
     }),
-    async test() {
+    // 將目前購物車 送出取得可套用活動相關資訊
+    async get_completeCar() {
+      
       let data = {};
       let cart = JSON.parse(localStorage.getItem('cart'))
+      let cart_id = localStorage.getItem('cart_id')
+      if(cart == null || cart_id == null ) return ;
       let cond = Struct.fromJavaScript({
-        commodity: _values(cart)
+        commodity: _values(cart),
+        car_id: cart_id
       });
 
       let result = await this.$store.dispatch("cart/get_completeCar", {
@@ -170,16 +162,14 @@ export default {
     },
     // 更新購物車
     async add_cart(o) {
-      this._store({ act: "cart/set_one_cart", data: o });
+      await this._store({ act: "cart/set_one_cart", data: o });
+      await this.get_completeCar()
     },
     async del_cart(i) {
       this._store({ act: "cart/del_cart", data: this.commodity[i] });
       this.commodity.splice(i, 1);
+      await this.get_completeCar()
     },
-    async del_cart(i) {
-      this._store({ act: "cart/del_cart", data: this.commodity[i] });
-      this.commodity.splice(i, 1);
-    }
   },
   //BEGIN--生命週期
   beforeCreate: function() {
@@ -194,8 +184,9 @@ export default {
   mounted:async function() {
     //元素已掛載， el 被建立。
     this.loading(false);
-    await this.test()
-    let a = this.get_findCar({token:this.$store.state.other.token})
+    await this.get_completeCar()
+    // let a =await this.get_findCar({token:this.$store.state.other.token})
+    // console.log(a)
   },
   beforeUpdate: function() {
     //當資料變化時被呼叫，還不會描繪 View。
