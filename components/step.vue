@@ -2,7 +2,7 @@
   <div class="container">
     <div class="step d-flex justify-content-center">
       <div class="step-item">
-        <nuxt-link tag="div"  class="step-text" to="/cart/123">
+        <nuxt-link tag="div"  class="step-text" to="/cart/step1">
           <div class="text-center">Step1</div>
           <div>購物車</div>
         </nuxt-link>

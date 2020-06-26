@@ -1,32 +1,52 @@
 
 export default {
-  // State => 1.選購 2.鎖定 3.取消 6.完成訂單
-  // 計算購物車內容 *包含活動及折價券*
-  async get_completeCar(context, { app, token, condition = null }) {
-    let metadata = { "x-4d-token": token };
-    let method = "CompleteCar";
-    let req = new app.carpb.Car();
-    // if (condition !== null) req.addCommodity(condition)
-    if (condition !== null) req.setSelf(condition)
-    let product = await app.grpcAxios(app.$axios, method, metadata, req, (err, resp) => {
-      const data = app.sqlpb.Response.deserializeBinary(resp);
-      // todo:錯誤時候會跑兩次!?
-      if (err !== null || data.getCode() != 0) {
-        return { code: 0, data: `[${data.getCode()}] ${data.getMessage()} ` };
-      }
-      return { code: 200, data: data.getResult().toJavaScript() };
-    });
-
-    return product;
-  },
-
-  async get_findCar(context, { condition = null }) {
+  // 建立訂單
+  async create_Order(context, { condition = null }) {
     let app = this.app
     let metadata = { "x-4d-token": app.store.state.other.token };
-    let method = "FindCar";
-    let req = new app.sqlpb.Query();
-    // if (condition !== null) req.addCommodity(condition)
+    let method = "CreateOrder";
+    let req = new app.orderpb.Order();
     if (condition !== null) req.addCondition(condition)
+    console.log("create_Order>>>",req.toObject())
+    let product = await app.grpcAxios(app.$axios, method, metadata, req, (err, resp) => {
+      console.log("create_Order 3>>>>>", resp)
+      const data = app.sqlpb.Response.deserializeBinary(resp);
+      console.log("create_Order 2>>>>>",data.getCode())
+      // todo:錯誤時候會跑兩次!?
+      if (err !== null || data.getCode() != 0) {
+        return { code: 0, data: `[${data.getCode()}] ${data.getMessage()} ` };
+      }
+      return { code: 200, data: data.getResult().toJavaScript() };
+    });
+
+    return product;
+  },
+  // 取得超商門市資訊
+  async get_cvsStoreInfo(context, { condition = null }) {
+    let app = this.app
+    let metadata = { "x-4d-token": app.store.state.other.token };
+    let method = "GetCVSStore";
+
+    let req = new app.orderpb.Logistics();
+    if (condition !== null) req.setSelf(condition)
+    let product = await app.grpcAxios(app.$axios, method, metadata, req, (err, resp) => {
+      const data = app.sqlpb.Response.deserializeBinary(resp);
+      // todo:錯誤時候會跑兩次!?
+      if (err !== null || data.getCode() !== 0) {
+        return { code: 0, data: `[${data.getCode()}] ${data.getMessage()} ` };
+      }
+      return { code: 200, data: data.getResult().toJavaScript() };
+    });
+
+    return product;
+  },
+  // 選擇超商門市
+  async get_cvsStore(context, { condition = null }) {
+    let app = this.app
+    let metadata = { "x-4d-token": app.store.state.other.token };
+    let method = "ChooseCVSStore";
+    let req = new app.orderpb.Logistics();
+    if (condition !== null) req.setSelf(condition)
     let product = await app.grpcAxios(app.$axios, method, metadata, req, (err, resp) => {
       const data = app.sqlpb.Response.deserializeBinary(resp);
       // todo:錯誤時候會跑兩次!?
@@ -38,24 +58,5 @@ export default {
 
     return product;
   },
-  // 鎖定購物車
-  async get_lockCar(context, { condition = null }) {
-    let app = this.app
-    console.log(app)
-    let metadata = { "x-4d-token": app.store.state.other.token };
-    let method = "LockCar";
-    let req = new app.carpb.Car();
-    if (condition !== null) req.setSelf(condition)
-    let product = await app.grpcAxios(app.$axios, method, metadata, req, (err, resp) => {
-      const data = app.sqlpb.Response.deserializeBinary(resp);
-      // todo:錯誤時候會跑兩次!?
-      if (err !== null || data.getCode() != 0) {
-        return { code: 0, data: data.getMessage() };
-      }
-      console.log("get_lockCar>>>>",data)
-      return { code: 200, data: data.getResult().toJavaScript() };
-    });
 
-    return product;
-  }
 }

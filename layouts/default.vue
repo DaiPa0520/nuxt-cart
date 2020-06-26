@@ -27,15 +27,16 @@ export default {
       _store: "_store"
     })
   },
-  mounted: async function() {
+
+  beforeMount: async function() {
+    console.log("default>>>>");
     localStorage.clear();
     let resp = await this.get_findCar({ condition: null });
     if (resp.code != 200) return;
-    console.log("resp", resp);
-    localStorage.setItem(
-      "cart_info",
-      JSON.stringify({ id: resp.data.car_id, state: resp.data.state })
-    );
+
+    let info = { id: resp.data.car_id, state: resp.data.state };
+    this._store({ act: "cart/set_cart_info", data: info });
+
     let data = {};
     for (let i in resp.data.commodity) {
       let res = resp.data.commodity[i];
@@ -43,7 +44,9 @@ export default {
     }
 
     this._store({ act: "cart/set_cart", data: data });
+    console.log("default end >>>>");
   },
+  mounted: async function() {},
   destroyed() {}
 };
 </script>

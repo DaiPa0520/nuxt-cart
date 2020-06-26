@@ -10,11 +10,6 @@
 
 export default {
   // 設定購物車內容
-  set_cart_info(state, o) {
-    state.info = o
-    localStorage.setItem('cart_info',JSON.stringify(state.info))
-  },
-  // 設定購物車內容
   set_cart(state, o) {
     state.content = o
     localStorage.setItem('cart',JSON.stringify(state.content))

@@ -143,8 +143,8 @@ export default {
       
       let data = {};
       let cart = JSON.parse(localStorage.getItem('cart'))
-      let cart_info = JSON.parse(localStorage.getItem('cart_info'))
-console.log(cart,cart_info)
+      let cart_info = this.$store.state.cart.info;
+
       if(cart == null || cart_info.id == null ) return ;
       let cond = Struct.fromJavaScript({
         commodity: _values(cart),
@@ -157,6 +157,8 @@ console.log(cart,cart_info)
         condition: cond
       });
       if (result.code === 200) {
+        cart_info.state = 1
+        this._store({ act: "cart/set_cart_info", data: cart_info });
         this.commodity = result.data.commodity;
         this.activity = result.data.activity;
       }

@@ -45,7 +45,7 @@ export default {
      
       // todo:錯誤時候會跑兩次!?
       if (err !== null) {
-        return { code: 0, data: err };
+        return { code: 0, data: `[${data.getCode()}] ${data.getMessage()} ` };
       }
       const data = app.sqlpb.Response.deserializeBinary(resp);
       // console.log( "get_product>>>",data.getResult().toJavaScript())
@@ -65,7 +65,7 @@ export default {
     let product = await app.grpcAxios(app.$axios,method, metadata, req, (err, resp) => {
       // todo:錯誤時候會跑兩次!?
       if (err !== null) {
-        return { code: 0, data: err };
+        return { code: 0, data: `[${data.getCode()}] ${data.getMessage()} ` };
       }
       const data = app.sqlpb.Response.deserializeBinary(resp);
       // store.commit("other/set_test", data.getResult().toJavaScript());

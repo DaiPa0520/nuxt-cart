@@ -47,7 +47,7 @@
                       <span class="price">489</span>
                     </div>
                     <div class="buttons">
-                      <a class="btn btn-primary btn-block btn-cart" href="#">立即結帳</a>
+                      <nuxt-link tag="a" class="btn btn-primary btn-block btn-cart" :to="`/cart/step1`">立即結帳</nuxt-link>
                     </div>
                   </div>
                 </div>
