@@ -66,7 +66,7 @@
                 >會員登入</button>
               </div>
               <div class="mt-2 mb-2">非會員購買</div>
-              <input class="form-control" type="text" placeholder="連絡信箱" />
+              <input class="form-control" type="text" v-model="customer.email" placeholder="連絡信箱" />
               <div class="hint-label mt-2">訂單通知會寄到此信箱，請您務必填入正確的 E-mail</div>
             </div>
             <!-- 訂單備註 -->
@@ -140,11 +140,11 @@
                 <div class="row">
                   <div class="col-md-2 float-left control-label">姓名</div>
                   <div class="col-md-10 float-left mb-3">
-                    <input class="form-control" type="text" placeholder="購買人姓名" />
+                    <input class="form-control" v-model="customer.name" type="text" placeholder="購買人姓名" />
                   </div>
                   <div class="col-md-2 float-left control-label">聯絡電話</div>
                   <div class="col-md-10 float-left mb-3">
-                    <input class="form-control" type="text" placeholder="購買人聯絡電話，例：0987654321" />
+                    <input class="form-control" v-model="customer.phone" type="text" placeholder="購買人聯絡電話，例：0987654321" />
                   </div>
                 </div>
               </div>
@@ -156,19 +156,19 @@
                 <div class="row">
                   <div class="col-md-2 float-left control-label">姓名</div>
                   <div class="col-md-10 float-left mb-3">
-                    <input class="form-control" type="text" placeholder="收件人姓名" />
+                    <input class="form-control" v-model="receiver.name" type="text" placeholder="收件人姓名" />
                     <div class="hint-label mt-2">*超商取貨請使用本名，並記得攜帶身分證前往取貨</div>
                   </div>
                   <div class="col-md-2 float-left control-label">聯絡電話</div>
                   <div class="col-md-10 float-left mb-3">
-                    <input class="form-control" type="text" placeholder="收件人聯絡電話，例：0987654321" />
+                    <input class="form-control" v-model="receiver.phone" type="text" placeholder="收件人聯絡電話，例：0987654321" />
                     <div
                       class="hint-label mt-2"
                     >*取貨通知將以此電話聯繫，請勿加入任何空格或符號，使用超商取貨請務必填寫10碼手機，如：0987654321</div>
                   </div>
                   <div class="col-md-2 float-left control-label">地址</div>
                   <div class="col-md-10 float-left mb-3">
-                    <input class="form-control" type="text" placeholder="地址" />
+                    <input class="form-control" v-model="receiver.address" type="text" placeholder="地址" />
                   </div>
                   <div class="form-check w-100 ml-3">
                     <input class="form-check-input" type="checkbox" value id="defaultCheck1" />
@@ -206,7 +206,7 @@
                     >為保障彼此之權益，賣家在收到您的訂單後仍保有決定是否接受訂單及出貨與否之權利</label>
                   </div>
                   <div class="form-check w-100 m-3">
-                    <button type="button" class="col-md-5 l-btn checkout-btn">立即結帳</button>
+                    <button type="button" @click="create_Order()" class="col-md-5 l-btn checkout-btn">立即結帳</button>
                   </div>
                 </div>
               </div>
@@ -220,6 +220,8 @@
 
 
 <script>
+import { mapActions } from "vuex";
+import { Struct } from "google-protobuf/google/protobuf/struct_pb";
 export default {
   data() {
     return {
@@ -240,13 +242,75 @@ export default {
           title:
             "為保障彼此之權益，賣家在收到您的訂單後仍保有決定是否接受訂單及出貨與否之權利"
         }
-      ]
+      ],
+      // 購買人
+      customer:{
+        email:"",
+        phone:"",
+        name :""
+      },
+      // 收件人
+      receiver:{
+        address:"",
+        phone:"",
+        name :""
+      }
     };
   },
   methods: {
+    ...mapActions({
+      loading: "loading",
+      _store: "_store"
+    }),
     goto: function(url) {
-      var myWindow = window.open(url, "註冊", "width=300,height=300");
-    }
+      window.open(url, "註冊", "width=300,height=300");
+    },
+    create_Order: async function() {
+      let store = this.$store.state.order.content
+      let b = this.receiver
+      let logistics = {
+        ...store.logistics,
+        ReceiverName :this.receiver.name,
+        ReceiverCellPhone :this.receiver.phone,
+        ReceiverAddress  :this.receiver.address,
+      }
+      let o = {
+        ...store,
+        logistics,
+        car_id:  this.$store.state.cart.info.id,
+        // customer:{...this.customer}  
+      } 
+      console.log(o)
+      // return ;
+      let cond = Struct.fromJavaScript(o);
+console.log("cond>>>>",cond)
+      let result = await this.$store.dispatch("order/create_Order", {
+        condition: cond
+      });
+console.log("ssss",result)
+      if (result.code === 0) {
+        alert(result.data);
+        return false;
+      }
+
+      for (let i in result.data) {
+        let d = result.data[i];
+        let o = {
+          id: `${d.service}${d.service_type}${d.service_item}`,
+          title:
+            d.remark != "" ? `${d.name.tw}<br>(${d.remark})` : `${d.name.tw}`
+        };
+        // 物流
+        if (d.service_type == 2) this.home_list.push(o);
+        else this.store_list.push(o);
+      }
+      return true;
+    },
+  },
+  mounted: async function() {
+    this.loading(true);
+
+    this.loading(false);
   }
 };
 </script>
