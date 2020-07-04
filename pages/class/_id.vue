@@ -56,12 +56,6 @@ export default {
 
     if (result.code === 200) data.product_list = result.data;
 
-
-let bb = await store.dispatch("cart/get_findCar", {
-      token: store.state.other.token,
-    });
-
-
     return data;
   },
   async fetch({ store, $axios, app }) {},

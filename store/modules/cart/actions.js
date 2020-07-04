@@ -41,7 +41,6 @@ export default {
   // 鎖定購物車
   async get_lockCar(context, { condition = null }) {
     let app = this.app
-    console.log(app)
     let metadata = { "x-4d-token": app.store.state.other.token };
     let method = "LockCar";
     let req = new app.carpb.Car();
@@ -52,8 +51,8 @@ export default {
       if (err !== null || data.getCode() != 0) {
         return { code: 0, data: data.getMessage() };
       }
-      console.log("get_lockCar>>>>",data)
-      return { code: 200, data: data.getResult().toJavaScript() };
+      console.log("get_lockCar>>>>",data.getAffectRow())
+      return { code: 200, data: data.getAffectRow() };
     });
 
     return product;

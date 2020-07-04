@@ -179,7 +179,7 @@ export default {
 
     get_lockCar: async function() {
       let cart_info = this.$store.state.cart.info;
-      console.log(cart_info);
+      console.log("get_lockCar>>>>",cart_info);
       let cond = Struct.fromJavaScript({
         car_id: cart_info.id
       });
@@ -194,9 +194,9 @@ export default {
       }
       return true;
     },
-
-    get_external: async function() {
-      let result = await this.$store.dispatch("cash/get_external", {
+    // 物流
+    get_logistics: async function() {
+      let result = await this.$store.dispatch("cash/get_logistics", {
         condition: null
       });
       console.log("result>>>", result);
@@ -208,17 +208,39 @@ export default {
       for (let i in result.data) {
         let d = result.data[i];
         let o = {
-          id: `${d.service}${d.service_type}${d.service_item}`,
+          id: i,
           title:
-            d.remark != "" ? `${d.name.tw}<br>(${d.remark})` : `${d.name.tw}`
+            d.remark != "" ? `${d.name.tw}<br>(${d.remark})` : `${d.name.tw}`,
+          data: d
         };
         // 物流
-        if (d.service_type == 2) this.home_list.push(o);
-        else this.store_list.push(o);
+        this.home_list.push(o);
       }
       return true;
     },
+    // 付款方式
+    get_payment: async function() {
+      let result = await this.$store.dispatch("cash/get_payment", {
+        condition: null
+      });
+      console.log("result>>>", result);
+      if (result.code === 0) {
+        alert(result.data);
+        return false;
+      }
 
+      for (let i in result.data) {
+        let d = result.data[i];
+        let o = {
+          id: i,
+          title:
+            d.remark != "" ? `${d.name.tw}<br>(${d.remark})` : `${d.name.tw}`,
+          data: d
+        };
+        this.store_list.push(o);
+      }
+      return true;
+    },
     get_cvsStore: async function() {
       let cond = Struct.fromJavaScript({
         LogisticsType: "CVS",
@@ -276,8 +298,9 @@ export default {
       await this.get_lockCar();
     }
 
-    let res = await this.get_external();
-    if (res) this.loading(false);
+    await this.get_logistics();
+    await this.get_payment();
+    this.loading(false);
   }
 };
 </script>

@@ -135,7 +135,6 @@ export default {
     // 初始
     ...mapActions({
       loading: "loading",
-      get_findCar:"cart/get_findCar",
       _store: "_store"
     }),
     // 將目前購物車 送出取得可套用活動相關資訊
@@ -147,8 +146,7 @@ export default {
 
       if(cart == null || cart_info.id == null ) return ;
       let cond = Struct.fromJavaScript({
-        commodity: _values(cart),
-        car_id: cart_info.id
+        commodity: _values(cart)
       });
 
       let result = await this.$store.dispatch("cart/get_completeCar", {
@@ -156,8 +154,10 @@ export default {
         token: this.$store.state.other.token,
         condition: cond
       });
+      console.log("get_completeCar>>>>",result);
       if (result.code === 200) {
         cart_info.state = 1
+        cart_info.id = result.data.car_id
         this._store({ act: "cart/set_cart_info", data: cart_info });
         this.commodity = result.data.commodity;
         this.activity = result.data.activity;

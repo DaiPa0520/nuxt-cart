@@ -30,20 +30,20 @@ export default {
 
   beforeMount: async function() {
     console.log("default>>>>");
-    localStorage.clear();
-    let resp = await this.get_findCar({ condition: null });
-    if (resp.code != 200) return;
+    // localStorage.clear();
+    // let resp = await this.get_findCar({ condition: null });
+    // if (resp.code != 200) return;
 
-    let info = { id: resp.data.car_id, state: resp.data.state };
-    this._store({ act: "cart/set_cart_info", data: info });
+    // let info = { id: resp.data.car_id, state: resp.data.state };
+    // this._store({ act: "cart/set_cart_info", data: info });
 
-    let data = {};
-    for (let i in resp.data.commodity) {
-      let res = resp.data.commodity[i];
-      data[`${res.normal}-${res.sku}`] = res;
-    }
+    // let data = {};
+    // for (let i in resp.data.commodity) {
+    //   let res = resp.data.commodity[i];
+    //   data[`${res.normal}-${res.sku}`] = res;
+    // }
 
-    this._store({ act: "cart/set_cart", data: data });
+    // this._store({ act: "cart/set_cart", data: data });
     console.log("default end >>>>");
   },
   mounted: async function() {},
