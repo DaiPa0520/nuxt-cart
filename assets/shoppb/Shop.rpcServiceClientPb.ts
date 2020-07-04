@@ -14,6 +14,7 @@ import * as sql_pb from './sql_pb';
 import * as customer_pb from './customer_pb';
 import * as car_pb from './car_pb';
 import * as activity$coupon_pb from './activity-coupon_pb';
+import * as adapter_pb from './adapter_pb';
 import * as order_pb from './order_pb';
 import * as freeback_pb from './freeback_pb';
 
@@ -300,6 +301,94 @@ export class ShopRPCClient {
       callback);
   }
 
+  methodInfoFindPayment = new grpcWeb.AbstractClientBase.MethodInfo(
+    sql_pb.Response,
+    (request: sql_pb.Query) => {
+      return request.serializeBinary();
+    },
+    sql_pb.Response.deserializeBinary
+  );
+
+  findPayment(
+    request: sql_pb.Query,
+    metadata: grpcWeb.Metadata | null,
+    callback: (err: grpcWeb.Error,
+               response: sql_pb.Response) => void) {
+    return this.client_.rpcCall(
+      this.hostname_ +
+        '/ding4.ShopRPC/FindPayment',
+      request,
+      metadata || {},
+      this.methodInfoFindPayment,
+      callback);
+  }
+
+  methodInfoFindLogistics = new grpcWeb.AbstractClientBase.MethodInfo(
+    sql_pb.Response,
+    (request: sql_pb.Query) => {
+      return request.serializeBinary();
+    },
+    sql_pb.Response.deserializeBinary
+  );
+
+  findLogistics(
+    request: sql_pb.Query,
+    metadata: grpcWeb.Metadata | null,
+    callback: (err: grpcWeb.Error,
+               response: sql_pb.Response) => void) {
+    return this.client_.rpcCall(
+      this.hostname_ +
+        '/ding4.ShopRPC/FindLogistics',
+      request,
+      metadata || {},
+      this.methodInfoFindLogistics,
+      callback);
+  }
+
+  methodInfoChooseCVSStore = new grpcWeb.AbstractClientBase.MethodInfo(
+    sql_pb.Response,
+    (request: adapter_pb.Adapter) => {
+      return request.serializeBinary();
+    },
+    sql_pb.Response.deserializeBinary
+  );
+
+  chooseCVSStore(
+    request: adapter_pb.Adapter,
+    metadata: grpcWeb.Metadata | null,
+    callback: (err: grpcWeb.Error,
+               response: sql_pb.Response) => void) {
+    return this.client_.rpcCall(
+      this.hostname_ +
+        '/ding4.ShopRPC/ChooseCVSStore',
+      request,
+      metadata || {},
+      this.methodInfoChooseCVSStore,
+      callback);
+  }
+
+  methodInfoGetCVSStore = new grpcWeb.AbstractClientBase.MethodInfo(
+    sql_pb.Response,
+    (request: order_pb.Logistics) => {
+      return request.serializeBinary();
+    },
+    sql_pb.Response.deserializeBinary
+  );
+
+  getCVSStore(
+    request: order_pb.Logistics,
+    metadata: grpcWeb.Metadata | null,
+    callback: (err: grpcWeb.Error,
+               response: sql_pb.Response) => void) {
+    return this.client_.rpcCall(
+      this.hostname_ +
+        '/ding4.ShopRPC/GetCVSStore',
+      request,
+      metadata || {},
+      this.methodInfoGetCVSStore,
+      callback);
+  }
+
   methodInfoCreateOrder = new grpcWeb.AbstractClientBase.MethodInfo(
     sql_pb.Response,
     (request: order_pb.Order) => {
@@ -363,50 +452,6 @@ export class ShopRPCClient {
       request,
       metadata || {},
       this.methodInfoFindOrder,
-      callback);
-  }
-
-  methodInfoChooseCVSStore = new grpcWeb.AbstractClientBase.MethodInfo(
-    sql_pb.Response,
-    (request: order_pb.Logistics) => {
-      return request.serializeBinary();
-    },
-    sql_pb.Response.deserializeBinary
-  );
-
-  chooseCVSStore(
-    request: order_pb.Logistics,
-    metadata: grpcWeb.Metadata | null,
-    callback: (err: grpcWeb.Error,
-               response: sql_pb.Response) => void) {
-    return this.client_.rpcCall(
-      this.hostname_ +
-        '/ding4.ShopRPC/ChooseCVSStore',
-      request,
-      metadata || {},
-      this.methodInfoChooseCVSStore,
-      callback);
-  }
-
-  methodInfoGetCVSStore = new grpcWeb.AbstractClientBase.MethodInfo(
-    sql_pb.Response,
-    (request: order_pb.Logistics) => {
-      return request.serializeBinary();
-    },
-    sql_pb.Response.deserializeBinary
-  );
-
-  getCVSStore(
-    request: order_pb.Logistics,
-    metadata: grpcWeb.Metadata | null,
-    callback: (err: grpcWeb.Error,
-               response: sql_pb.Response) => void) {
-    return this.client_.rpcCall(
-      this.hostname_ +
-        '/ding4.ShopRPC/GetCVSStore',
-      request,
-      metadata || {},
-      this.methodInfoGetCVSStore,
       callback);
   }
 

@@ -11,8 +11,11 @@ export class Setting extends jspb.Message {
   getStoreId(): string;
   setStoreId(value: string): void;
 
-  getType(): number;
-  setType(value: number): void;
+  getType(): string;
+  setType(value: string): void;
+
+  getIsEnable(): boolean;
+  setIsEnable(value: boolean): void;
 
   getConf(): google_protobuf_struct_pb.Value | undefined;
   setConf(value?: google_protobuf_struct_pb.Value): void;
@@ -62,7 +65,8 @@ export namespace Setting {
   export type AsObject = {
     settingId: string,
     storeId: string,
-    type: number,
+    type: string,
+    isEnable: boolean,
     conf?: google_protobuf_struct_pb.Value.AsObject,
     labelxMap: Array<[string, number]>,
     operator: string,
