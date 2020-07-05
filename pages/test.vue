@@ -1,7 +1,25 @@
 <template>
   <div id="page">
-    asdsad
-    <button @click="test()" >AAAAAAAAA</button>
+    <form
+      id="__4dingForm"
+      method="post"
+      target="_self"
+      action="https://logistics-stage.ecpay.com.tw/Express/map"
+    >
+      <input type="hidden" name="CheckMacValue" value />
+      <input type="hidden" name="ExtraData" value="https://vue.4ding.site" />
+      <input type="hidden" name="IsCollection" value="N" />
+      <input type="hidden" name="LogisticsSubType" value="FAMI" />
+      <input type="hidden" name="LogisticsSubType" value="FAMI" />
+      <input type="hidden" name="LogisticsType" value="CVS" />
+      <input type="hidden" name="MerchantID" value="2000132" />
+      <input
+        type="hidden"
+        name="ServerReplayURL"
+        value="https://develop.4ding.site/ecpay/logistics/storeinfo"
+      />
+      <input type="submit" value="Submit" />
+    </form>
   </div>
 </template>
 
@@ -18,8 +36,6 @@ export default {
   },
 
   async asyncData({ context, app, store }) {
-    
-
     console.log("test>>>>>");
   },
   async fetch({ store, $axios, app }) {},
@@ -40,12 +56,13 @@ export default {
     }),
     async test() {
       console.log("testttt");
-       const token = await this.$axios.$get('http://localhost/api/list.php')
-    .then((response) => {
-      console.log("response.headers",response.headers);
-      console.log("response",response);
-    });
-    return token;
+      const token = await this.$axios
+        .$get("http://localhost/api/list.php")
+        .then(response => {
+          console.log("response.headers", response.headers);
+          console.log("response", response);
+        });
+      return token;
     }
   },
   //BEGIN--生命週期
@@ -55,7 +72,6 @@ export default {
   created: async function() {
     //實體建立完成。資料 data 已可取得，但 el 屬性還未被建立。
     this.loading(true);
-
   },
   beforeMount: function() {
     //執行元素掛載之前。

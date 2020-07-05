@@ -11,8 +11,9 @@ services:
         ports:
             - 880:80
         volumes:
+            # - ".nuxt/dist/server/:/usr/share/nginx/html/public"
             - "./dist:/usr/share/nginx/html/public"
-            # - "./docker:/etc/nginx/conf.d"
+            - "./docker:/etc/nginx/conf.d"
             #- "/c/Users/user/Desktop/test/log/nginx:/var/log/nginx"
         depends_on: 
             - php-fpm

@@ -45,7 +45,7 @@ export default {
     let app = this.app
     let metadata = { "x-4d-token": app.store.state.other.token };
     let method = "ChooseCVSStore";
-    let req = new app.orderpb.Logistics();
+    let req = new app.adpb.Adapter();
     if (condition !== null) req.setSelf(condition)
     let product = await app.grpcAxios(app.$axios, method, metadata, req, (err, resp) => {
       const data = app.sqlpb.Response.deserializeBinary(resp);
